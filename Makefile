@@ -15,30 +15,30 @@ CYAN			= "\033[3;36m"
 all:			$(NAME)
 
 $(OBJ_DIR)/%.o:	$(SRC_DIR)/%.c
-				@echo $(YELLOW)"Creating \"OBJS\" folder..."$(DEF)
+				@echo $(YELLOW)"\nCreating \"OBJS\" folder...⏳"$(DEF)
 				@mkdir -p $(OBJ_DIR)
-				@echo $(GREEN)"\"OBJS\" is successfully created"$(DEF)
-				@echo $(YELLOW)"Creating object files..."$(DEF)
+				@echo $(GREEN)"Successfully created ✅\n"$(DEF)
+				@echo $(YELLOW)"Creating object files...⏳"$(DEF)
 				@$(GCC) -I$(INC_DIR) -c $< -o $@
-				@echo $(GREEN)"Object files are successfully created"$(DEF)
+				@echo $(GREEN)"Successfully created ✅\n"$(DEF)
 
 $(NAME):		$(OBJS)
-				@echo $(YELLOW)"Creating the minishell..."$(DEF)
+				@echo $(YELLOW)"Creating the minishell...⏳"$(DEF)
 				@$(GCC) $^ -o $@
-				@echo $(GREEN)"Minishell is successfully created"$(DEF)
+				@echo $(GREEN)"Successfully created ✅\n"$(DEF)
 
 norm:
-				@echo $(YELLOW)"Checking norminette..."$(CYAN)
+				@echo $(YELLOW)"⏳Checking norminette...⏳"$(CYAN)
 				norminette -R CheckForbiddenSourceHeader $(SRC_DIR)/*.c
 				norminette -R CheckDefine $(INC_DIR)/*.h
 
 clean:
 				@rm -rf $(OBJ_DIR)
-				@echo $(RED)"Object files & object folder GONE"$(DEF)
+				@echo $(RED)"Object files & object folder GONE ☠️"$(DEF)
 
 fclean:			clean
 				@rm -rf $(NAME)
-				@echo $(RED)"Executable file GONE"$(DEF)
+				@echo $(RED)"Executable file GONE ☠️"$(DEF)
 
 re:				fclean all
 
