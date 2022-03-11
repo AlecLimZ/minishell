@@ -1,7 +1,9 @@
 NAME			=	minishell
 SRC_DIR			=	SRC
 OBJ_DIR			=	SRC/OBJS
-INC_DIR			= 	INCLUDE
+LDFLAGS			=	/usr/local/opt/readline/lib/*.a -lncurses
+CPPFLAGS		=	-I/usr/local/opt/readline/include
+INC_DIR			= 	-IINCLUDE
 SRC				= 	*.c
 OBJS			=	$(addprefix $(OBJ_DIR)/, $(SRC:%c=%o))
 GCC				= 	gcc -Wall -Wextra -Werror -fsanitize=address
@@ -19,12 +21,13 @@ $(OBJ_DIR)/%.o:	$(SRC_DIR)/%.c
 				@mkdir -p $(OBJ_DIR)
 				@echo $(GREEN)"Successfully created ✅\n"$(DEF)
 				@echo $(YELLOW)"Creating object files...⏳"$(DEF)
-				@$(GCC) -I$(INC_DIR) -c $< -o $@
+				@$(GCC) $(INC_DIR) $(CPPFLAGS) -c $^
+				@mv *.o $(OBJ_DIR)
 				@echo $(GREEN)"Successfully created ✅\n"$(DEF)
 
 $(NAME):		$(OBJS)
 				@echo $(YELLOW)"Creating the minishell...⏳"$(DEF)
-				@$(GCC) $^ -o $@
+				@$(GCC) $(LDFLAGS) $^ -o $@
 				@echo $(GREEN)"Successfully created ✅\n"$(DEF)
 
 norm:

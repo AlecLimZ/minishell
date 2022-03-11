@@ -6,7 +6,7 @@
 /*   By: leng-chu <-chu@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 16:53:45 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/03/08 17:44:00 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/03/11 16:38:06 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,6 @@
 
 int	main(void)
 {
-	printf("hello minishell\n");
+	printf("%s\n", readline("test>"));
+	return (0);
 }
