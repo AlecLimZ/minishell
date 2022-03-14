@@ -6,7 +6,7 @@
 #    By: yang <yang@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/20 17:54:25 by yang              #+#    #+#              #
-#    Updated: 2021/10/26 09:31:59 by yang             ###   ########.fr        #
+#    Updated: 2022/03/14 13:06:29 by leng-chu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,24 +37,24 @@ BONUS_OBJS	= $(BONUS:.c=.o)
 all:		$(NAME) bonus
 
 $(NAME):	$(OBJS)
-			ar rcs $(NAME) $(OBJS)
+			@ar rcs $(NAME) $(OBJS)
 
 bonus:		$(OBJS) $(BONUS_OBJS)
-			ar rcs $(NAME) $(OBJS) $(BONUS_OBJS)
+			@ar rcs $(NAME) $(OBJS) $(BONUS_OBJS)
 
 norm:		
-			norminette -R CheckForbiddenSourceHeader *.c
-			norminette -R CheckDefine *.h
+			@norminette -R CheckForbiddenSourceHeader *.c
+			@norminette -R CheckDefine *.h
 
 so:
-			$(CC) -fPIC $(CFLAGS) $(SRCS) $(BONUS)
-			gcc -shared -o libft.so $(OBJS) $(BONUS_OBJS)
+			@$(CC) -fPIC $(CFLAGS) $(SRCS) $(BONUS)
+			@gcc -shared -o libft.so $(OBJS) $(BONUS_OBJS)
 
 clean:
-			rm -f *.o
+			@rm -f *.o
 
 fclean:		clean
-			rm -f $(NAME)
+			@rm -f $(NAME)
 
 re:			fclean $(NAME)
 
