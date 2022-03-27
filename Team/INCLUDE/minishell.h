@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leng-chu <-chu@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 16:54:47 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/03/14 13:10:36 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/03/27 23:54:00 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,24 @@
 # include <stdio.h>
 # include <readline/readline.h>
 # include <readline/history.h>
-# include "libft.h"
+# include <sys/wait.h>
+# include <sys/types.h>
+# include <signal.h>
+# include "../SRC/libft/libft.h"
+
+# define MAXCOM 1000
+
+typedef struct s_prompt
+{
+	char				**envp;
+	struct s_command	*command;
+}	t_prompt;
+
+typedef struct s_command
+{
+	char	**full_cmd;
+	int		infile;
+	int		outfile;
+}	t_command;
 
 #endif
