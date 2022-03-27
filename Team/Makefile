@@ -8,7 +8,7 @@ LIBPATH			=	SRC/libft
 LIBFT			=	SRC/libft/libft.a
 SRC				= 	*.c
 OBJS			=	$(addprefix $(OBJ_DIR)/, $(SRC:%c=%o))
-GCC				= 	gcc -Wall -Wextra -Werror -fsanitize=address
+GCC				= 	gcc -Wall -Wextra -Werror -fsanitize=address -g3
 
 DEF				= "\033[0m"
 YELLOW			= "\033[1;33m"
