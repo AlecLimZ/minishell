@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 16:53:45 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/03/28 01:11:01 by yang             ###   ########.fr       */
+/*   Updated: 2022/03/28 15:34:16 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,9 @@ int main(int argc, char *argv[], char *envp[])
 	signal(SIGINT, new_prompt);
 	while (argc && argv)
 	{
-		get_input(input_str);
-			//continue;
+		if (get_input(input_str))
+			continue;
+		parser(prompt, input_str);
 		//split_args_pipe(input_str, str);
 		//Perform any shutdown/cleanup
 	}

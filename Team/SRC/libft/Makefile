@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: yang <yang@student.42.fr>                  +#+  +:+       +#+         #
+#    By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/20 17:54:25 by yang              #+#    #+#              #
-#    Updated: 2022/03/14 13:06:29 by leng-chu         ###   ########.fr        #
+#    Updated: 2022/03/28 15:52:24 by yang             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ SRCS		= ft_memset.c ft_bzero.c ft_memcpy.c ft_memccpy.c \
 				ft_toupper.c ft_tolower.c ft_calloc.c ft_strdup.c \
 				ft_substr.c ft_strjoin.c ft_strtrim.c ft_split.c \
 				ft_itoa.c ft_strmapi.c ft_putchar_fd.c ft_putstr_fd.c \
-				ft_putendl_fd.c ft_putnbr_fd.c
+				ft_putendl_fd.c ft_putnbr_fd.c ft_strndup.c
 
 OBJS		= $(SRCS:.c=.o)
 
