@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   operator.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
+/*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 17:49:45 by yang              #+#    #+#             */
-/*   Updated: 2022/03/29 23:02:26 by yang             ###   ########.fr       */
+/*   Updated: 2022/03/31 15:36:59 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@
 	return (ptr);
 }*/
 
-int	before_after_operator(t_cmd *cmd, int i)
+/*int	before_after_operator(t_cmd *cmd, int i)
 {
 	char *str;
 	//char *tmp;
@@ -63,25 +63,25 @@ int	before_after_operator(t_cmd *cmd, int i)
 	cmd->full_cmd = str;
 	printf("DEBUG: after add space: %s\n", cmd->full_cmd);
 	return (i);
-}
+}*/
 
 /* add space if before or after operator got no space */
-void	operator_add_space(t_prompt *prompt)
-{
-	int	i;
-	int	j;
-	//t_cmd cmd;
+// void	operator_add_space(t_prompt *prompt)
+// {
+// 	int	i;
+// 	int	j;
+// 	//t_cmd cmd;
 
-	i = -1;
-	while (++i < prompt->total_cmds)
-	{
-		//cmd = prompt->cmd[i];
-		j = 0;
-		while (prompt->cmd[i].full_cmd[j])
-		{
-			if (is_operator(prompt->cmd[i].full_cmd[j]))
-				j = before_after_operator(&prompt->cmd[i], j);
-			j++;
-		}
-	}
-}
+// 	i = -1;
+// 	while (++i < prompt->total_cmds)
+// 	{
+// 		//cmd = prompt->cmd[i];
+// 		j = 0;
+// 		while (prompt->cmd[i].full_cmd[j])
+// 		{
+// 			if (is_operator(prompt->cmd[i].full_cmd[j]))
+// 				j = before_after_operator(&prompt->cmd[i], j);
+// 			j++;
+// 		}
+// 	}
+// }

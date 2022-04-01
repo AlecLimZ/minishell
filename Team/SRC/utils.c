@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
+/*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 15:04:18 by yang              #+#    #+#             */
-/*   Updated: 2022/03/29 17:49:30 by yang             ###   ########.fr       */
+/*   Updated: 2022/03/31 21:06:34 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,11 @@ int	in_quote(char *str, int i)
 	if (opened == 1)
 		return (-1);
 	return (i);
+}
+
+int	is_quote(char c)
+{
+	return (c == '"' || c == '\'');
 }
 
 int	is_space(char c)

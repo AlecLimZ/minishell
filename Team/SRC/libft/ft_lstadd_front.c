@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 12:37:56 by yang              #+#    #+#             */
-/*   Updated: 2021/10/26 10:13:09 by yang             ###   ########.fr       */
+/*   Updated: 2022/03/31 15:43:49 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,12 @@ void	ft_lstadd_front(t_list **lst, t_list *new)
 	if (!*lst)
 	{
 		*lst = new;
-		new->prev = *lst;
 		new->next = *lst;
 	}
 	else
 	{
 		temp = *lst;
-		new->prev = *lst;
 		new->next = temp->next;
-		temp->next->prev = new;
 		temp->next = new;
 	}
 }
