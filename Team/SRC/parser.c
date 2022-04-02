@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 15:31:23 by yang              #+#    #+#             */
-/*   Updated: 2022/04/01 18:56:18 by yang             ###   ########.fr       */
+/*   Updated: 2022/04/02 14:26:14 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,29 @@ void print_cmds(t_prompt *prompt)
 			printf("content: %s\t type: %d\n", token->content, token->type);
 			token = token->next;
 		}
+	}
+}
+
+void	set_token_type(t_list *new, int i)
+{
+	if (i == 0)
+		new->type = COMMAND;
+	else
+		new->type = ARGUMENT;
+}
+
+void	token_bef_operator(t_cmd *cmd, int pos, int i)
+{
+	char	dest[MAXCOM];
+	t_list	*new;
+
+	if (pos != 0)
+	{
+		ft_memset(dest, 0, MAXCOM);
+		ft_strlcpy(dest, token[i], pos + 1);
+		new = ft_lstnew(dest);
+		set_token_type(new, i);
+		ft_lstadd_back(&cmd->token, new);
 	}
 }
 
@@ -61,7 +84,7 @@ int	get_redirection_type(char *str)
 
 	i = 0;
 	redirect = str[i];
-	printf("redirection: %s\n", str);
+	//printf("DEBUG redirection: %s\n", str);
 	if (ft_strlen(str) > 1 && is_operator(str[i + 1]))
 	{
 		if (str[i + 1] != redirect)
@@ -87,23 +110,10 @@ int	set_token_redirection(t_cmd *cmd, char **token, int i)
 	while (token[i])
 	{
 		pos = get_operator_pos(token[i]);
-		if (pos != 0)
-		{
-			ft_memset(dest, 0, MAXCOM);
-			ft_strlcpy(dest, token[i], pos + 1);
-			new = ft_lstnew(dest);
-			if (i == 0)
-				new->type = COMMAND;
-			else
-				new->type = ARGUMENT;
-			ft_lstadd_back(&cmd->token, new);
-		}
+		token_bef_operator(cmd, pos, i);
 		ft_memset(dest, 0, MAXCOM);
 		if (ft_strlen(token[i] + pos) > 2)
-		{
 			ft_strlcpy(dest, token[i] + get_file_pos(token[i]), ft_strlen(token[i]) - get_file_pos(token[i]) + 1);
-			//ft_strlcpy(dest, token[i] + pos + 1, ft_strlen(token[i]) - get_file_pos(token[i]) + 1);
-		}
 		else
 			ft_strlcpy(dest, token[i + 1], ft_strlen(token[i + 1]) + 1);
 		new = ft_lstnew(dest);
@@ -111,8 +121,8 @@ int	set_token_redirection(t_cmd *cmd, char **token, int i)
 		if (new->type == -1)
 			return (-1);
 		ft_lstadd_back(&cmd->token, new);
-		if ((ft_strlen(token[i] + pos) == 1 && is_operator(token[i][pos]))
-			|| (ft_strlen(token[i] + pos) == 2 && is_operator(token[i][pos]) && is_operator(token[i][pos + 1])))
+		if ((ft_strlen(token[i] + pos) <= 2 && is_operator(token[i][pos]))
+			|| (ft_strlen(token[i] + pos) == 2 && is_operator(token[i][pos + 1])))
 			i++;
 		i++;
 	}
@@ -141,10 +151,7 @@ int	tokenize(t_cmd *cmd, char *str)
 		if (stop == 1)
 			break;
 		new = ft_lstnew(token[i]);
-		if (i == 0)
-			new->type = COMMAND;
-		else
-			new->type = ARGUMENT;
+		set_token_type(new, i);
 		ft_lstadd_back(&cmd->token, new);
 	}
 	if (set_token_redirection(cmd, token, i) == -1)
