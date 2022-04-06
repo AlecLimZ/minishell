@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 15:04:18 by yang              #+#    #+#             */
-/*   Updated: 2022/03/31 21:06:34 by yang             ###   ########.fr       */
+/*   Updated: 2022/04/04 17:48:19 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,9 @@ int	is_space(char c)
 int	is_operator(char c)
 {
 	return (c == '>' || c == '<');
+}
+
+int is_env(char c)
+{
+	return (ft_isalpha(c) || ft_isdigit(c) || c == '_');
 }

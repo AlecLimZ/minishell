@@ -6,17 +6,49 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 15:25:35 by yang              #+#    #+#             */
-/*   Updated: 2022/03/31 19:51:24 by yang             ###   ########.fr       */
+/*   Updated: 2022/04/06 14:11:53 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../INCLUDE/minishell.h"
 
+int	count(char *str, char c);
+
+int	check_pipe(char *str)
+{
+	char	**check;
+	int		i;
+	int		j;
+	int		len;
+
+	len = count(str, ' ');
+	check = ft_split(str, ' ');
+	i = -1;
+	while (++i < len)
+	{
+		j = -1;
+		while (check[i][++j])
+		{
+			if (check[i][j] == '|')
+			{
+				if ((j < (int)ft_strlen(check[i]) - 1 && check[i][j + 1] == '|')
+					|| (i < len - 1 && check[i + 1][0] == '|'))
+					return (-1);
+			}
+			else if (is_quote(check[i][j]))
+				j = in_quote(check[i], j);
+		}
+	}
+	if (check[--i][--j] == '|')
+		return (-1);
+	return (0);
+}
+
 int	count(char *str, char c)
 {
 	int		total;
 	int 	i;
-	int		last;
+	//int		last;
 
 	i = -1;
 	total = 1;
@@ -29,11 +61,13 @@ int	count(char *str, char c)
 		if (i == -1)
 			return (-1);
 	}
-	last = ft_strlen(str) - 1;
-	while (is_space(str[last]))
-		last--;
-	if (str[last] == '|')
-		return (-1);
+	// last = ft_strlen(str) - 1;
+	// while (is_space(str[last]))
+	// 	last--;
+	// if (check_pipe(str) == -1)
+	// 	return (-1);
+	// if (str[last] == '|')
+	// 	return (-1);
 	return (total);
 }
 
@@ -75,58 +109,3 @@ void	free_malloc(char **array)
 		free(array[i]);
 	free(array);
 }
-
-// int	total_token(char *str)
-// {	
-// 	int		total;
-// 	int 	i;
-
-// 	i = 0;
-// 	total = 1;
-// 	str = ft_strtrim(str, " ");
-// 	while (i < (int)ft_strlen(str))
-// 	{
-// 		if (is_space(str[i]))
-// 		{
-// 			total++;
-// 			while (is_space(str[i]))
-// 				i++;
-// 		}
-// 		if (str[i] == '"' || str[i] == '\'')
-// 			i = in_quote(str, i);
-// 		if (i == -1)
-// 			return (-1);
-// 		i++;
-// 	}
-// 	return (total);
-// }
-
-// /* separate commands into each token by ' ' 
-//  * strndup copies the string before i */
-// int	split_token(t_cmd *cmd, char *str)
-// {
-// 	int		start_pos;
-// 	int		i;
-// 	int		j;
-
-// 	start_pos = 0;
-// 	i = -1;
-// 	j = -1;
-// 	str = ft_strtrim(str, " ");
-// 	while (++i < (int)ft_strlen(str))
-// 	{
-// 		if (is_space(str[i]))
-// 		{
-// 			cmd->token[++j] = ft_strndup(str + start_pos, i - start_pos);
-// 			while (str[i] != '\0' && is_space(str[i]))
-// 				i++;
-// 			start_pos = i;
-// 		}
-// 		if (str[i] == '"' || str[i] == '\'')
-// 			i = in_quote(str, i);
-// 		if (i == -1)
-// 			return (-1);
-// 	}
-// 	cmd->token[++j] = ft_strndup(str + start_pos, i - start_pos);
-// 	return (0);
-// }

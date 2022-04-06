@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
+/*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/13 15:32:15 by yang              #+#    #+#             */
-/*   Updated: 2021/05/22 22:41:44 by yang             ###   ########.fr       */
+/*   Updated: 2022/04/04 16:58:55 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	if (ptr == NULL)
 		return (NULL);
 	ft_strlcpy(ptr, s1, ft_strlen(s1) + 1);
+	printf("strjoin: %s\n", ptr);
 	ft_strlcat(ptr, s2, sum_length + 1);
 	return (ptr);
 }

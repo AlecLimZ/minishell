@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 19:54:15 by yang              #+#    #+#             */
-/*   Updated: 2022/03/31 15:46:01 by yang             ###   ########.fr       */
+/*   Updated: 2022/04/04 16:57:03 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <errno.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <stdio.h>
 
 typedef struct s_list
 {

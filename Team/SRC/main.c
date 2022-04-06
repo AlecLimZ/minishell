@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 16:53:45 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/03/31 21:24:47 by yang             ###   ########.fr       */
+/*   Updated: 2022/04/04 16:35:17 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ int main(int argc, char *argv[], char *envp[])
 		if (get_input(input_str))
 			continue;
 		parser(prompt, input_str);
+		//printf("%s\n", getenv("HOME"));
 		//parser(prompt, input_str);
 		//split_args_pipe(input_str, str);
 		//Perform any shutdown/cleanup
