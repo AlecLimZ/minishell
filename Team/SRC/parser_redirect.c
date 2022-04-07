@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 10:59:12 by yang              #+#    #+#             */
-/*   Updated: 2022/04/06 13:31:35 by yang             ###   ########.fr       */
+/*   Updated: 2022/04/07 15:10:30 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	get_operator_pos(char *str)
 	{
 		if (is_quote(str[i]))
 			i = in_quote(str, i);
-		printf("operator pos: %d\n", i);
+		//printf("operator pos: %d\n", i);
 		i++;
 	}
 	return (i);

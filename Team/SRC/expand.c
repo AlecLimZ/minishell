@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 11:21:45 by yang              #+#    #+#             */
-/*   Updated: 2022/04/04 18:40:37 by yang             ###   ########.fr       */
+/*   Updated: 2022/04/07 15:20:59 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ int get_env_pos(char *str)
 	{
 		if (str[i] == '$')
 			return (i);
+		else if (str[i] == '\'')
+			i = in_quote(str, i);
 	}
 	return (-1);
 }
@@ -136,8 +138,7 @@ void expand_token(t_prompt *prompt)
 	while (++i < prompt->total_cmds)
 	{
 		head = prompt->cmds[i].token;
-		head = head->next;
-		while (head && head->type == 2)
+		while (head && head->type <= 2)
 		{
 			pos = get_env_pos(head->content);
 			if (pos != -1)

@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 16:54:47 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/04/06 13:55:57 by yang             ###   ########.fr       */
+/*   Updated: 2022/04/07 15:20:16 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,12 @@
 # include <signal.h>
 # include "../SRC/libft/libft.h"
 
+# define BRED "\033[1;31m"
+# define GRN "\e[0;32m"
+# define BLU "\e[0;34m"
+# define YEL "\e[0;33m"
+# define BYEL "\e[1;33m"
+# define WHT "\033[0;37m"
 # define MAXCOM 1000
 # define MAX 100
 
