@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 19:54:15 by yang              #+#    #+#             */
-/*   Updated: 2022/04/04 16:57:03 by yang             ###   ########.fr       */
+/*   Updated: 2022/04/11 16:13:02 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ int		ft_isdigit(int c);
 int		ft_isalnum(int c);
 int		ft_isascii(int c);
 int		ft_isprint(int c);
+int		ft_isspace(int c);
 int		ft_toupper(int c);
 int		ft_tolower(int c);
 void	*ft_calloc(size_t count, size_t size);
@@ -64,6 +65,7 @@ void	ft_putendl_fd(char *s, int fd);
 void	ft_putnbr_fd(int n, int fd);
 t_list	*ft_lstnew(char *content);
 void	ft_lstadd_front(t_list **lst, t_list *new);
+void	ft_lstadd_pos(t_list **lst, t_list *new, int pos);
 int		ft_lstsize(t_list *lst);
 t_list	*ft_lstlast(t_list *lst);
 void	ft_lstadd_back(t_list **lst, t_list *new);

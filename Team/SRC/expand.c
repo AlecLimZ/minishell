@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 11:21:45 by yang              #+#    #+#             */
-/*   Updated: 2022/04/07 15:20:59 by yang             ###   ########.fr       */
+/*   Updated: 2022/04/11 18:41:06 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,12 +127,59 @@ char	*var_expand(char *str, int pos)
 	return (expand);
 }
 
-void expand_token(t_prompt *prompt)
+void	del_lst_at_post(t_cmd *cmd, int pos)
+{
+	int		i;
+	t_list	*head;
+	t_list	*temp;
+
+	i = 0;
+	head = cmd->token;
+	temp = NULL;
+	while (++i < pos - 1)
+		head = head->next;
+	temp = head->next;
+	printf("temp: %s\n", temp->content);
+	head->next = head->next->next;
+	printf("head next: %s\n", head->next->content);
+	//free(temp->content);
+	//free(temp);
+}
+
+void	add_var_to_list(t_cmd *cmd, t_list *head, char *str)
+{
+	char	**token;
+	int		i;
+	t_list	*new;
+	//t_list	*temp;
+
+	token = NULL;
+	i = -1;
+	if (head->type == 1)
+	{
+		token = ft_split_str(str, ' ');
+		cmd->token = head->next;
+		while (token[++i])
+		{
+			new = ft_lstnew(token[i]);
+			set_token_type(new, i);
+			ft_lstadd_pos(&cmd->token, new, i + 1);
+		}
+		printf("i: %d\n", i);
+		del_lst_at_post(cmd, i);
+		free_malloc(token);
+	}
+	else
+		head->content = str;
+}
+
+void	expand_token(t_prompt *prompt)
 {
 	int		i;
 	t_list	*head;
 	int		pos;
 	char	*str;
+	//char	*temp;
 
 	i = -1;
 	while (++i < prompt->total_cmds)
@@ -143,9 +190,12 @@ void expand_token(t_prompt *prompt)
 			pos = get_env_pos(head->content);
 			if (pos != -1)
 			{
-				str = head->content;
-				head->content = var_expand(head->content, pos);
-				free(str);
+				//temp = head;
+				str = var_expand(head->content, pos);
+				add_var_to_list(&prompt->cmds[i], head, str);
+				//head->content = var_expand(head->content, pos);
+				//free(temp);
+				//free(str);
 			}
 			head = head->next;
 		}

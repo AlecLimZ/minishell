@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 15:31:23 by yang              #+#    #+#             */
-/*   Updated: 2022/04/07 15:20:23 by yang             ###   ########.fr       */
+/*   Updated: 2022/04/11 18:30:22 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,29 +52,46 @@ void	set_token_type(t_list *new, int i)
 		new->type = ARGUMENT;
 }
 
+int	set_token_after_redirect(t_cmd *cmd, char **token, int redirect)
+{
+	int		i;
+	t_list	*new;
+
+	i = 0;
+	if (redirect == -1)
+		return (-1);
+	while (token[redirect])
+	{
+		new = ft_lstnew(token[redirect]);
+		set_token_type(new, i);
+		ft_lstadd_pos(&cmd->token, new, i + 1);
+		redirect++;
+		i++;
+	}
+	return (0);
+}
+
 int	tokenize(t_cmd *cmd, char *str)
 {
 	char	**token;
 	t_list	*new;
 	int		i;
 	int		j;
-	int		stop;
+	int		redirect;
 
 	token = ft_split_str(str, ' ');
 	i = -1;
-	stop = 0;
-	while (stop == 0 && token[++i])
+	while (token[++i])
 	{
 		j = -1;
 		if (is_operator_in_str(token[i]))
 			break;
-		//if (stop == 1)
-			//break;
 		new = ft_lstnew(token[i]);
 		set_token_type(new, i);
 		ft_lstadd_back(&cmd->token, new);
 	}
-	if (set_token_redirection(cmd, token, i) == -1)
+	redirect = set_token_redirection(cmd, token, i);
+	if (set_token_after_redirect(cmd, token, redirect) == -1)
 		return (-1);
 	return (0);
 }
@@ -97,6 +114,6 @@ int	parser(t_prompt *prompt, char *str)
 	}
 	free_malloc(split_cmd);
 	expand_token(prompt);
-	print_cmds(prompt);
+	//print_cmds(prompt);
 	return (0);
 }

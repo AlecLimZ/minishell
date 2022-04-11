@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 15:25:35 by yang              #+#    #+#             */
-/*   Updated: 2022/04/06 14:11:53 by yang             ###   ########.fr       */
+/*   Updated: 2022/04/11 14:29:34 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,13 @@ int	check_pipe(char *str)
 	int		j;
 	int		len;
 
-	len = count(str, ' ');
-	check = ft_split(str, ' ');
+	len = count(ft_strtrim(str, " "), ' ');
+	check = ft_split_str(str, ' ');
 	i = -1;
 	while (++i < len)
 	{
 		j = -1;
-		while (check[i][++j])
+		while (j < (int)ft_strlen(check[i]) && check[i][++j] != '\0')
 		{
 			if (check[i][j] == '|')
 			{
@@ -55,19 +55,16 @@ int	count(char *str, char c)
 	while (str[++i])
 	{
 		if (str[i] == c)
+		{
 			total++;
+			while (i < (int)ft_strlen(str) - 2 && str[i + 1] == c)
+				i++;
+		}
 		else if (str[i] == '"' || str[i] == '\'')
 			i = in_quote(str, i);
 		if (i == -1)
 			return (-1);
 	}
-	// last = ft_strlen(str) - 1;
-	// while (is_space(str[last]))
-	// 	last--;
-	// if (check_pipe(str) == -1)
-	// 	return (-1);
-	// if (str[last] == '|')
-	// 	return (-1);
 	return (total);
 }
 
@@ -87,9 +84,11 @@ char **ft_split_str(char *str, char c)
 	j = -1;
 	while (str[++i])
 	{
-		if (str[i] == c)
+		if (str[i] == c) //|| c == SPACE && ft_isspace(c))
 		{
 			w_split[++j] = ft_strndup(str + start_pos, i - start_pos);
+			while (i < (int)ft_strlen(str) - 2 && str[i + 1] == c)
+				i++;
 			start_pos = i + 1;
 		}
 		else if (str[i] == '"' || str[i] == '\'')

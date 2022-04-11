@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 10:59:12 by yang              #+#    #+#             */
-/*   Updated: 2022/04/07 15:10:30 by yang             ###   ########.fr       */
+/*   Updated: 2022/04/11 14:34:19 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int	set_token_redirection(t_cmd *cmd, char **token, int i)
 	int		j;
 	t_list	*new;
 
-	while (token[i])
+	while (token[i] && is_operator_in_str(token[i]))
 	{
 		j = get_operator_pos(token[i]);
 		token_bef_operator(cmd, token, j, i);
@@ -107,5 +107,5 @@ int	set_token_redirection(t_cmd *cmd, char **token, int i)
 			i++;
 		i++;
 	}
-	return (0);
+	return (i);
 }
