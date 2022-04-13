@@ -6,11 +6,11 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 15:04:18 by yang              #+#    #+#             */
-/*   Updated: 2022/04/04 17:48:19 by yang             ###   ########.fr       */
+/*   Updated: 2022/04/13 14:53:06 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../INCLUDE/minishell.h"
+#include "minishell.h"
 
 int	in_quote(char *str, int i)
 {

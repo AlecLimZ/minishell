@@ -6,11 +6,11 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 15:31:23 by yang              #+#    #+#             */
-/*   Updated: 2022/04/11 18:30:22 by yang             ###   ########.fr       */
+/*   Updated: 2022/04/13 14:52:48 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../INCLUDE/minishell.h"
+#include "minishell.h"
 
 void	print_cmds(t_prompt *prompt)
 {
@@ -114,6 +114,6 @@ int	parser(t_prompt *prompt, char *str)
 	}
 	free_malloc(split_cmd);
 	expand_token(prompt);
-	//print_cmds(prompt);
+	print_cmds(prompt);
 	return (0);
 }

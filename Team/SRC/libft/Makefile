@@ -6,7 +6,7 @@
 #    By: yang <yang@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/20 17:54:25 by yang              #+#    #+#              #
-#    Updated: 2022/04/11 16:13:14 by yang             ###   ########.fr        #
+#    Updated: 2022/04/13 11:35:32 by yang             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ OBJS		= $(SRCS:.c=.o)
 
 BONUS		= ft_lstnew.c ft_lstadd_front.c ft_lstsize.c \
 				ft_lstlast.c ft_lstadd_back.c ft_lstadd_pos.c \
-				ft_lstclear.c
+				ft_lstclear.c ft_lstdel_pos.c
 
 BONUS_OBJS	= $(BONUS:.c=.o)
 

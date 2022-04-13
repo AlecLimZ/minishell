@@ -6,11 +6,11 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 10:59:12 by yang              #+#    #+#             */
-/*   Updated: 2022/04/11 14:34:19 by yang             ###   ########.fr       */
+/*   Updated: 2022/04/13 14:52:43 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../INCLUDE/minishell.h"
+#include "minishell.h"
 
 void	token_bef_operator(t_cmd *cmd, char **token, int pos, int i)
 {
@@ -36,7 +36,6 @@ int	get_operator_pos(char *str)
 	{
 		if (is_quote(str[i]))
 			i = in_quote(str, i);
-		//printf("operator pos: %d\n", i);
 		i++;
 	}
 	return (i);
@@ -64,7 +63,6 @@ int	get_redirection_type(char *str)
 
 	i = 0;
 	redirect = str[i];
-	//printf("DEBUG redirection: %s\n", str);
 	if (ft_strlen(str) > 1 && is_operator(str[i + 1]))
 	{
 		if (str[i + 1] != redirect)

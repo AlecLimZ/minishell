@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 16:54:47 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/04/11 14:33:52 by yang             ###   ########.fr       */
+/*   Updated: 2022/04/13 15:04:28 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@
 # include <sys/wait.h>
 # include <sys/types.h>
 # include <signal.h>
-# include "../SRC/libft/libft.h"
+# include "libft.h"
+# include "yeejin.h"
 
 # define BRED "\033[1;31m"
 # define GRN "\e[0;32m"
@@ -41,36 +42,16 @@ enum	token_type
 	GREATGREAT,
 };
 
-typedef struct s_prompt
+struct s_prompt
 {
 	t_list			*envp;
 	struct s_cmd	*cmds;
 	int				total_cmds;
-}	t_prompt;
+};
 
-typedef struct s_cmd
+struct s_cmd
 {
 	t_list	*token;
-}	t_cmd;
-
-
-/* ------------ PARSER ------------- */
-int		count(char *str, char c);
-char	**ft_split_str(char *str, char c);
-int		get_cmds(t_prompt *prompt, char *str);
-int	parser(t_prompt *prompt, char *str);
-void expand_token(t_prompt *prompt);
-int	set_token_redirection(t_cmd *cmd, char **token, int i);
-void	set_token_type(t_list *new, int i);
-
-int	check_pipe(char *str);
-int	is_operator_in_str(char *str);
-int	in_quote(char *str, int i);
-int	is_space(char c);
-int	is_operator(char c);
-int	is_quote(char c);
-int is_env(char c);
-int	get_pos(char *str, char c);
-void	free_malloc(char **array);
+};
 
 #endif

@@ -1,38 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_pos.c                                    :+:      :+:    :+:   */
+/*   ft_lstdel_pos.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/11 16:00:35 by yang              #+#    #+#             */
-/*   Updated: 2022/04/13 13:15:29 by yang             ###   ########.fr       */
+/*   Created: 2022/04/13 10:40:29 by yang              #+#    #+#             */
+/*   Updated: 2022/04/13 13:12:33 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lstadd_pos(t_list **lst, t_list *new, int pos)
+void ft_lstdel_pos(t_list **head, int pos)
 {
 	t_list	*temp;
+	t_list	*del;
 	int		i;
-	
+
 	i = 0;
-	if (!new || !lst)
+	temp = *head;
+	if (pos == 0)
 		return ;
-	if (!*lst)
-		*lst = new;
+	if (pos == 1)
+	{
+		*head = temp->next;
+		temp->next = NULL;
+		free(temp->content);
+		free(temp);
+	}
 	else
 	{
-		temp = *lst;
-		if (pos == 1)
-			ft_lstadd_front(lst, new);
-		else
-		{
-			while (++i < pos - 1)
-				temp = temp->next;
-			new->next = temp->next;
-			temp->next = new;
-		}
+		while (++i < pos - 1)
+			temp = temp->next;
+		del = temp->next;
+		temp->next = temp->next->next;
+		del->next = NULL;
+		free(del->content);
+		free(del);
 	}
 }

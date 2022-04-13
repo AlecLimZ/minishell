@@ -6,11 +6,11 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 16:53:45 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/04/04 16:35:17 by yang             ###   ########.fr       */
+/*   Updated: 2022/04/13 14:52:34 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../INCLUDE/minishell.h"
+#include "minishell.h"
 
 /* refresh the prompt if user hit Ctrl + C */
 // void new_prompt(int sig)

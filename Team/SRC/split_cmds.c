@@ -6,11 +6,11 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 15:25:35 by yang              #+#    #+#             */
-/*   Updated: 2022/04/11 14:29:34 by yang             ###   ########.fr       */
+/*   Updated: 2022/04/13 14:53:00 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../INCLUDE/minishell.h"
+#include "minishell.h"
 
 int	count(char *str, char c);
 
@@ -48,7 +48,6 @@ int	count(char *str, char c)
 {
 	int		total;
 	int 	i;
-	//int		last;
 
 	i = -1;
 	total = 1;

@@ -6,11 +6,11 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 11:21:45 by yang              #+#    #+#             */
-/*   Updated: 2022/04/11 18:41:06 by yang             ###   ########.fr       */
+/*   Updated: 2022/04/13 14:55:31 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../INCLUDE/minishell.h"
+#include "minishell.h"
 
 int	is_name(char *str)
 {
@@ -127,50 +127,28 @@ char	*var_expand(char *str, int pos)
 	return (expand);
 }
 
-void	del_lst_at_post(t_cmd *cmd, int pos)
-{
-	int		i;
-	t_list	*head;
-	t_list	*temp;
-
-	i = 0;
-	head = cmd->token;
-	temp = NULL;
-	while (++i < pos - 1)
-		head = head->next;
-	temp = head->next;
-	printf("temp: %s\n", temp->content);
-	head->next = head->next->next;
-	printf("head next: %s\n", head->next->content);
-	//free(temp->content);
-	//free(temp);
-}
-
-void	add_var_to_list(t_cmd *cmd, t_list *head, char *str)
+int	add_var_to_list(t_cmd *cmd, t_list *head, char *str)
 {
 	char	**token;
 	int		i;
 	t_list	*new;
-	//t_list	*temp;
 
 	token = NULL;
 	i = -1;
-	if (head->type == 1)
+	if (head->type == 1 && str != NULL)
 	{
 		token = ft_split_str(str, ' ');
-		cmd->token = head->next;
 		while (token[++i])
 		{
 			new = ft_lstnew(token[i]);
 			set_token_type(new, i);
 			ft_lstadd_pos(&cmd->token, new, i + 1);
 		}
-		printf("i: %d\n", i);
-		del_lst_at_post(cmd, i);
 		free_malloc(token);
 	}
 	else
 		head->content = str;
+	return (i + 1);
 }
 
 void	expand_token(t_prompt *prompt)
@@ -179,25 +157,24 @@ void	expand_token(t_prompt *prompt)
 	t_list	*head;
 	int		pos;
 	char	*str;
-	//char	*temp;
+	int		del;
 
 	i = -1;
 	while (++i < prompt->total_cmds)
 	{
+		del = 0;
 		head = prompt->cmds[i].token;
 		while (head && head->type <= 2)
 		{
 			pos = get_env_pos(head->content);
 			if (pos != -1)
 			{
-				//temp = head;
 				str = var_expand(head->content, pos);
-				add_var_to_list(&prompt->cmds[i], head, str);
-				//head->content = var_expand(head->content, pos);
-				//free(temp);
-				//free(str);
+				del = add_var_to_list(&prompt->cmds[i], head, str);
+				
 			}
 			head = head->next;
 		}
+		ft_lstdel_pos(&prompt->cmds[i].token, del);
 	}
 }
