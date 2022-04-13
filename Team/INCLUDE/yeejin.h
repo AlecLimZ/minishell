@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 14:50:34 by yang              #+#    #+#             */
-/*   Updated: 2022/04/13 15:02:47 by yang             ###   ########.fr       */
+/*   Updated: 2022/04/13 16:38:21 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,6 @@ int	get_pos(char *str, char c);
 void	free_malloc(char **array);
 
 void	print_cmds(t_prompt *prompt);
+void	remove_quotes(t_list *lst);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 15:04:18 by yang              #+#    #+#             */
-/*   Updated: 2022/04/13 14:53:06 by yang             ###   ########.fr       */
+/*   Updated: 2022/04/13 16:24:19 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int	in_quote(char *str, int i)
 	}
 	if (opened == 1)
 		return (-1);
+	printf("close quote: %d\n", i);
 	return (i);
 }
 

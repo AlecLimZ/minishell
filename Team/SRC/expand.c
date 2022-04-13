@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 11:21:45 by yang              #+#    #+#             */
-/*   Updated: 2022/04/13 14:55:31 by yang             ###   ########.fr       */
+/*   Updated: 2022/04/13 16:38:37 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,6 +173,7 @@ void	expand_token(t_prompt *prompt)
 				del = add_var_to_list(&prompt->cmds[i], head, str);
 				
 			}
+			remove_quotes(head);
 			head = head->next;
 		}
 		ft_lstdel_pos(&prompt->cmds[i].token, del);
