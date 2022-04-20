@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 16:54:47 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/04/13 15:04:28 by yang             ###   ########.fr       */
+/*   Updated: 2022/04/20 11:55:01 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,9 @@
 # include <sys/wait.h>
 # include <sys/types.h>
 # include <signal.h>
+# include <fcntl.h>
 # include "libft.h"
-# include "yeejin.h"
+//# include "yeejin.h"
 
 # define BRED "\033[1;31m"
 # define GRN "\e[0;32m"
@@ -32,7 +33,7 @@
 # define MAX 100
 //# define SPACE	32
 
-enum	token_type
+enum	e_token_type
 {
 	COMMAND = 1,
 	ARGUMENT,
@@ -52,6 +53,9 @@ struct s_prompt
 struct s_cmd
 {
 	t_list	*token;
+	char	*args[];
+	int		infile;
+	int		outfile;
 };
 
 #endif

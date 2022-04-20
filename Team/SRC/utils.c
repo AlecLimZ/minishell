@@ -6,11 +6,12 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 15:04:18 by yang              #+#    #+#             */
-/*   Updated: 2022/04/15 10:49:45 by yang             ###   ########.fr       */
+/*   Updated: 2022/04/18 09:20:41 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "yeejin.h"
 
 int	in_quote(char *str, int i)
 {
@@ -33,7 +34,6 @@ int	in_quote(char *str, int i)
 	}
 	if (opened == 1)
 		return (-1);
-	printf("close quote: %d\n", i);
 	return (i);
 }
 
@@ -52,7 +52,7 @@ int	is_operator(char c)
 	return (c == '>' || c == '<');
 }
 
-int is_env(char c)
+int	is_env(char c)
 {
 	return (ft_isalpha(c) || ft_isdigit(c) || c == '_');
 }

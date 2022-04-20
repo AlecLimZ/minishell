@@ -1,38 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   remove_quote.c                                     :+:      :+:    :+:   */
+/*   redirect.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/13 13:27:45 by yang              #+#    #+#             */
-/*   Updated: 2022/04/18 09:24:12 by yang             ###   ########.fr       */
+/*   Created: 2022/04/18 17:19:18 by yang              #+#    #+#             */
+/*   Updated: 2022/04/20 11:58:58 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "yeejin.h"
 
-void	remove_quotes(t_list *lst)
+void	redirect(t_cmd *cmd, char *fd, int type)
 {
-	char	*str;
-	int		i;
-	int		close;
-
-	str = lst->content;
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == '\'' || str[i] == '"')
-		{
-			close = in_quote(str, i) - 1;
-			ft_memmove(&str[i], &str[i + 1], ft_strlen(str) - i);
-			ft_memmove(&str[close], &str[close + 1], ft_strlen(str) - close);
-			i = close;
-		}
-		else
-			i++;
-		if (i <= 0)
-			break ;
-	}
+	if (type == LESS)
+		cmd->infile = open(fd, O_RDONLY);
+	//else if (type == LESSLESS)
+		// heredoc
+	else if (type == GREAT)
+		cmd->outfile = open(fd, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+	else if (type == GREATGREAT)
+		cmd->outfile = open(fd, O_CREAT | O_WRONLY | O_APPEND, 0644);
 }

@@ -6,11 +6,12 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 10:59:12 by yang              #+#    #+#             */
-/*   Updated: 2022/04/13 14:52:43 by yang             ###   ########.fr       */
+/*   Updated: 2022/04/18 09:08:31 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "yeejin.h"
 
 void	token_bef_operator(t_cmd *cmd, char **token, int pos, int i)
 {

@@ -6,11 +6,12 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 16:53:45 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/04/13 14:52:34 by yang             ###   ########.fr       */
+/*   Updated: 2022/04/18 09:26:00 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "yeejin.h"
 
 /* refresh the prompt if user hit Ctrl + C */
 // void new_prompt(int sig)
@@ -23,7 +24,7 @@
 // }
 
 /* init environment, add environment list into linked list */
-int init_env(t_prompt *prompt, char *envp[])
+int	init_env(t_prompt *prompt, char *envp[])
 {
 	int		i;
 	t_list	*new;
@@ -39,7 +40,7 @@ int init_env(t_prompt *prompt, char *envp[])
 }
 
 /* get input from user and add it into history list */
-int get_input(char *str)
+int	get_input(char *str)
 {
 	char *buf;
 
@@ -54,11 +55,10 @@ int get_input(char *str)
 		return (1);
 }
 
-int main(int argc, char *argv[], char *envp[])
+int	main(int argc, char *argv[], char *envp[])
 {
-	char input_str[MAXCOM];
+	char		input_str[MAXCOM];
 	t_prompt	*prompt;
-	(void)envp;
 
 	prompt = malloc(sizeof(t_prompt));
 	if (!prompt)

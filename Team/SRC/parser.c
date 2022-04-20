@@ -6,11 +6,12 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 15:31:23 by yang              #+#    #+#             */
-/*   Updated: 2022/04/13 14:52:48 by yang             ###   ########.fr       */
+/*   Updated: 2022/04/18 09:24:44 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "yeejin.h"
 
 void	print_cmds(t_prompt *prompt)
 {
@@ -85,7 +86,7 @@ int	tokenize(t_cmd *cmd, char *str)
 	{
 		j = -1;
 		if (is_operator_in_str(token[i]))
-			break;
+			break ;
 		new = ft_lstnew(token[i]);
 		set_token_type(new, i);
 		ft_lstadd_back(&cmd->token, new);

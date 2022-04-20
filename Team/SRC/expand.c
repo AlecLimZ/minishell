@@ -6,11 +6,12 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 11:21:45 by yang              #+#    #+#             */
-/*   Updated: 2022/04/15 10:59:18 by yang             ###   ########.fr       */
+/*   Updated: 2022/04/18 09:26:51 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "yeejin.h"
 
 int	is_name(char *str)
 {
@@ -27,7 +28,7 @@ int	is_name(char *str)
 	return (1);
 }
 
-int get_env_pos(char *str)
+int	get_env_pos(char *str)
 {
 	int	i;
 	int	quote;
@@ -50,7 +51,7 @@ char	*get_prefix(char *str, int i)
 {
 	if (i > 0)
 	{
-		return(ft_strndup(str, i));
+		return(ft_strndup(str, i)) ;
 	}
 	return (NULL);
 }
@@ -65,7 +66,7 @@ char	*get_postfix(char *str, int i)
 		if (!is_env(str[i]))
 		{
 			postfix_pos = i;
-			break;
+			break ;
 		}
 	}
 	if (postfix_pos != 0)

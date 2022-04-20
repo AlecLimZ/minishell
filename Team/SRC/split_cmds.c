@@ -6,11 +6,12 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 15:25:35 by yang              #+#    #+#             */
-/*   Updated: 2022/04/13 14:53:00 by yang             ###   ########.fr       */
+/*   Updated: 2022/04/18 09:23:36 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "yeejin.h"
 
 int	count(char *str, char c);
 
@@ -46,8 +47,8 @@ int	check_pipe(char *str)
 
 int	count(char *str, char c)
 {
-	int		total;
-	int 	i;
+	int	total;
+	int	i;
 
 	i = -1;
 	total = 1;
@@ -68,7 +69,7 @@ int	count(char *str, char c)
 }
 
 /* separate user input into each cmd by c */
-char **ft_split_str(char *str, char c)
+char	**ft_split_str(char *str, char c)
 {
 	char	**w_split;
 	int		start_pos;
@@ -83,7 +84,7 @@ char **ft_split_str(char *str, char c)
 	j = -1;
 	while (str[++i])
 	{
-		if (str[i] == c) //|| c == SPACE && ft_isspace(c))
+		if (str[i] == c)
 		{
 			w_split[++j] = ft_strndup(str + start_pos, i - start_pos);
 			while (i < (int)ft_strlen(str) - 2 && str[i + 1] == c)

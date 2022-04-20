@@ -1,38 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   remove_quote.c                                     :+:      :+:    :+:   */
+/*   set_args.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/13 13:27:45 by yang              #+#    #+#             */
-/*   Updated: 2022/04/18 09:24:12 by yang             ###   ########.fr       */
+/*   Created: 2022/04/18 18:39:10 by yang              #+#    #+#             */
+/*   Updated: 2022/04/20 11:50:52 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "yeejin.h"
 
-void	remove_quotes(t_list *lst)
+void	set_args(t_cmd *cmd, t_list *token)
 {
-	char	*str;
+	t_list	*head;
+	char	**args;
 	int		i;
-	int		close;
 
-	str = lst->content;
+	head = token;
 	i = 0;
-	while (str[i])
+	while (head->type < 3)
 	{
-		if (str[i] == '\'' || str[i] == '"')
-		{
-			close = in_quote(str, i) - 1;
-			ft_memmove(&str[i], &str[i + 1], ft_strlen(str) - i);
-			ft_memmove(&str[close], &str[close + 1], ft_strlen(str) - close);
-			i = close;
-		}
-		else
-			i++;
-		if (i <= 0)
-			break ;
+		i++;
+		head = head->next;
 	}
+	args = (char **)malloc(sizeof(char *) * (i + 1));
+	head = token;
+	i = -1;
+	while (head->type < 3)
+	{
+		args[++i] = ft_strdup(token->content);
+	}
+	args[++i] = NULL;
+	cmd->args = args;
 }
