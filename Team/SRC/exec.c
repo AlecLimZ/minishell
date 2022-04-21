@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 09:27:37 by yang              #+#    #+#             */
-/*   Updated: 2022/04/20 15:27:43 by yang             ###   ########.fr       */
+/*   Updated: 2022/04/21 14:42:19 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,46 +31,89 @@ void	set_cmd(t_cmd *cmd)
 		redirect(cmd, head->content, head->type);
 		head = head->next;
 	}
+	// printf("infile: %d\t outfile: %d\n", cmd->infile, cmd->outfile);
+	// if (cmd->infile == 0)
+	// 	cmd->infile = STDIN;
+	// if (cmd->outfile == 0)
+	// 	cmd->outfile = STDOUT;
 }
 
-void	set_file(t_prompt *prompt, t_cmd *cmd, int i, int pipefd[2])
+// char	*search_path(char *file)
+// {
+// 	char	*path;
+// 	char	*p;
+// 	char	*p2;
+
+// 	while (p && *p)
+// 	{
+// 		p2 = p;
+// 		while (*p2 && *p2 != ':')
+// 			p2++;
+		
+// 	}
+// }
+
+void	dup_n_close(int	fd, int fd_dup)
 {
-	if (i == 0 && cmd->outfile == STDOUT)
-		cmd->outfile = pipefd[1];
-	else if (i == prompt->total_cmd - 1 && cmd->infile == STDIN)
-		cmd->infile = pipefd[0];
-	else
+	dup2(fd, fd_dup);
+	close(fd);
+}
+
+void	pipe_cmd(t_prompt *prompt, int i, int pipefd[2], int keep_fd)
+{
+	t_cmd	*cmd;
+
+	if (prompt->total_cmds > 1)
 	{
-		if (cmd->infile == STDIN)
-			cmd->infile = pipefd[1];
-		if (cmd->outfile == STDOUT)
-			cmd->outfile = pipefd[0];
+		cmd = &prompt->cmds[i];
+		if (i == 0 || i > 0 && i < prompt->total_cmds - 1)
+			close(pipefd[0]);
+		else if (i == prompt->total_cmds - 1)
+			close(pipefd[1]);
+		if (i > 0)
+		{
+			if (cmd->infile != STDIN)
+				dup_n_close(cmd->infile, 0);
+			else
+				dup_n_close(keep_fd, 0);
+		}
+		if (i < prompt->total_cmds - 1)
+		{
+			if (cmd->outfile != STDOUT)
+				dup_n_close(cmd->outfile, 1);
+			else
+				dup_n_close(pipefd[1], 1);
+		}
 	}
 }
 
-void	exec_cmd(t_prompt *prompt, t_cmd *cmd)
+void	execute(t_prompt *prompt, t_cmd *cmd, int i, int pipefd[2])
 {
+	int			pid;
+	static int	keep_fd;
 
-}
-
-void	pipe_cmd(t_prompt *prompt, t_cmd *cmd, int pipefd[2])
-{
-	int	pid = fork();
-	if (pid)
+	pid = fork();
+	if (pid == 0)
 	{
-		close(pipefd[1]);
-		dup2(cmd->infile, STDIN);
-		close(cmd->infile);
+		pipe_cmd(prompt, i, pipefd, keep_fd);
+		execve(cmd->args[0], cmd->args, prompt->environment);
+	}
+	else
+	{
+		if (prompt->total_cmds > 1)
+		{
+			if (i < prompt->total_cmds - 1)
+			{
+				close(pipefd[1]);
+				if (i != 0)
+					close(keep_fd);
+				keep_fd = pipefd[0];
+			}
+			else
+				close(keep_fd);
+		}
 		waitpid(pid, NULL, 0);
-	}
-	else
-	{
-		close(pipefd[0]);
-		dup2(cmd->outfile, STDOUT);
-		close(cmd->outfile);
-		// execute args
-	}
-	
+	}	
 }
 
 void	exec_args(t_prompt *prompt)
@@ -79,13 +122,13 @@ void	exec_args(t_prompt *prompt)
 	int	pipefd[2];
 
 	i = -1;
-	while (++i < prompt->total_cmd)
+	while (++i < prompt->total_cmds)
 	{
 		set_cmd(&prompt->cmds[i]); // set args and open infile outfile
-		/* set file to its priority infile and outfile */
-		set_file(prompt, &prompt->cmds[i], i, pipefd);
 		/* pipe and execve */
-		pipe_cmd(prompt, &prompt->cmds[i], pipefd);
+		if (prompt->total_cmds > 1 && i < prompt->total_cmds - 1)
+			pipe(pipefd);
+		execute(prompt, &prompt->cmds[i], i, pipefd);
 
 	}
 }

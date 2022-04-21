@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 15:31:23 by yang              #+#    #+#             */
-/*   Updated: 2022/04/18 09:24:44 by yang             ###   ########.fr       */
+/*   Updated: 2022/04/21 11:57:10 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,5 +116,6 @@ int	parser(t_prompt *prompt, char *str)
 	free_malloc(split_cmd);
 	expand_token(prompt);
 	print_cmds(prompt);
+	exec_args(prompt);
 	return (0);
 }

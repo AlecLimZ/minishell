@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 14:50:34 by yang              #+#    #+#             */
-/*   Updated: 2022/04/20 12:05:02 by yang             ###   ########.fr       */
+/*   Updated: 2022/04/21 11:57:22 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,5 +43,7 @@ void	print_cmds(t_prompt *prompt);
 void	remove_quotes(t_list *lst);
 void	set_args(t_cmd *cmd, t_list *token);
 void	redirect(t_cmd *cmd, char *fd, int type);
+
+void	exec_args(t_prompt *prompt);
 
 #endif

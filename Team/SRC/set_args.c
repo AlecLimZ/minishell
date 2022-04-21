@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 18:39:10 by yang              #+#    #+#             */
-/*   Updated: 2022/04/20 11:50:52 by yang             ###   ########.fr       */
+/*   Updated: 2022/04/21 12:06:41 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,18 +21,21 @@ void	set_args(t_cmd *cmd, t_list *token)
 
 	head = token;
 	i = 0;
-	while (head->type < 3)
+	while (head && head->type < 3)
 	{
 		i++;
 		head = head->next;
 	}
+	// if (!i)
+	// 	return (0);
 	args = (char **)malloc(sizeof(char *) * (i + 1));
 	head = token;
 	i = -1;
-	while (head->type < 3)
-	{
-		args[++i] = ft_strdup(token->content);
+	while (head && head->type < 3)
+	{	
+		args[++i] = ft_strdup(head->content);
+		head = head->next;
 	}
-	args[++i] = NULL;
+	args[++i] = 0;
 	cmd->args = args;
 }

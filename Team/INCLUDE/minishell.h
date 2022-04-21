@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 16:54:47 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/04/20 11:55:01 by yang             ###   ########.fr       */
+/*   Updated: 2022/04/21 13:27:45 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # include <signal.h>
 # include <fcntl.h>
 # include "libft.h"
-//# include "yeejin.h"
+# include "yeejin.h"
 
 # define BRED "\033[1;31m"
 # define GRN "\e[0;32m"
@@ -46,6 +46,7 @@ enum	e_token_type
 struct s_prompt
 {
 	t_list			*envp;
+	char			**environment;
 	struct s_cmd	*cmds;
 	int				total_cmds;
 };
@@ -53,7 +54,7 @@ struct s_prompt
 struct s_cmd
 {
 	t_list	*token;
-	char	*args[];
+	char	**args;
 	int		infile;
 	int		outfile;
 };
