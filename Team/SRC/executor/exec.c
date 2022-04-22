@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 09:27:37 by yang              #+#    #+#             */
-/*   Updated: 2022/04/21 14:42:19 by yang             ###   ########.fr       */
+/*   Updated: 2022/04/22 15:01:07 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 void	set_cmd(t_cmd *cmd)
 {
 	t_list	*head;
+	int		redir;
 
 	set_args(cmd, cmd->token);
 	head = cmd->token;
@@ -28,30 +29,12 @@ void	set_cmd(t_cmd *cmd)
 	}
 	while (head != NULL)
 	{
-		redirect(cmd, head->content, head->type);
+		redir = redirect(cmd, head->content, head->type);
+		if (redir < 0)
+			return ;
 		head = head->next;
 	}
-	// printf("infile: %d\t outfile: %d\n", cmd->infile, cmd->outfile);
-	// if (cmd->infile == 0)
-	// 	cmd->infile = STDIN;
-	// if (cmd->outfile == 0)
-	// 	cmd->outfile = STDOUT;
 }
-
-// char	*search_path(char *file)
-// {
-// 	char	*path;
-// 	char	*p;
-// 	char	*p2;
-
-// 	while (p && *p)
-// 	{
-// 		p2 = p;
-// 		while (*p2 && *p2 != ':')
-// 			p2++;
-		
-// 	}
-// }
 
 void	dup_n_close(int	fd, int fd_dup)
 {
@@ -66,22 +49,26 @@ void	pipe_cmd(t_prompt *prompt, int i, int pipefd[2], int keep_fd)
 	if (prompt->total_cmds > 1)
 	{
 		cmd = &prompt->cmds[i];
-		if (i == 0 || i > 0 && i < prompt->total_cmds - 1)
+		if (i == 0 || (i > 0 && i < prompt->total_cmds - 1))
 			close(pipefd[0]);
 		else if (i == prompt->total_cmds - 1)
 			close(pipefd[1]);
-		if (i > 0)
-		{
-			if (cmd->infile != STDIN)
+		if (cmd->infile != STDIN)
 				dup_n_close(cmd->infile, 0);
-			else
+		if (cmd->outfile != STDOUT)
+				dup_n_close(cmd->outfile, 1);			
+		if (i > 0 && cmd->infile == STDIN)
+		{
+			// if (cmd->infile != STDIN)
+			// 	dup_n_close(cmd->infile, 0);
+			// else
 				dup_n_close(keep_fd, 0);
 		}
-		if (i < prompt->total_cmds - 1)
+		if (i < prompt->total_cmds - 1 && cmd->outfile == STDOUT)
 		{
-			if (cmd->outfile != STDOUT)
-				dup_n_close(cmd->outfile, 1);
-			else
+			// if (cmd->outfile != STDOUT)
+			// 	dup_n_close(cmd->outfile, 1);
+			// else
 				dup_n_close(pipefd[1], 1);
 		}
 	}

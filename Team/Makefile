@@ -1,5 +1,7 @@
 NAME			=	minishell
 SRC_DIR			=	SRC
+SRC_PARSER_DIR	=	SRC/parser
+SRC_EXEC_DIR	=	SRC/executor
 OBJ_DIR			=	SRC/OBJS
 LDFLAGS			=	/usr/local/opt/readline/lib/*.a -lncurses
 CPPFLAGS		=	-I/usr/local/opt/readline/include
@@ -8,8 +10,7 @@ LIBPATH			=	SRC/libft
 LIBFT			=	SRC/libft/libft.a
 SRC				= 	*.c
 OBJS			=	$(addprefix $(OBJ_DIR)/, $(SRC:.c=.o))
-GCC				= 	gcc -fsanitize=address -g3
-#-Wall -Wextra -Werror
+GCC				= 	gcc -Wall -Wextra -Werror -fsanitize=address -g3
 DEF				= "\033[0m"
 YELLOW			= "\033[1;33m"
 GREEN			= "\033[1;32m"
@@ -18,7 +19,7 @@ CYAN			= "\033[3;36m"
 
 all:			$(NAME)
 
-$(OBJ_DIR)/%.o:	$(SRC_DIR)/%.c
+$(OBJ_DIR)/%.o:	$(SRC_DIR)/%.c $(SRC_PARSER_DIR)/%.c $(SRC_EXEC_DIR)/%.c
 				@echo $(YELLOW)"\nCreating \"OBJS\" folder...⏳"$(DEF)
 				@mkdir -p $(OBJ_DIR)
 				@echo $(CYAN)

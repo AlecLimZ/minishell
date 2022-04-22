@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 16:53:45 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/04/21 13:28:31 by yang             ###   ########.fr       */
+/*   Updated: 2022/04/22 14:26:16 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 #include "yeejin.h"
 
 /* refresh the prompt if user hit Ctrl + C */
-// void new_prompt(int sig)
-// {
-// 	(void)sig;
-// 	printf("\n");
-// 	rl_on_new_line();
-// 	rl_replace_line("", 0);
-// 	rl_redisplay();
-// }
+void new_prompt(int sig)
+{
+	(void)sig;
+	printf("\n");
+	rl_on_new_line();
+	rl_replace_line("", 0);
+	rl_redisplay();
+}
 
 /* init environment, add environment list into linked list */
 int	init_env(t_prompt *prompt, char *envp[])
@@ -45,7 +45,7 @@ int	get_input(char *str)
 	char *buf;
 
 	buf = readline(">>> ");
-	if (ft_strlen(buf) != 0)
+	if (buf && ft_strlen(buf) != 0)
 	{
 		add_history(buf);
 		ft_strlcpy(str, buf, ft_strlen(buf) + 1);

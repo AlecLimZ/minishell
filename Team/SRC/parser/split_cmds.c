@@ -6,44 +6,49 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 15:25:35 by yang              #+#    #+#             */
-/*   Updated: 2022/04/18 09:23:36 by yang             ###   ########.fr       */
+/*   Updated: 2022/04/22 14:43:36 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "yeejin.h"
 
-int	count(char *str, char c);
+// int	count(char *str, char c);
 
-int	check_pipe(char *str)
-{
-	char	**check;
-	int		i;
-	int		j;
-	int		len;
+// int	check_pipe_2(char **check, int i, int j)
+// {
+// 	if (check[0][0] == '|' || check[i][j] == '|')
+// 		return (-1);
+// 	return (0);
+// }
 
-	len = count(ft_strtrim(str, " "), ' ');
-	check = ft_split_str(str, ' ');
-	i = -1;
-	while (++i < len)
-	{
-		j = -1;
-		while (j < (int)ft_strlen(check[i]) && check[i][++j] != '\0')
-		{
-			if (check[i][j] == '|')
-			{
-				if ((j < (int)ft_strlen(check[i]) - 1 && check[i][j + 1] == '|')
-					|| (i < len - 1 && check[i + 1][0] == '|'))
-					return (-1);
-			}
-			else if (is_quote(check[i][j]))
-				j = in_quote(check[i], j);
-		}
-	}
-	if (check[--i][--j] == '|')
-		return (-1);
-	return (0);
-}
+// int	check_pipe(char *str)
+// {
+// 	char	**check;
+// 	int		i;
+// 	int		j;
+// 	int		len;
+
+// 	len = count(ft_strtrim(str, " "), ' ');
+// 	check = ft_split_str(str, ' ');
+// 	i = -1;
+// 	while (++i < len)
+// 	{
+// 		j = -1;
+// 		while (j < (int)ft_strlen(check[i]) && check[i][++j] != '\0')
+// 		{
+// 			if (check[i][j] == '|')
+// 			{
+// 				if ((j < (int)ft_strlen(check[i]) - 1 && check[i][j + 1] == '|')
+// 					|| (i < len - 1 && check[i + 1][0] == '|'))
+// 					return (-1);
+// 			}
+// 			else if (is_quote(check[i][j]))
+// 				j = in_quote(check[i], j);
+// 		}
+// 	}
+// 	return (check_pipe_2(check, --i, --j));
+// }
 
 int	count(char *str, char c)
 {
@@ -54,7 +59,7 @@ int	count(char *str, char c)
 	total = 1;
 	while (str[++i])
 	{
-		if (str[i] == c)
+		if (str[i] == c || (str[i] == ' ' && c == ' ' && is_space(c)))
 		{
 			total++;
 			while (i < (int)ft_strlen(str) - 2 && str[i + 1] == c)
@@ -66,6 +71,15 @@ int	count(char *str, char c)
 			return (-1);
 	}
 	return (total);
+}
+
+int	split_pos(char *str, int i, char c)
+{
+	while (i < (int)ft_strlen(str) - 2
+		&& (str[i + 1] == c
+			|| (str[i + 1] == c && c == ' ' && is_space(c))))
+		i++;
+	return (i);
 }
 
 /* separate user input into each cmd by c */
@@ -84,11 +98,10 @@ char	**ft_split_str(char *str, char c)
 	j = -1;
 	while (str[++i])
 	{
-		if (str[i] == c)
+		if (str[i] == c || (str[i] == ' ' && c == ' ' && is_space(c)))
 		{
 			w_split[++j] = ft_strndup(str + start_pos, i - start_pos);
-			while (i < (int)ft_strlen(str) - 2 && str[i + 1] == c)
-				i++;
+			i = split_pos(str, i, c);
 			start_pos = i + 1;
 		}
 		else if (str[i] == '"' || str[i] == '\'')
