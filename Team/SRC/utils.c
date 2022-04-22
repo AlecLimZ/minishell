@@ -1,22 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leng-chu <-chu@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: leng-chu <leng-chu@student.42kl.edu.m      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/08 16:54:47 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/04/22 12:15:01 by leng-chu         ###   ########.fr       */
+/*   Created: 2022/04/22 20:55:42 by leng-chu          #+#    #+#             */
+/*   Updated: 2022/04/22 21:16:21 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "minishell.h"
 
-# include <stdio.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include "libft.h"
-# include "alec.h"
+void	ft_free_split(char **s)
+{
+	int	i;
 
-#endif
+	i = -1;
+	if (!s)
+		return ;
+	while (s[++i])
+		free(s);
+	free(s);
+}
+
+int	ft_tablen(char **s)
+{
+	int	i;
+
+	i = 0;
+	while (s && s[i])
+		i++;
+	return (i);
+}
