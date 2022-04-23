@@ -49,7 +49,7 @@ int	ft_envcount(t_prompt *prompt)
 	int	count;
 
 	count = 0;
-	while (prompt->enviroment[count])
+	while (prompt->environment[count])
 		count++;
 	return (count);
 }

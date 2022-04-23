@@ -53,13 +53,13 @@ char	**ft_create(t_prompt *prompt, char *args)
 	int		i;
 
 	i = -1;
-	if (!prompt->enviroment || !args)
+	if (!prompt->environment || !args)
 		return (NULL);
-	tmp = (char **)malloc(sizeof(char *) * (ft_tablen(prompt->enviroment) + 2));
+	tmp = (char **)malloc(sizeof(char *) * (ft_tablen(prompt->environment) + 2));
 	if (!tmp)
 		return (NULL);
-	while (prompt->enviroment[++i])
-		tmp[i] = ft_strdup(prompt->enviroment[i]);
+	while (prompt->environment[++i])
+		tmp[i] = ft_strdup(prompt->environment[i]);
 	tmp[i] = ft_strdup(args);
 	tmp[++i] = NULL;
 	return (tmp);
@@ -69,8 +69,8 @@ void	ft_newexport(t_prompt *prompt, char **tmp, char *args)
 {
 	free_split(tmp);
 	tmp = ft_create(prompt, args);
-	free_split(prompt->enviroment);
-	prompt->enviroment = tmp;
+	free_split(prompt->environment);
+	prompt->environment = tmp;
 }
 
 int	ft_export(t_prompt *prompt)
@@ -87,9 +87,9 @@ int	ft_export(t_prompt *prompt)
 		while (args[++i])
 		{
 			tmp = ft_split(args[i], '=');
-			if (ft_is_envar(prompt->enviroment, tmp[0]))
+			if (ft_is_envar(prompt->environment, tmp[0]))
 			{
-				ft_replace_val(prompt->enviroment, tmp);
+				ft_replace_val(prompt->environment, tmp);
 				ft_free_split(tmp);
 			}
 			else

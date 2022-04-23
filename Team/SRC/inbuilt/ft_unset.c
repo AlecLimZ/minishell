@@ -22,11 +22,11 @@ int	ft_findenv(char *env, t_prompt *prompt)
 		return (0);
 	i = -1;
 	sub = NULL;
-	while (prompt->enviroment[++i])
+	while (prompt->environment[++i])
 	{
-		if (ft_getcharpos(prompt->enviroment[i], '=') == -1)
-			index = ft_strlen(prompt->enviroment[i]);
-		sub = ft_subtr(prompt->enviroment[i], 0, index);
+		if (ft_getcharpos(prompt->environment[i], '=') == -1)
+			index = ft_strlen(prompt->environment[i]);
+		sub = ft_subtr(prompt->environment[i], 0, index);
 		if (sub)
 		{
 			if (!ft_strcmp(sub, env))
@@ -49,9 +49,9 @@ char **ft_delenv(int index, t_prompt *prompt)
 
 	i = index;
 	size = ft_envcount(prompt);
-	while (prompt->enviroment[i + 1])
+	while (prompt->environment[i + 1])
 	{
-		tmp = ft_strdup(prompt->enviroment[i + 1]);
+		tmp = ft_strdup(prompt->environment[i + 1]);
 		free(prompt->environment[i]);
 		prompt->environment[i] = tmp;
 		i++;
@@ -74,8 +74,8 @@ int	ft_unset(t_prompt *prompt)
 		pos = ft_findenv(args[i], prompt);
 		if (pos != -1)
 		{
-			if (prompt->enviroment[i])
-				prompt->enviroment[i] = ft_delenv(pos, prompt);
+			if (prompt->environment[i])
+				prompt->environment[i] = ft_delenv(pos, prompt);
 		}
 		else
 		{
