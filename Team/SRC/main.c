@@ -6,18 +6,13 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 16:53:45 by leng-chu          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2022/04/22 14:26:16 by yang             ###   ########.fr       */
-=======
-/*   Updated: 2022/03/17 15:46:20 by leng-chu         ###   ########.fr       */
->>>>>>> built
+/*   Updated: 2022/04/23 18:01:41 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "yeejin.h"
 
-<<<<<<< HEAD
 /* refresh the prompt if user hit Ctrl + C */
 void new_prompt(int sig)
 {
@@ -42,14 +37,6 @@ int	init_env(t_prompt *prompt, char *envp[])
 		ft_lstadd_back(&prompt->envp, new);
 	}
 	return (0);
-=======
-int	main(int argc, char **argv)
-{
-	char *line = readline("my-rl-example> ");
-	printf("You entered: \"%s\"\n", line);
-	free(line);
-	return 0;
->>>>>>> built
 }
 
 /* get input from user and add it into history list */
