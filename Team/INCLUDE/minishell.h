@@ -6,7 +6,11 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 16:54:47 by leng-chu          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2022/04/22 14:22:51 by yang             ###   ########.fr       */
+=======
+/*   Updated: 2022/04/22 12:15:01 by leng-chu         ###   ########.fr       */
+>>>>>>> built
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +25,7 @@
 # include <signal.h>
 # include <fcntl.h>
 # include "libft.h"
+<<<<<<< HEAD
 # include "yeejin.h"
 
 # define BRED "\033[1;31m"
@@ -58,5 +63,8 @@ struct s_cmd
 	int		infile;
 	int		outfile;
 };
+=======
+# include "alec.h"
+>>>>>>> built
 
 #endif
