@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_cd.c                                            :+:      :+:    :+:   */
+/*   ft_cdecho.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: leng-chu <leng-chu@student.42kl.edu.m      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 14:08:21 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/04/22 22:36:50 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/04/23 17:51:47 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,23 @@ int	ft_cd(t_prompt *prompt)
 	}
 	else
 		chdir(args[1]);
+	return (1);
+}
+
+int	ft_echo(t_prompt *prompt)
+{
+	int	i;
+	int	args;
+
+	args = prompt->cmds[0].args;
+	if (!argc[1])
+		return (1);
+	i = 0;
+	if (args[1] && !ft_strcmp(args[1], "-n"))
+		i = 1;
+	while (args[++i])
+		printf("%s ", args[i]);
+	if (ft_strcmp(args[1], "-n"))
+		printf("\n");
 	return (1);
 }
