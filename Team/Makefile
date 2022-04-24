@@ -2,6 +2,8 @@ NAME			=	minishell
 SRC_DIR			=	SRC
 SRC_PARSER_DIR	=	SRC/parser
 SRC_EXEC_DIR	=	SRC/executor
+#SRC_INBUILT		=	SRC/inbuilt
+#SRC_HEREDOC		= 	SRC/heredoc
 OBJ_DIR			=	SRC/OBJS
 LDFLAGS			=	/usr/local/opt/readline/lib/*.a -lncurses
 CPPFLAGS		=	-I/usr/local/opt/readline/include
@@ -19,6 +21,7 @@ CYAN			= "\033[3;36m"
 
 all:			$(NAME)
 
+#$(OBJ_DIR)/%.o:	$(SRC_DIR)/%.c $(SRC_PARSER_DIR)/%.c $(SRC_EXEC_DIR)/%.c $(SRC_INBUILT)/%.c $(SRC_HEREDOC)/%.c
 $(OBJ_DIR)/%.o:	$(SRC_DIR)/%.c $(SRC_PARSER_DIR)/%.c $(SRC_EXEC_DIR)/%.c
 				@echo $(YELLOW)"\nCreating \"OBJS\" folder...⏳"$(DEF)
 				@mkdir -p $(OBJ_DIR)
