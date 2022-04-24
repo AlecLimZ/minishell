@@ -6,7 +6,7 @@
 /*   By: leng-chu <leng-chu@student.42kl.edu.m      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 12:15:11 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/04/23 17:52:10 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/04/24 16:52:03 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,10 @@ int		ft_unset(t_prompt *prompt);
 char	**ft_delenv(int index, t_prompt *prompt);
 int		ft_findenv(char *env, t_prompt *prompt);
 
+/*ft_path*/
+char	*ft_conc(char *path, char *filename);
+char	**ft_get_path(t_prompt *prompt);
+
 /*utils.c*/
 void	ft_free_split(char *s);
 int		ft_tablen(char **s);
@@ -46,5 +50,6 @@ char	**ft_realloc_env(int size, t_prompt *prompt);
 
 /*utlis2.c*/
 void	ft_free_array(char **array);
+char	*ft_strcat(char *s1, const char *s2);
 
 #endif
