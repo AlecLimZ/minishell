@@ -6,7 +6,7 @@
 /*   By: leng-chu <-chu@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 15:21:30 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/04/24 16:14:00 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/04/25 14:26:29 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,22 @@ char	*ft_strcat(char *s1, const char *s2)
 	}
 	s1[i] = '\0';
 	return (s1);
+}
+
+char	*ft_freestr(char *s)
+{
+	if (s1)
+		free(s1);
+	return (NULL);
+}
+
+char	*ft_stringenv(char *s, char *tmp, int *cur)
+{
+	char	*tmp2;
+
+	tmp2 = NULL;
+	tmp2 = get_env(cur, str);
+	if (!tmp2)
+		return (ft_freestr(tmp));
+	return (tmp2);
 }
