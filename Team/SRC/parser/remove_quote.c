@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 13:27:45 by yang              #+#    #+#             */
-/*   Updated: 2022/04/18 09:24:12 by yang             ###   ########.fr       */
+/*   Updated: 2022/04/25 11:29:07 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	remove_quotes(t_list *lst)
 
 	str = lst->content;
 	i = 0;
-	while (str[i])
+	while (str && str[i])
 	{
 		if (str[i] == '\'' || str[i] == '"')
 		{

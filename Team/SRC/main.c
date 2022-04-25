@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 16:53:45 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/04/22 14:26:16 by yang             ###   ########.fr       */
+/*   Updated: 2022/04/25 14:12:29 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,12 @@ int	main(int argc, char *argv[], char *envp[])
 	{
 		if (get_input(input_str))
 			continue;
-		parser(prompt, input_str);
+		if (parser(prompt, input_str) == -1)
+		{
+			printf("error occurred when parsing command\n");
+			return (1);
+		}
+		exec_args(prompt);
 		//printf("%s\n", getenv("HOME"));
 		//parser(prompt, input_str);
 		//split_args_pipe(input_str, str);

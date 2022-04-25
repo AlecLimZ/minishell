@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 10:59:12 by yang              #+#    #+#             */
-/*   Updated: 2022/04/18 09:08:31 by yang             ###   ########.fr       */
+/*   Updated: 2022/04/25 13:51:58 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,16 +28,27 @@ void	token_bef_operator(t_cmd *cmd, char **token, int pos, int i)
 	}
 }
 
-int	get_operator_pos(char *str)
+int	get_operator_pos(char **token, int pos)
 {
-	int	i;
+	int		i;
+	char	redirect;
+	char	*str;
 
 	i = 0;
+	str = token[pos];
 	while (str[i] && !is_operator(str[i]))
 	{
 		if (is_quote(str[i]))
 			i = in_quote(str, i);
 		i++;
+	}
+	redirect = str[i];
+	if (i == (int)ft_strlen(str) - 1 && token[pos + 1] == NULL)
+		return (-1);
+	if (i < (int)ft_strlen(str) - 1 && is_operator(str[i + 1]))
+	{
+		if (str[i + 1] != redirect)
+			return (-1);
 	}
 	return (i);
 }
@@ -88,7 +99,9 @@ int	set_token_redirection(t_cmd *cmd, char **token, int i)
 
 	while (token[i] && is_operator_in_str(token[i]))
 	{
-		j = get_operator_pos(token[i]);
+		j = get_operator_pos(token, i);
+		if (j == -1)
+			return (-1);
 		token_bef_operator(cmd, token, j, i);
 		ft_memset(dest, 0, MAXCOM);
 		if (ft_strlen(token[i] + j) > 2)
@@ -98,8 +111,6 @@ int	set_token_redirection(t_cmd *cmd, char **token, int i)
 			ft_strlcpy(dest, token[i + 1], ft_strlen(token[i + 1]) + 1);
 		new = ft_lstnew(dest);
 		new->type = get_redirection_type(token[i] + j);
-		if (new->type == -1)
-			return (-1);
 		ft_lstadd_back(&cmd->token, new);
 		if ((ft_strlen(token[i] + j) <= 2 && is_operator(token[i][j]))
 			|| (ft_strlen(token[i] + j) == 2 && is_operator(token[i][j + 1])))

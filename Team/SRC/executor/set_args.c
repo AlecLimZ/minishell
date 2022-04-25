@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 18:39:10 by yang              #+#    #+#             */
-/*   Updated: 2022/04/21 12:06:41 by yang             ###   ########.fr       */
+/*   Updated: 2022/04/25 14:36:29 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ void	set_args(t_cmd *cmd, t_list *token)
 	i = -1;
 	while (head && head->type < 3)
 	{	
-		args[++i] = ft_strdup(head->content);
+		if (head->content)
+			args[++i] = ft_strdup(head->content);
 		head = head->next;
 	}
 	args[++i] = 0;
