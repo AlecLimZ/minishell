@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 09:27:37 by yang              #+#    #+#             */
-/*   Updated: 2022/04/25 14:56:25 by yang             ###   ########.fr       */
+/*   Updated: 2022/04/25 19:31:30 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,31 @@ void	pipe_cmd(t_prompt *prompt, int i, int pipefd[2], int keep_fd)
 	}
 }
 
+int do_exec_cmd(char **argv, t_prompt *prompt)
+{
+	char		*path;
+	struct stat	st;
+
+	if (ft_strchr(argv[0], '/'))
+	{
+		if (stat(argv[0], &st) == 0 && S_ISREG(st.st_mode))
+			execve(argv[0], argv, prompt->env);
+		else if (S_ISDIR(st.st_mode))
+			printf("is a directory\n");
+		else
+			printf("Incorrect command\n");
+	}
+	else
+	{
+		path = search_path(getenv("PATH"), argv[0]);
+		if (!path)
+			return (0);
+		execve(path, argv, prompt->env);
+		free(path);
+	}
+	return (0);
+}
+
 void	execute(t_prompt *prompt, t_cmd *cmd, int i, int pipefd[2])
 {
 	int			pid;
@@ -84,7 +109,7 @@ void	execute(t_prompt *prompt, t_cmd *cmd, int i, int pipefd[2])
 	if (pid == 0)
 	{
 		pipe_cmd(prompt, i, pipefd, keep_fd);
-		execve(cmd->args[0], cmd->args, prompt->environment);
+		do_exec_cmd(cmd->args, prompt);
 	}
 	else
 	{
@@ -120,7 +145,7 @@ void	exec_args(t_prompt *prompt)
 		// 	dup_n_close(prompt->cmds[i].infile, STDIN);
 		// if (prompt->cmds[i].outfile != STDOUT)
 		// 	dup_n_close(prompt->cmds[i].outfile, STDOUT);
-		printf("infile: %d\t outfile: %d\n", prompt->cmds[i].infile, prompt->cmds[i].outfile);
+		// printf("infile: %d\t outfile: %d\n", prompt->cmds[i].infile, prompt->cmds[i].outfile);
 		execute(prompt, &prompt->cmds[i], i, pipefd);
 
 	}

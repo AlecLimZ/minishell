@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 14:50:34 by yang              #+#    #+#             */
-/*   Updated: 2022/04/25 11:24:25 by yang             ###   ########.fr       */
+/*   Updated: 2022/04/25 19:13:45 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	free_malloc(char **array);
 void	print_cmds(t_prompt *prompt);
 void	remove_quotes(t_list *lst);
 void	set_args(t_cmd *cmd, t_list *token);
+void	set_envp(t_prompt *prompt);
 int		redirect(t_cmd *cmd, char *fd, int type);
 
 /* ----------- expand_utils.c -------- */
@@ -51,5 +52,5 @@ char	*get_prefix(char *str, int i);
 char	*get_postfix(char *str, int i);
 
 void	exec_args(t_prompt *prompt);
-
+char	*search_path(char *path, char *command);
 #endif
