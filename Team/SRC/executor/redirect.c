@@ -6,12 +6,13 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 17:19:18 by yang              #+#    #+#             */
-/*   Updated: 2022/04/25 15:35:55 by yang             ###   ########.fr       */
+/*   Updated: 2022/04/25 15:47:30 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "yeejin.h"
+#include "alec.h"
 
 int	redirect(t_cmd *cmd, char *fd, int type)
 {

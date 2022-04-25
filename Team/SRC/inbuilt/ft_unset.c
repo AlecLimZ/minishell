@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leng-chu <leng-chu@student.42kl.edu.m      +#+  +:+       +#+        */
+/*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 22:32:42 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/04/23 15:32:00 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/04/25 16:09:23 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	ft_unset(t_prompt *prompt)
 {
 	int	i;
 	int	pos;
-	int	args;
+	char	*args[];
 
 	i = 0;
 	args = prompt->cmds[0].args;

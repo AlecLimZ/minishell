@@ -6,12 +6,13 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 18:39:10 by yang              #+#    #+#             */
-/*   Updated: 2022/04/25 14:36:29 by yang             ###   ########.fr       */
+/*   Updated: 2022/04/25 15:47:34 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "yeejin.h"
+#include "alec.h"
 
 void	set_args(t_cmd *cmd, t_list *token)
 {
