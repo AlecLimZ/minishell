@@ -6,75 +6,14 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 11:21:45 by yang              #+#    #+#             */
-/*   Updated: 2022/04/18 09:26:51 by yang             ###   ########.fr       */
+/*   Updated: 2022/04/25 13:05:43 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "yeejin.h"
 
-int	is_name(char *str)
-{
-	int	i;
-
-	i = 0;
-	if (!ft_isalpha(str[i]) && str[i] != '_')
-		return (0);
-	while (str[++i])
-	{
-		if (!is_env(str[i]))
-			return (0);
-	}
-	return (1);
-}
-
-int	get_env_pos(char *str)
-{
-	int	i;
-	int	quote;
-
-	i = -1;
-	quote = 0;
-	while (str[++i])
-	{
-		if (str[i] == '$')
-			return (i);
-		else if (str[i] == '\'')
-			quote = in_quote(str, i);
-		if (quote > i)
-			i = quote;
-	}
-	return (-1);
-}
-
-char	*get_prefix(char *str, int i)
-{
-	if (i > 0)
-	{
-		return(ft_strndup(str, i)) ;
-	}
-	return (NULL);
-}
-
-char	*get_postfix(char *str, int i)
-{
-	int		postfix_pos;
-
-	postfix_pos = 0;
-	while (str[++i])
-	{
-		if (!is_env(str[i]))
-		{
-			postfix_pos = i;
-			break ;
-		}
-	}
-	if (postfix_pos != 0)
-		return (ft_strndup(str + i, ft_strlen(str) - i));
-	return (NULL);
-}
-
-char	*expand_str(char *prefix, char *postfix, char *path)
+static char	*expand_path(char *prefix, char *postfix, char *path)
 {
 	char	*temp;
 	char	*expand;
@@ -86,11 +25,11 @@ char	*expand_str(char *prefix, char *postfix, char *path)
 		if (!prefix && !postfix)
 			return (NULL);
 		else if (!prefix)
-			return (ft_strjoin("", postfix));	
+			return (ft_strjoin("", postfix));
 		else if (!postfix)
 			return (ft_strjoin(prefix, ""));
 		else
-			return (ft_strjoin(prefix, postfix));	
+			return (ft_strjoin(prefix, postfix));
 	}
 	if (!prefix)
 		temp = path;
@@ -103,32 +42,40 @@ char	*expand_str(char *prefix, char *postfix, char *path)
 	return (expand);
 }
 
-char	*var_expand(char *str, int pos)
+static char	*expand_str(char *str, int pos, char *path)
 {
-	char	*path;
+	char	*expand;
 	char	*prefix;
 	char	*postfix;
+
+	prefix = get_prefix(str, pos);
+	postfix = get_postfix(str, pos);
+	expand = expand_path(prefix, postfix, path);
+	free(prefix);
+	prefix = NULL;
+	free(postfix);
+	postfix = NULL;
+	return (expand);
+}
+
+static char	*var_expand(char *str, int pos)
+{
+	char	*path;
 	char	*expand;
 	char	*temp;
 	int		i;
 
 	i = pos;
-	prefix = get_prefix(str, pos);
-	postfix = get_postfix(str, pos);
 	while (str[i] && is_env(str[i + 1]))
 		i++;
 	temp = ft_strndup(str + pos + 1, i - pos);
 	//if (temp[0] == '?')
 	if (!is_name(temp))
 		return (NULL);
-	path = getenv(temp);
+	path = getenv(temp); //have to create own ft_getnenv
 	free(temp);
 	temp = NULL;
-	expand = expand_str(prefix, postfix, path);
-	if (prefix)
-		free(prefix);
-	if (postfix)
-		free(postfix);
+	expand = expand_str(str, pos, path);
 	return (expand);
 }
 
@@ -176,7 +123,6 @@ void	expand_token(t_prompt *prompt)
 			{
 				str = var_expand(head->content, pos);
 				del = add_var_to_list(&prompt->cmds[i], head, str);
-				
 			}
 			remove_quotes(head);
 			head = head->next;

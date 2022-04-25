@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 14:50:34 by yang              #+#    #+#             */
-/*   Updated: 2022/04/22 10:43:48 by yang             ###   ########.fr       */
+/*   Updated: 2022/04/25 11:24:25 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,12 @@ void	print_cmds(t_prompt *prompt);
 void	remove_quotes(t_list *lst);
 void	set_args(t_cmd *cmd, t_list *token);
 int		redirect(t_cmd *cmd, char *fd, int type);
+
+/* ----------- expand_utils.c -------- */
+int		is_name(char *str);
+int		get_env_pos(char *str);
+char	*get_prefix(char *str, int i);
+char	*get_postfix(char *str, int i);
 
 void	exec_args(t_prompt *prompt);
 

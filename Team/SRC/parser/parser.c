@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 15:31:23 by yang              #+#    #+#             */
-/*   Updated: 2022/04/22 15:33:22 by yang             ###   ########.fr       */
+/*   Updated: 2022/04/25 14:12:04 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,9 @@ int	is_operator_in_str(char *str)
 	while (str[++i])
 	{
 		if (is_operator(str[i]))
+		{
 			return (1);
+		}
 		else if (is_quote(str[i]))
 			i = in_quote(str, i);
 	}
@@ -57,10 +59,17 @@ int	set_token_after_redirect(t_cmd *cmd, char **token, int redirect)
 {
 	int		i;
 	t_list	*new;
+	t_list	*head;
 
 	i = 0;
 	if (redirect == -1)
 		return (-1);
+	head = cmd->token;
+	while (head && head->type <= 2)
+	{
+		head = head->next;
+		i++;
+	}
 	while (token[redirect])
 	{
 		new = ft_lstnew(token[redirect]);
@@ -77,14 +86,12 @@ int	tokenize(t_cmd *cmd, char *str)
 	char	**token;
 	t_list	*new;
 	int		i;
-	int		j;
 	int		redirect;
 
 	token = ft_split_str(str, ' ');
 	i = -1;
 	while (token[++i])
 	{
-		j = -1;
 		if (is_operator_in_str(token[i]))
 			break ;
 		new = ft_lstnew(token[i]);
@@ -103,7 +110,8 @@ int	parser(t_prompt *prompt, char *str)
 	int		i;
 
 	prompt->total_cmds = count(str, '|');
-	if (prompt->total_cmds == -1 || (ft_strchr(str, '|') && check_pipe(str) == -1))
+	if (prompt->total_cmds == -1
+		|| (ft_strchr(str, '|') && check_pipe(str) == -1))
 		return (-1);
 	prompt->cmds = malloc(sizeof(t_cmd) * prompt->total_cmds);
 	split_cmd = ft_split_str(str, '|');
@@ -111,11 +119,13 @@ int	parser(t_prompt *prompt, char *str)
 	while (split_cmd[++i])
 	{
 		ft_memset(&prompt->cmds[i], 0, sizeof(t_cmd));
-		tokenize(&prompt->cmds[i], ft_strtrim(split_cmd[i], " "));
+		if (tokenize(&prompt->cmds[i], ft_strtrim(split_cmd[i], " ")) == -1)
+			return (-1);
 	}
 	free_malloc(split_cmd);
 	expand_token(prompt);
 	print_cmds(prompt);
-	//exec_args(prompt);
 	return (0);
 }
+
+// if parser == -1, means there is error when parsing command
