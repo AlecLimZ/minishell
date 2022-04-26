@@ -74,7 +74,7 @@ int	ft_env(t_prompt *prompt)
 	int	i;
 
 	i = -1;
-	while (prompt->environment[++i])
-		ft_putendl_fd(prompt->environment[i], 1);
+	while (prompt->env[++i])
+		ft_putendl_fd(prompt->env[i], 1);
 	return (1);
 }

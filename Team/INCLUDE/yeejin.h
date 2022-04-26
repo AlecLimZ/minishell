@@ -6,14 +6,13 @@
 /*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 14:50:34 by yang              #+#    #+#             */
-/*   Updated: 2022/04/26 20:27:21 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/04/26 20:32:29 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef YEEJIN_H
 # define YEEJIN_H
 
-<<<<<<< HEAD
 # include "minishell.h"
 # include "alec.h"
 # define STDOUT 0

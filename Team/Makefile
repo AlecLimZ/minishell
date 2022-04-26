@@ -19,23 +19,22 @@ GREEN			= "\033[1;32m"
 RED				= "\033[0;31m"
 CYAN			= "\033[3;36m"
 
-all:			$(NAME)
-
 $(OBJ_DIR)/%.o:	$(SRC_DIR)/%.c $(SRC_PARSER_DIR)/%.c $(SRC_EXEC_DIR)/%.c $(SRC_INBUILT)/%.c $(SRC_HEREDOC)/%.c
-#$(OBJ_DIR)/%.o:	$(SRC_DIR)/%.c $(SRC_PARSER_DIR)/%.c $(SRC_EXEC_DIR)/%.c
 				@echo $(YELLOW)"\nCreating \"OBJS\" folder...⏳"$(DEF)
 				@mkdir -p $(OBJ_DIR)
 				@echo $(CYAN)
 				@make bonus -C $(LIBPATH)
 				@echo $(GREEN)"Successfully created ✅\n"$(DEF)
 				@echo $(YELLOW)"Creating object files...⏳"$(DEF)
-				$(GCC) $(INC_DIR) $(CPPFLAGS) -I$(LIBPATH) -c $^
+				@$(GCC) $(INC_DIR) $(CPPFLAGS) -I$(LIBPATH) -c $^
 				@mv *.o $(OBJ_DIR)
 				@echo $(GREEN)"Successfully created ✅\n"$(DEF)
 
+all:			$(NAME)
+
 $(NAME):		$(OBJS)
 				@echo $(YELLOW)"Creating the minishell...⏳"$(DEF)
-				$(GCC) $(LDFLAGS) $(LIBFT) $^ -o $@
+				@$(GCC) $(LDFLAGS) $(LIBFT) $^ -o $@
 				@echo $(GREEN)"Successfully created ✅\n"$(DEF)
 
 norm:
@@ -44,13 +43,13 @@ norm:
 				norminette -R CheckDefine $(INC_DIR)/*.h
 
 clean:
-				@rm -rf $(OBJ_DIR)
 				@make clean -C $(LIBPATH)
+				@rm -rf $(OBJ_DIR)
 				@echo $(RED)"Object files & object folder GONE ☠️"$(DEF)
 
 fclean:			clean
-				@rm -rf $(NAME)
 				@make fclean -C $(LIBPATH)
+				@rm -rf $(NAME)
 				@echo $(RED)"Executable file GONE ☠️"$(DEF)
 
 re:				fclean all

@@ -31,11 +31,11 @@ char	**ft_get_path(t_prompt *prompt)
 
 	i = 0;
 	path = NULL;
-	while (prompt->environment[i])
+	while (prompt->env[i])
 	{
-		if (ft_strcmp(prompt->environment[i], "PATH") == 0)
+		if (ft_strcmp(prompt->env[i], "PATH") == 0)
 		{
-			p = prompt->environment[i];
+			p = prompt->env[i];
 			p += 5;
 			path = ft_split(p, ':');
 			break ;
@@ -54,7 +54,7 @@ void	ft_exec(t_prompt *prompt)
 	int		i;
 
 	i = 0;
-	path = ft_get_path(prompt->environment);
+	path = ft_get_path(prompt->env);
 	while (path[i])
 	{
 		buf = ft_conc(path[i], prompt->cmds[0].args[0]);

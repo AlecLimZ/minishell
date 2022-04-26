@@ -49,7 +49,7 @@ int	ft_envcount(t_prompt *prompt)
 	int	count;
 
 	count = 0;
-	while (prompt->environment[count])
+	while (prompt->env[count])
 		count++;
 	return (count);
 }
@@ -63,12 +63,12 @@ char	**ft_realloc_env(int size, t_prompt *prompt)
 	if (!new)
 		return (NULL);
 	i = 0;
-	while (prompt->environment[i] && i < size)
+	while (prompt->env[i] && i < size)
 	{
-		new[i] = ft_strdup(prompt->environment[i]);
+		new[i] = ft_strdup(prompt->env[i]);
 		i++;
 	}
 	new[size] = NULL;
-	ft_free_array(prompt->environment);
+	ft_free_array(prompt->env);
 	return (new);
 }
