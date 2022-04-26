@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   yeejin.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 14:50:34 by yang              #+#    #+#             */
-/*   Updated: 2022/04/25 19:13:45 by yang             ###   ########.fr       */
+/*   Updated: 2022/04/26 16:04:02 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 # define YEEJIN_H
 
 //# include "minishell.h"
-# define STDOUT 0
-# define STDIN 1
+# define STDOUT 1
+# define STDIN 0
 
 typedef struct	s_prompt t_prompt;
 typedef struct	s_cmd t_cmd;
