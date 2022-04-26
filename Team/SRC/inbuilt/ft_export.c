@@ -6,7 +6,7 @@
 /*   By: leng-chu <leng-chu@student.42kl.edu.m      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 18:08:32 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/04/26 14:58:12 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/04/26 20:17:54 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ char	**ft_create(t_prompt *prompt, char *args)
 	i = -1;
 	if (!prompt->environment || !args)
 		return (NULL);
-	tmp = (char **)malloc(sizeof(char *) * (ft_tablen(prompt->environment) + 2));
+	tmp = (char **)malloc(sizeof(char *)
+			* (ft_tablen(prompt->environment) + 2));
 	if (!tmp)
 		return (NULL);
 	while (prompt->environment[++i])
@@ -75,7 +76,7 @@ void	ft_newexport(t_prompt *prompt, char **tmp, char *args)
 
 int	ft_export(t_prompt *prompt)
 {
-	int	i;
+	int		i;
 	char	**tmp;
 	char	**args;
 

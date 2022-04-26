@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 22:32:42 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/04/26 15:27:57 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/04/26 20:18:31 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	ft_findenv(char *env, t_prompt *prompt)
 	return (-1);
 }
 
-char **ft_delenv(int index, t_prompt *prompt)
+char	**ft_delenv(int index, t_prompt *prompt)
 {
 	char	*tmp;
 	int		i;
@@ -61,8 +61,8 @@ char **ft_delenv(int index, t_prompt *prompt)
 
 int	ft_unset(t_prompt *prompt)
 {
-	int	i;
-	int	pos;
+	int		i;
+	int		pos;
 	char	**args;
 
 	i = 0;

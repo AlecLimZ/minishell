@@ -6,7 +6,7 @@
 /*   By: leng-chu <leng-chu@student.42kl.edu.m      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 12:15:11 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/04/26 18:14:53 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/04/26 20:04:27 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,21 +61,21 @@ char	*ft_get_envp(int *cur, char *str);
 int		ft_env_len(char *str);
 char	*ft_alloc(int *cur);
 
-/*utils.c*/
+/*extra1.c*/
 void	ft_free_split(char **s);
 int		ft_tablen(char **s);
 int		ft_getcharpos(char *str, char c);
 int		ft_envcount(t_prompt *prompt);
 char	**ft_realloc_env(int size, t_prompt *prompt);
 
-/*utlis2.c*/
+/*extra2.c*/
 void	ft_free_array(char **array);
 char	*ft_strcat(char *s1, const char *s2);
 char	*ft_freestr(char *s);
 char	*ft_stringenv(char *s, char *tmp, int *cur);
 char	*ft_strncpy(char *dst, const char *src, size_t len);
 
-/*utils3.c*/
+/*extra3.c*/
 int		ft_strcmp(const char *s1, const char *s2);
 void	ft_delete_token(void *arg);
 

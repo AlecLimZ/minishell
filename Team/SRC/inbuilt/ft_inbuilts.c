@@ -6,7 +6,7 @@
 /*   By: leng-chu <leng-chu@student.42kl.edu.m      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 12:22:38 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/04/26 18:44:54 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/04/26 20:13:20 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int	ft_is_built(char *cmd, t_prompt *prompt)
 	return (0);
 }
 
+//	line 53		ft_lstdelone(tmp, ft_delete_token);
 int	ft_exit(t_prompt *prompt)
 {
 	t_list	*token;
@@ -42,14 +43,16 @@ int	ft_exit(t_prompt *prompt)
 	while (++i < prompt->total_cmds)
 	{
 		j = -1;
-		while(prompt->cmds[i].args[++j])
+		while (prompt->cmds[i].args[++j])
 			free(prompt->cmds[i].args[j]);
 		token = prompt->cmds[i].token;
 		while (token != NULL)
 		{
 			tmp = token;
 			token = token->next;
-			ft_lstdelone(tmp);
+			free(tmp->content);
+			free(tmp);
+			tmp = NULL;
 		}
 	}
 	printf("exit\n");
