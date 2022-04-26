@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "yeejin.h"
+
 
 int	count(char *str, char c)
 {

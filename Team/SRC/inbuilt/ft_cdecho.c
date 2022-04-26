@@ -6,7 +6,7 @@
 /*   By: leng-chu <leng-chu@student.42kl.edu.m      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 14:08:21 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/04/23 17:51:47 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/04/26 14:55:56 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,14 @@ int	ft_cd(t_prompt *prompt)
 	else if (!args[1] || !ft_strcmp(args[1], "~") || !ft_strcmp(args[1], "--"))
 	{
 		if (!getenv("HOME"))
-			ft_putend1_fd("minishell: cd: HOME not set", 2);
-		chdir(getenv("HOME");
+			ft_putendl_fd("minishell: cd: HOME not set", 2);
+		chdir(getenv("HOME"));
 		return (1);
 	}
 	else if (!ft_strcmp(args[1], "-") || !ft_strcmp(args[1], "~-"))
 	{
 		if (!getenv("OLDPWD"))
-			ft_putend1_fd("OLDPWD not set", 2);
+			ft_putendl_fd("OLDPWD not set", 2);
 		chdir(getenv("OLDPWD"));
 	}
 	else
@@ -39,11 +39,11 @@ int	ft_cd(t_prompt *prompt)
 
 int	ft_echo(t_prompt *prompt)
 {
-	int	i;
-	int	args;
+	int		i;
+	char	**args;
 
 	args = prompt->cmds[0].args;
-	if (!argc[1])
+	if (!args[1])
 		return (1);
 	i = 0;
 	if (args[1] && !ft_strcmp(args[1], "-n"))

@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "yeejin.h"
+
 
 void	remove_quotes(t_list *lst)
 {

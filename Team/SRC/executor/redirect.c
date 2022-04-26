@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "yeejin.h"
+
 #include "alec.h"
 
 int	redirect(t_cmd *cmd, char *fd, int type)

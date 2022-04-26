@@ -6,7 +6,7 @@
 /*   By: leng-chu <leng-chu@student.42kl.edu.m      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 16:10:08 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/04/24 16:50:53 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/04/26 17:32:36 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ char	*ft_conc(char *path, char *filename)
 {
 	char	*bin;
 
-	bin = (char *)malloc(ft_strlen(str) + ft_strlen(filename) + 16);
+	bin = (char *)malloc(ft_strlen(path) + ft_strlen(filename) + 16);
 	ft_strcat(bin, path);
 	ft_strcat(bin, "/");
 	ft_strcat(bin, filename);
@@ -30,9 +30,10 @@ char	**ft_get_path(t_prompt *prompt)
 	char	**path;
 
 	i = 0;
+	path = NULL;
 	while (prompt->environment[i])
 	{
-		if (ft_strncmp(prompt->environment[i], "PATH") == 0)
+		if (ft_strcmp(prompt->environment[i], "PATH") == 0)
 		{
 			p = prompt->environment[i];
 			p += 5;

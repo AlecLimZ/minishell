@@ -1,42 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_create.c                                        :+:      :+:    :+:   */
+/*   util3.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: leng-chu <-chu@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/25 13:35:26 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/04/26 14:34:09 by leng-chu         ###   ########.fr       */
+/*   Created: 2022/04/26 14:45:09 by leng-chu          #+#    #+#             */
+/*   Updated: 2022/04/26 15:15:27 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_char(void)
+int	ft_strcmp(const char *s1, const char *s2)
 {
-	char	buf[4];
-	int		nbr;
-	int		fd;
+	size_t	i;
 
-	fd = open("/dev/random", O_RDONLY);
-	if (fd < -1)
+	i = 0;
+	if (!s1 && !s2)
+		return (0);
+	if (!s1)
 		return (-1);
-	read(fd, buf, 4);
-	nbr = *(int *)buf;
-	if (nbr < 0)
-		nbr *= (-1);
-	return ('a' + nbr % 26);
+	if (!s2)
+		return (1);
+	while (s1[i] && s1[i] == s2[i])
+		i++;
+	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }
 
-char	*ft_create_file(void)
+void	ft_delete_token(void *arg)
 {
-	char	*filename;
-	int		i;
+	t_list	*token;
 
-	i = -1;
-	filename = malloc(sizeof(char) * 11);
-	filename[10] = '\0';
-	while (++i < 10)
-		filename[i] = (char)ft_char();
-	return (filename);
+	if (!arg)
+		return ;
+	token = (t_list *)arg;
+	free(token->content);
+	free(token);
+	token = NULL;
 }

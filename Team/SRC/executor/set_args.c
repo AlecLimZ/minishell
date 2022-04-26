@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "yeejin.h"
+
 #include "alec.h"
 
 void	set_args(t_cmd *cmd, t_list *token)

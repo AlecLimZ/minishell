@@ -6,13 +6,11 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 09:27:37 by yang              #+#    #+#             */
-/*   Updated: 2022/04/25 15:47:20 by yang             ###   ########.fr       */
+/*   Updated: 2022/04/26 18:00:22 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "yeejin.h"
-#include "alec.h"
 
 void	set_cmd(t_cmd *cmd)
 {
@@ -122,11 +120,11 @@ void	exec_args(t_prompt *prompt)
 		// if (prompt->cmds[i].outfile != STDOUT)
 		// 	dup_n_close(prompt->cmds[i].outfile, STDOUT);
 		printf("infile: %d\t outfile: %d\n", prompt->cmds[i].infile, prompt->cmds[i].outfile);
-		if (ft_is_built(prompt->cmds[i].token->content, prompt))
-		{
-			;
-		}
-		else
+	//	if (ft_is_built(prompt->cmds[i].token->content, prompt))
+	//	{
+	//		;
+	//	}
+	//	else
 			execute(prompt, &prompt->cmds[i], i, pipefd);
 
 	}

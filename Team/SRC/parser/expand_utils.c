@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "yeejin.h"
+
 
 int	is_name(char *str)
 {

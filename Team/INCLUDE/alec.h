@@ -6,7 +6,7 @@
 /*   By: leng-chu <leng-chu@student.42kl.edu.m      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 12:15:11 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/04/25 14:34:26 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/04/26 18:14:53 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,15 @@
 # define ALEC_H
 
 # include "minishell.h"
+# include "yeejin.h"
+
+typedef struct s_prompt	t_prompt;
+typedef struct s_cmd	t_cmd;
 
 /*ft_inbuilts.c*/
 int	ft_is_built(char *cmd, t_prompt *prompt);
 int	ft_exit(t_prompt *prompt);
-int	ft_pwd(t_prompt *prompt);
+int	ft_pwd(void);
 int	ft_env(t_prompt *prompt);
 
 /*ft_export.c*/
@@ -48,12 +52,17 @@ char	*ft_create_file(void);
 /*ft_heredoc*/
 char	*if_env(char *str, char *s, int *cur);
 char	*if_no_env(char *str, char *s, int *cur);
-void	ft_launch_heredoc(t_cmd *cmd);
+int		ft_launch_heredoc(t_cmd *cmd);
 int		ft_write_infd(int fd, t_cmd *cmd);
 char	*ft_expanded(char *str);
 
+/*ft_get_env.c*/
+char	*ft_get_envp(int *cur, char *str);
+int		ft_env_len(char *str);
+char	*ft_alloc(int *cur);
+
 /*utils.c*/
-void	ft_free_split(char *s);
+void	ft_free_split(char **s);
 int		ft_tablen(char **s);
 int		ft_getcharpos(char *str, char c);
 int		ft_envcount(t_prompt *prompt);
@@ -64,5 +73,10 @@ void	ft_free_array(char **array);
 char	*ft_strcat(char *s1, const char *s2);
 char	*ft_freestr(char *s);
 char	*ft_stringenv(char *s, char *tmp, int *cur);
+char	*ft_strncpy(char *dst, const char *src, size_t len);
+
+/*utils3.c*/
+int		ft_strcmp(const char *s1, const char *s2);
+void	ft_delete_token(void *arg);
 
 #endif

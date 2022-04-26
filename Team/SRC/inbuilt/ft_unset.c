@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 22:32:42 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/04/25 16:09:23 by yang             ###   ########.fr       */
+/*   Updated: 2022/04/26 15:27:57 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	ft_findenv(char *env, t_prompt *prompt)
 	{
 		if (ft_getcharpos(prompt->environment[i], '=') == -1)
 			index = ft_strlen(prompt->environment[i]);
-		sub = ft_subtr(prompt->environment[i], 0, index);
+		sub = ft_substr(prompt->environment[i], 0, index);
 		if (sub)
 		{
 			if (!ft_strcmp(sub, env))
@@ -63,7 +63,7 @@ int	ft_unset(t_prompt *prompt)
 {
 	int	i;
 	int	pos;
-	char	*args[];
+	char	**args;
 
 	i = 0;
 	args = prompt->cmds[0].args;
@@ -75,7 +75,7 @@ int	ft_unset(t_prompt *prompt)
 		if (pos != -1)
 		{
 			if (prompt->environment[i])
-				prompt->environment[i] = ft_delenv(pos, prompt);
+				prompt->environment = ft_delenv(pos, prompt);
 		}
 		else
 		{

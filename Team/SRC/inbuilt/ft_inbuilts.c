@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_inbuilt_check.c                                 :+:      :+:    :+:   */
+/*   ft_inbuilts.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: leng-chu <leng-chu@student.42kl.edu.m      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 12:22:38 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/04/22 18:06:05 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/04/26 18:44:54 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,17 @@ int	ft_is_built(char *cmd, t_prompt *prompt)
 {
 	if (!ft_strncmp(cmd, "echo", 4))
 		return (ft_echo(prompt));
-	if (!ft_strncmp(cmd, "cd", 2) && ft_strlen(cmd == 2))
+	if (!ft_strncmp(cmd, "cd", 2) && ft_strlen(cmd) == 2)
 		return (ft_cd(prompt));
-	if (!ft_strncmp(cmd, "pwd", 3) && ft_strlen(cmd == 3))
-		return (ft_pwd(prompt));
-	if (!ft_strncmp(cmd, "export", 6) && ft_strlen(cmd == 6))
+	if (!ft_strncmp(cmd, "pwd", 3) && ft_strlen(cmd) == 3)
+		return (ft_pwd());
+	if (!ft_strncmp(cmd, "export", 6) && ft_strlen(cmd) == 6)
 		return (ft_export(prompt));
-	if (!ft_strncmp(cmd, "unset", 5) && ft_strlen(cmd == 5))
+	if (!ft_strncmp(cmd, "unset", 5) && ft_strlen(cmd) == 5)
 		return (ft_unset(prompt));
-	if (!ft_strncmp(cmd, "env", 3) && ft_strlen(cmd == 3))
+	if (!ft_strncmp(cmd, "env", 3) && ft_strlen(cmd) == 3)
 		return (ft_env(prompt));
-	if (!ft_strncmp(cmd, "exit", 4) && ft_strlen(cmd == 4))
+	if (!ft_strncmp(cmd, "exit", 4) && ft_strlen(cmd) == 4)
 		return (ft_exit(prompt));
 	return (0);
 }
@@ -34,16 +34,16 @@ int	ft_is_built(char *cmd, t_prompt *prompt)
 int	ft_exit(t_prompt *prompt)
 {
 	t_list	*token;
-	t_tist	*tmp;
+	t_list	*tmp;
 	int		i;
 	int		j;
 
 	i = -1;
-	while (prompt->cmds[++i])
+	while (++i < prompt->total_cmds)
 	{
 		j = -1;
-		while(prompt->cmds.args[++j])
-			free(prompt->cmds.args[j]);
+		while(prompt->cmds[i].args[++j])
+			free(prompt->cmds[i].args[j]);
 		token = prompt->cmds[i].token;
 		while (token != NULL)
 		{
@@ -56,13 +56,13 @@ int	ft_exit(t_prompt *prompt)
 	exit(0);
 }
 
-int	ft_pwd(t_prompt *prompt)
+int	ft_pwd(void)
 {
 	char	*buf;
 
 	buf = NULL;
 	getcwd(buf, 2000);
-	ft_putend1_fd(buf, STDOUT);
+	ft_putendl_fd(buf, STDOUT);
 	return (1);
 }
 
@@ -72,6 +72,6 @@ int	ft_env(t_prompt *prompt)
 
 	i = -1;
 	while (prompt->environment[++i])
-		ft_putendl_fd(prompt->environment[i]);
+		ft_putendl_fd(prompt->environment[i], 1);
 	return (1);
 }

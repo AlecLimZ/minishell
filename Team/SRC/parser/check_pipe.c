@@ -6,12 +6,11 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 14:42:59 by yang              #+#    #+#             */
-/*   Updated: 2022/04/22 14:43:22 by yang             ###   ########.fr       */
+/*   Updated: 2022/04/26 18:37:26 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "yeejin.h"
 
 int	check_pipe_2(char **check, int i, int j)
 {

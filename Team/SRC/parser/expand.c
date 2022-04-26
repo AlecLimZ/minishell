@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "yeejin.h"
+
 
 static char	*expand_path(char *prefix, char *postfix, char *path)
 {

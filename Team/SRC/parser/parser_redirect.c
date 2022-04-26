@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "yeejin.h"
+
 
 void	token_bef_operator(t_cmd *cmd, char **token, int pos, int i)
 {

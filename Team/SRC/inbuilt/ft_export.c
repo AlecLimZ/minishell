@@ -6,7 +6,7 @@
 /*   By: leng-chu <leng-chu@student.42kl.edu.m      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 18:08:32 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/04/22 21:19:49 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/04/26 14:58:12 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	ft_replace_val(char **env, char **tmp)
 		{
 			if (tmp && env)
 			{
-				tmp2 = ft_strjoin(tmp[0], '=');
+				tmp2 = ft_strjoin(tmp[0], "=");
 				free(env[i]);
 				if (!tmp[1])
 					env[i] = ft_strdup(tmp2);
@@ -67,9 +67,9 @@ char	**ft_create(t_prompt *prompt, char *args)
 
 void	ft_newexport(t_prompt *prompt, char **tmp, char *args)
 {
-	free_split(tmp);
+	ft_free_split(tmp);
 	tmp = ft_create(prompt, args);
-	free_split(prompt->environment);
+	ft_free_split(prompt->environment);
 	prompt->environment = tmp;
 }
 

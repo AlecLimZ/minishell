@@ -6,7 +6,7 @@
 /*   By: leng-chu <leng-chu@student.42kl.edu.m      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 18:55:41 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/04/25 14:34:53 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/04/26 14:42:57 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,19 +40,19 @@ char	*if_no_env(char *str, char *s, int *cur)
 		return (ft_freestr(s));
 	new = ft_strncpy(new, str + start, ((*cur) - start));
 	join = ft_strjoin(s, new);
-	freestr(s);
-	freestr(new);
+	ft_freestr(s);
+	ft_freestr(new);
 	return (join);
 }
 
-void	ft_launch_heredoc(t_cmd *cmd)
+int	ft_launch_heredoc(t_cmd *cmd)
 {
 	int		fd;
 	char	*filename;
 
 	filename = NULL;
 	fd = -1;
-	while (fd == -1);
+	while (fd == -1)
 	{
 		if (filename)
 			free(filename);

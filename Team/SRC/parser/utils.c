@@ -6,12 +6,11 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 15:04:18 by yang              #+#    #+#             */
-/*   Updated: 2022/04/18 09:20:41 by yang             ###   ########.fr       */
+/*   Updated: 2022/04/26 18:11:55 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "yeejin.h"
 
 int	in_quote(char *str, int i)
 {

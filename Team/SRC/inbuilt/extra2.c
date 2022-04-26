@@ -6,7 +6,7 @@
 /*   By: leng-chu <-chu@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 15:21:30 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/04/25 14:26:29 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/04/26 16:25:26 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ char	*ft_strcat(char *s1, const char *s2)
 
 char	*ft_freestr(char *s)
 {
-	if (s1)
-		free(s1);
+	if (s)
+		free(s);
 	return (NULL);
 }
 
@@ -58,8 +58,25 @@ char	*ft_stringenv(char *s, char *tmp, int *cur)
 	char	*tmp2;
 
 	tmp2 = NULL;
-	tmp2 = get_env(cur, str);
+	tmp2 = ft_get_envp(cur, s + *cur);
 	if (!tmp2)
 		return (ft_freestr(tmp));
 	return (tmp2);
+}
+
+char	*ft_strncpy(char *dst, const char *src, size_t len)
+{
+	size_t	i;
+
+	i = -1;
+	if (!dst || !src)
+		return (dst);
+	while (++i < len)
+		dst[i] = '\0';
+	i = -1;
+	while (++i < len && src[i] != '\0')
+		dst[i] = src[i];
+	while (i < len)
+		dst[i++] = '\0';
+	return (dst);
 }
