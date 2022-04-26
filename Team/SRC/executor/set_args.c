@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 18:39:10 by yang              #+#    #+#             */
-/*   Updated: 2022/04/25 15:47:34 by yang             ###   ########.fr       */
+/*   Updated: 2022/04/26 20:29:15 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,27 @@ void	set_args(t_cmd *cmd, t_list *token)
 	}
 	args[++i] = 0;
 	cmd->args = args;
+}
+
+void	set_envp(t_prompt *prompt)
+{
+	t_list	*head;
+	int		i;
+
+	i = 0;
+	head = prompt->envp;
+	while (head)
+	{
+		i++;
+		head = head->next;
+	}
+	prompt->env = (char **)malloc(sizeof(char *) * (i + 1));
+	head = prompt->envp;
+	i = -1;
+	while (head)
+	{
+		prompt->env[++i] = ft_strdup(head->content);
+		head = head->next;
+	}
+	prompt->env[++i] = 0;
 }

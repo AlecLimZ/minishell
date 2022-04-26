@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 16:53:45 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/04/26 18:01:19 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/04/26 20:29:38 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	main(int argc, char *argv[], char *envp[])
 		return EXIT_FAILURE;
 	ft_memset(prompt, 0, sizeof(t_prompt));
 	init_env(prompt, envp);
-	prompt->environment = envp;
+	prompt->env = envp;
 	//signal(SIGINT, new_prompt);
 	while (argc && argv)
 	{

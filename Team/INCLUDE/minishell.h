@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 16:54:47 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/04/23 18:03:25 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/04/26 20:27:44 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <sys/types.h>
 # include <signal.h>
 # include <fcntl.h>
+# include <sys/stat.h>
 # include "libft.h"
 # include "yeejin.h"
 # include "alec.h"
@@ -47,7 +48,7 @@ enum	e_token_type
 struct s_prompt
 {
 	t_list			*envp;
-	char			**environment;
+	char			**env;
 	struct s_cmd	*cmds;
 	int				total_cmds;
 };
