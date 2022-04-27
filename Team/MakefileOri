@@ -10,7 +10,7 @@ CPPFLAGS		=	-I/usr/local/opt/readline/include
 INC_DIR			= 	-IINCLUDE
 LIBPATH			=	SRC/libft
 LIBFT			=	SRC/libft/libft.a
-SRC				= 	main.c
+SRC				= 	*.c
 OBJS			=	$(addprefix $(OBJ_DIR)/, $(SRC:.c=.o))
 GCC				= 	gcc -Wall -Wextra -Werror
 DEF				= "\033[0m"

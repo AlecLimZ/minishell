@@ -6,27 +6,30 @@
 /*   By: leng-chu <leng-chu@student.42kl.edu.m      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 12:22:38 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/04/27 13:22:22 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/04/27 15:57:01 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_is_built(char **cmd, t_prompt *prompt)
+int	ft_is_built(t_cmd *cmd, t_prompt *prompt)
 {
-	if (!ft_strncmp(cmd[0], "echo", 4))
-		return (ft_echo(prompt));
-	if (!ft_strncmp(cmd[0], "cd", 2) && ft_strlen(cmd[0]) == 2)
+	char	**argv;
+
+	argv = cmd->args;
+	if (!ft_strncmp(argv[0], "echo", 4))
+		return (ft_echo(cmd));
+	if (!ft_strncmp(argv[0], "cd", 2) && ft_strlen(argv[0]) == 2)
 		return (ft_cd(prompt));
-	if (!ft_strncmp(cmd[0], "pwd", 3) && ft_strlen(cmd[0]) == 3)
+	if (!ft_strncmp(argv[0], "pwd", 3) && ft_strlen(argv[0]) == 3)
 		return (ft_pwd());
-	if (!ft_strncmp(cmd[0], "export", 6) && ft_strlen(cmd[0]) == 6)
+	if (!ft_strncmp(argv[0], "export", 6) && ft_strlen(argv[0]) == 6)
 		return (ft_export(prompt));
-	if (!ft_strncmp(cmd[0], "unset", 5) && ft_strlen(cmd[0]) == 5)
+	if (!ft_strncmp(argv[0], "unset", 5) && ft_strlen(argv[0]) == 5)
 		return (ft_unset(prompt));
-	if (!ft_strncmp(cmd[0], "env", 3) && ft_strlen(cmd[0]) == 3)
+	if (!ft_strncmp(argv[0], "env", 3) && ft_strlen(argv[0]) == 3)
 		return (ft_env(prompt));
-	if (!ft_strncmp(cmd[0], "exit", 4) && ft_strlen(cmd[0]) == 4)
+	if (!ft_strncmp(argv[0], "exit", 4) && ft_strlen(argv[0]) == 4)
 		return (ft_exit(prompt));
 	return (0);
 }

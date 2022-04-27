@@ -6,7 +6,7 @@
 /*   By: leng-chu <leng-chu@student.42kl.edu.m      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 14:08:21 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/04/26 14:55:56 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/04/27 16:24:50 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,20 +37,20 @@ int	ft_cd(t_prompt *prompt)
 	return (1);
 }
 
-int	ft_echo(t_prompt *prompt)
+int	ft_echo(t_cmd *cmd)
 {
 	int		i;
 	char	**args;
 
-	args = prompt->cmds[0].args;
+	args = cmd->args;
 	if (!args[1])
 		return (1);
 	i = 0;
 	if (args[1] && !ft_strcmp(args[1], "-n"))
 		i = 1;
 	while (args[++i])
-		printf("%s ", args[i]);
+		ft_putstr_fd(args[i], STDOUT);
 	if (ft_strcmp(args[1], "-n"))
-		printf("\n");
+		ft_putstr_fd("\n", STDOUT);
 	return (1);
 }
