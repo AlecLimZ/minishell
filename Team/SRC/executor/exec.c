@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 09:27:37 by yang              #+#    #+#             */
-/*   Updated: 2022/04/26 20:28:47 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/04/27 13:21:03 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,9 @@ void	execute(t_prompt *prompt, t_cmd *cmd, int i, int pipefd[2])
 	if (pid == 0)
 	{
 		pipe_cmd(prompt, i, pipefd, keep_fd);
-		do_exec_cmd(cmd->args, prompt); //check user input is relative path or command
+		if (ft_is_built(cmd->args, prompt));
+		else
+			do_exec_cmd(cmd->args, prompt); //check user input is relative path or command
 	}
 	else
 	{

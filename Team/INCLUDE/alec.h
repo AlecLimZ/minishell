@@ -6,7 +6,7 @@
 /*   By: leng-chu <leng-chu@student.42kl.edu.m      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 12:15:11 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/04/26 20:04:27 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/04/27 13:21:51 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ typedef struct s_prompt	t_prompt;
 typedef struct s_cmd	t_cmd;
 
 /*ft_inbuilts.c*/
-int	ft_is_built(char *cmd, t_prompt *prompt);
+int	ft_is_built(char **cmd, t_prompt *prompt);
 int	ft_exit(t_prompt *prompt);
 int	ft_pwd(void);
 int	ft_env(t_prompt *prompt);
