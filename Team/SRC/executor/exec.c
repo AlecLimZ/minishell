@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 09:27:37 by yang              #+#    #+#             */
-/*   Updated: 2022/04/29 14:40:40 by yang             ###   ########.fr       */
+/*   Updated: 2022/04/29 16:56:53 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,8 @@ static void	execute(t_prompt *prompt, t_cmd *cmd, int i, int pipefd[2])
 		if (ft_is_built(cmd, prompt))
 			exit(0);
 		else
+		//if (ft_is_built(cmd, prompt));
+		//else
 			do_exec_cmd(cmd->args, prompt); //check user input is relative path or command
 	}
 	else

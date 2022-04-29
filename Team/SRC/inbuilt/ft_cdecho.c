@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 14:08:21 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/04/28 17:57:48 by yang             ###   ########.fr       */
+/*   Updated: 2022/04/29 16:58:20 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,6 @@ int	ft_echo(t_cmd *cmd)
 	}
 	/* check case if -nnnnnn(treat as single -n) and -nnnnnn213(treat as string) */
 	if (ft_strcmp(args[1], "-n"))
-		printf("\n");
+		ft_putstr_fd("\n", STDOUT);
 	return (1);
 }
