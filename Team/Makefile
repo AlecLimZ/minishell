@@ -5,7 +5,7 @@ SRC			=	main.c
 SRC_DIR		= 	SRC/
 SRCS		=	$(addprefix $(SRC_DIR), $(SRC))
 
-PARSING		=	check_pipe.c expand.c expand_utils.c parser.c parser_redirect.c split_cmds.c remove_quote.c utils.c
+PARSING		=	check_pipe.c expand.c expand_utils.c parser.c parser_redirect.c split_cmds.c remove_quote.c utils.c cleanup.c
 PARSING_DIR	=	SRC/parser/
 PARSINGS 	=	$(addprefix $(PARSING_DIR), $(PARSING))
 
@@ -17,7 +17,7 @@ HEREDOC		=	ft_create.c ft_get_env.c ft_heredoc.c
 HEREDOC_DIR	=	SRC/heredoc/
 HEREDOCS	=	$(addprefix $(HEREDOC_DIR), $(HEREDOC))
 
-EXEC		=	exec.c redirect.c search_path.c set_args.c
+EXEC		=	exec.c redirect.c search_path.c set_args.c dup_utils.c
 EXEC_DIR	=	SRC/executor/
 EXECS		=	$(addprefix $(EXEC_DIR), $(EXEC))
 

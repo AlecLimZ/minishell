@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 14:08:21 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/04/29 16:58:20 by yang             ###   ########.fr       */
+/*   Updated: 2022/04/29 17:16:55 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,9 @@ int	ft_echo(t_cmd *cmd)
 		i = 1;
 	while (args[++i])
 	{
-		printf("%s", args[i]);
+		ft_putstr_fd(args[i], STDOUT);
 		if (args[i + 1])
-			printf(" ");
+			write(1, " ", 1);
 	}
 	/* check case if -nnnnnn(treat as single -n) and -nnnnnn213(treat as string) */
 	if (ft_strcmp(args[1], "-n"))
