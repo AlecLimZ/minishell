@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 09:27:37 by yang              #+#    #+#             */
-/*   Updated: 2022/04/29 16:56:53 by yang             ###   ########.fr       */
+/*   Updated: 2022/04/29 21:10:19 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ static int do_exec_cmd(char **argv, t_prompt *prompt)
 		/* check if command is build in */
 		path = search_path(getenv("PATH"), argv[0]);
 		if (!path)
-			return (0);
+			exit(1);
 		execve(path, argv, prompt->env);
 		free(path);
 	}
@@ -98,11 +98,12 @@ static void	execute(t_prompt *prompt, t_cmd *cmd, int i, int pipefd[2])
 	if (pid == 0)
 	{
 		pipe_cmd(prompt, i, pipefd, keep_fd);
-		if (ft_is_built(cmd, prompt))
+		if (ft_is_built(cmd))
+		{
+			ft_inbuilt(cmd, prompt);
 			exit(0);
+		}
 		else
-		//if (ft_is_built(cmd, prompt));
-		//else
 			do_exec_cmd(cmd->args, prompt); //check user input is relative path or command
 	}
 	else
@@ -134,8 +135,9 @@ int	exec_args(t_prompt *prompt)
 			return (0);
 		if (prompt->total_cmds > 1 && i < prompt->total_cmds - 1)
 			pipe(pipefd);
-		if (prompt->total_cmds == 1 && ft_is_built(cmd, prompt))
+		if (prompt->total_cmds == 1 && ft_is_built(cmd))
 		{
+			ft_inbuilt(cmd, prompt);
 			dup2(save_stdout, 1);
 			close(save_stdout);
 		}

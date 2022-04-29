@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 16:54:47 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/04/29 17:20:59 by yang             ###   ########.fr       */
+/*   Updated: 2022/04/29 21:26:26 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # include "yeejin.h"
 # include "alec.h"
 
+# define DEF "\033[0m"
 # define BRED "\033[1;31m"
 # define GRN "\e[0;32m"
 # define BLU "\e[0;34m"
@@ -51,6 +52,7 @@ struct s_prompt
 {
 	t_list			*envp;
 	char			**env;
+	char			**our_env;
 	struct s_cmd	*cmds;
 	int				total_cmds;
 };

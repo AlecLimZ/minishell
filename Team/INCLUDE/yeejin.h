@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 14:50:34 by yang              #+#    #+#             */
-/*   Updated: 2022/04/29 16:55:03 by yang             ###   ########.fr       */
+/*   Updated: 2022/04/29 19:42:54 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,9 @@
 
 # include "minishell.h"
 # include "alec.h"
-# define STDOUT 1
-# define STDIN 0
+# define STDERR	2
+# define STDOUT	1
+# define STDIN	0
 
 typedef struct	s_prompt t_prompt;
 typedef struct	s_cmd t_cmd;

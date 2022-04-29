@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 18:39:10 by yang              #+#    #+#             */
-/*   Updated: 2022/04/29 14:20:59 by yang             ###   ########.fr       */
+/*   Updated: 2022/04/29 20:45:30 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,4 +64,5 @@ void	set_envp(t_prompt *prompt)
 		head = head->next;
 	}
 	prompt->env[++i] = 0;
+	printf("hello?\n");
 }

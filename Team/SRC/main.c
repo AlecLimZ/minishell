@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 16:53:45 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/04/29 17:53:12 by yang             ###   ########.fr       */
+/*   Updated: 2022/04/29 21:27:10 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ int	init_env(t_prompt *prompt, char *envp[])
 		new = ft_lstnew(envp[i]);
 		ft_lstadd_back(&prompt->envp, new);
 	}
+	prompt->our_env = envp;
 	return (0);
 }
 
