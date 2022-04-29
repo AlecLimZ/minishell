@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 16:53:45 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/04/29 16:50:12 by yang             ###   ########.fr       */
+/*   Updated: 2022/04/29 17:34:12 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,11 +94,17 @@ static int	minishell(t_prompt *prompt, char *input_str)
 
 int	main(int argc, char *argv[], char *envp[])
 {
-	char		input_str[MAXCOM];
-	t_prompt	*prompt;
+	char			input_str[MAXCOM];
+	t_prompt		*prompt;
+	struct termios	termios_new;
+	struct termios	termios_save;
 
 	(void)argc;
 	(void)argv;
+	tcgetattr(0, &termios_save);
+	termios_new = termios_save;
+	termios_new.c_lflag &= ~ECHOCTL;
+	tcsetattr(0, 0, &termios_new);
 	prompt = malloc(sizeof(t_prompt));
 	if (!prompt)
 		return (EXIT_FAILURE);
@@ -107,25 +113,10 @@ int	main(int argc, char *argv[], char *envp[])
 	signal(SIGINT, new_prompt);
 	signal(SIGQUIT, SIG_IGN);
 	if (minishell(prompt, input_str))
+	{
+		tcsetattr(0, 0, &termios_save);
 		return (1);
-	// while (true)
-	// {
-	// 	ft_memset(input_str, 0, MAXCOM);
-	// 	input = get_input(input_str);
-	// 	if (input == -1)
-	// 		break ;
-	// 	if (input)
-	// 	{
-	// 		if (parser(prompt, input_str) == -1)
-	// 		{
-	// 			perror("error occurred when parsing command\n");
-	// 			system("leaks minishell");
-	// 			return (clean_up(prompt, 0, 1));
-	// 		}
-	// 		exec_args(prompt);
-	// 	}
-	// 	clean_up(prompt, input - 1, 2);
-	// }
-	//system("leaks ./minishell");
+	}
+	tcsetattr(0, 0, &termios_save);
 	return EXIT_SUCCESS;
 }

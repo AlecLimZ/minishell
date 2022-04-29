@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 16:54:47 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/04/27 14:28:57 by yang             ###   ########.fr       */
+/*   Updated: 2022/04/29 17:20:59 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <fcntl.h>
 # include <sys/stat.h>
 # include <stdbool.h>
+# include <termios.h>
 # include "libft.h"
 # include "yeejin.h"
 # include "alec.h"
