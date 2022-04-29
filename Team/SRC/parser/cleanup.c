@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 14:38:20 by yang              #+#    #+#             */
-/*   Updated: 2022/04/29 14:37:06 by yang             ###   ########.fr       */
+/*   Updated: 2022/04/29 17:53:02 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	clean_up(t_prompt *prompt, int total, int stage)
 		free_lst(&prompt->envp);
 		free(prompt);
 	}
-	if (stage == 2)
+	if (stage == 2 && total >= 0) 
 	{
 		while (++i <= total)
 			free_lst(&prompt->cmds[i].token);
