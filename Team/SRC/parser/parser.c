@@ -6,12 +6,11 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 15:31:23 by yang              #+#    #+#             */
-/*   Updated: 2022/04/25 14:12:04 by yang             ###   ########.fr       */
+/*   Updated: 2022/04/29 14:34:34 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
 
 void	print_cmds(t_prompt *prompt)
 {
@@ -55,7 +54,7 @@ void	set_token_type(t_list *new, int i)
 		new->type = ARGUMENT;
 }
 
-int	set_token_after_redirect(t_cmd *cmd, char **token, int redirect)
+static int	set_token_after_redirect(t_cmd *cmd, char **token, int redirect)
 {
 	int		i;
 	t_list	*new;
@@ -63,7 +62,7 @@ int	set_token_after_redirect(t_cmd *cmd, char **token, int redirect)
 
 	i = 0;
 	if (redirect == -1)
-		return (-1);
+		return (free_double_ptr(token, true));
 	head = cmd->token;
 	while (head && head->type <= 2)
 	{
@@ -78,10 +77,10 @@ int	set_token_after_redirect(t_cmd *cmd, char **token, int redirect)
 		redirect++;
 		i++;
 	}
-	return (0);
+	return (free_double_ptr(token, false));
 }
 
-int	tokenize(t_cmd *cmd, char *str)
+static int	tokenize(t_cmd *cmd, char *str)
 {
 	char	**token;
 	t_list	*new;
@@ -89,6 +88,8 @@ int	tokenize(t_cmd *cmd, char *str)
 	int		redirect;
 
 	token = ft_split_str(str, ' ');
+	free(str);
+	str = NULL;
 	i = -1;
 	while (token[++i])
 	{
@@ -119,13 +120,15 @@ int	parser(t_prompt *prompt, char *str)
 	while (split_cmd[++i])
 	{
 		ft_memset(&prompt->cmds[i], 0, sizeof(t_cmd));
-		if (tokenize(&prompt->cmds[i], ft_strtrim(split_cmd[i], " ")) == -1)
-			return (-1);
+		str = ft_strtrim(split_cmd[i], " ");
+		if (tokenize(&prompt->cmds[i], str) == -1)
+		{
+			free_double_ptr(split_cmd, false);
+			return (clean_up(prompt, i, 2));
+		}
 	}
-	free_malloc(split_cmd);
+	free_double_ptr(split_cmd, false);
 	expand_token(prompt);
 	print_cmds(prompt);
 	return (0);
 }
-
-// if parser == -1, means there is error when parsing command

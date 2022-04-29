@@ -6,12 +6,11 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 11:22:23 by yang              #+#    #+#             */
-/*   Updated: 2022/04/25 11:26:46 by yang             ###   ########.fr       */
+/*   Updated: 2022/04/29 13:00:08 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
 
 int	is_name(char *str)
 {
@@ -50,9 +49,7 @@ int	get_env_pos(char *str)
 char	*get_prefix(char *str, int i)
 {
 	if (i > 0)
-	{
 		return (ft_strndup(str, i));
-	}
 	return (NULL);
 }
 

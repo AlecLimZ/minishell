@@ -6,12 +6,11 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 11:21:45 by yang              #+#    #+#             */
-/*   Updated: 2022/04/25 13:05:43 by yang             ###   ########.fr       */
+/*   Updated: 2022/04/29 13:51:01 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
 
 static char	*expand_path(char *prefix, char *postfix, char *path)
 {
@@ -96,7 +95,7 @@ int	add_var_to_list(t_cmd *cmd, t_list *head, char *str)
 			set_token_type(new, i);
 			ft_lstadd_pos(&cmd->token, new, i + 1);
 		}
-		free_malloc(token);
+		free_double_ptr(token, false);
 	}
 	else
 		head->content = str;

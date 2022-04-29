@@ -6,17 +6,17 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 14:42:59 by yang              #+#    #+#             */
-/*   Updated: 2022/04/26 18:37:26 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/04/29 13:48:53 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	check_pipe_2(char **check, int i, int j)
+static int	check_pipe_2(char **check, int i, int j)
 {
 	if (check[0][0] == '|' || check[i][j] == '|')
-		return (-1);
-	return (0);
+		return (free_double_ptr(check, true));
+	return (free_double_ptr(check, false));
 }
 
 int	check_pipe(char *str)
@@ -26,7 +26,7 @@ int	check_pipe(char *str)
 	int		j;
 	int		len;
 
-	len = count(ft_strtrim(str, " "), ' ');
+	len = count(str, ' ');
 	check = ft_split_str(str, ' ');
 	i = -1;
 	while (++i < len)
@@ -38,7 +38,7 @@ int	check_pipe(char *str)
 			{
 				if ((j < (int)ft_strlen(check[i]) - 1 && check[i][j + 1] == '|')
 					|| (i < len - 1 && check[i + 1][0] == '|'))
-					return (-1);
+					return (free_double_ptr(check, true));
 			}
 			else if (is_quote(check[i][j]))
 				j = in_quote(check[i], j);

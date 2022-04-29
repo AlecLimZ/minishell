@@ -6,14 +6,14 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 10:59:12 by yang              #+#    #+#             */
-/*   Updated: 2022/04/25 13:51:58 by yang             ###   ########.fr       */
+/*   Updated: 2022/04/29 14:05:06 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 
-void	token_bef_operator(t_cmd *cmd, char **token, int pos, int i)
+static void	token_bef_operator(t_cmd *cmd, char **token, int pos, int i)
 {
 	char	dest[MAXCOM];
 	t_list	*new;
@@ -28,32 +28,41 @@ void	token_bef_operator(t_cmd *cmd, char **token, int pos, int i)
 	}
 }
 
-int	get_operator_pos(char **token, int pos)
+/*
+get_operator_file check if input command is correct
+Invalid parsing for file will return (-1)
+i. No file after operator
+ii. operator len more than 2 
+iii. 2 consecutive operator
+iv. input operator like >< or <>
+*/
+
+static int	get_operator_pos(char **token, int pos)
 {
 	int		i;
+	int		len_redirect;
 	char	redirect;
 	char	*str;
 
-	i = 0;
+	i = -1;
 	str = token[pos];
-	while (str[i] && !is_operator(str[i]))
+	while (str[++i] && !is_operator(str[i]))
 	{
 		if (is_quote(str[i]))
 			i = in_quote(str, i);
-		i++;
 	}
 	redirect = str[i];
-	if (i == (int)ft_strlen(str) - 1 && token[pos + 1] == NULL)
+	len_redirect = 0;
+	while (is_operator(str[i + len_redirect]))
+		len_redirect++;
+	if ((i == (int)ft_strlen(str) - len_redirect && token[pos + 1] == NULL) 
+		|| len_redirect > 2 || (len_redirect == 2 && str[i + 1] != redirect)
+		|| (token[pos + 1] != NULL && is_operator(token[pos + 1][0])))
 		return (-1);
-	if (i < (int)ft_strlen(str) - 1 && is_operator(str[i + 1]))
-	{
-		if (str[i + 1] != redirect)
-			return (-1);
-	}
 	return (i);
 }
 
-int	get_file_pos(char *str)
+static int	get_file_pos(char *str)
 {
 	int	i;
 
@@ -68,27 +77,17 @@ int	get_file_pos(char *str)
 	return (i);
 }
 
-int	get_redirection_type(char *str)
+static int	get_redirection_type(char *str)
 {
-	char	redirect;
-	int		i;
-
-	i = 0;
-	redirect = str[i];
-	if (ft_strlen(str) > 1 && is_operator(str[i + 1]))
-	{
-		if (str[i + 1] != redirect)
-			return (-1);
-		if (redirect == '>')
-			return (GREATGREAT);
+	if (!ft_strncmp(str, ">>", 2))
+		return (GREATGREAT);
+	else if (!ft_strncmp(str, "<<", 2))
 		return (LESSLESS);
-	}
-	else
-	{
-		if (redirect == '>')
-			return (GREAT);
+	else if (!ft_strncmp(str, ">", 1))
+		return (GREAT);
+	else if (!ft_strncmp(str, "<", 1))
 		return (LESS);
-	}
+	return (-1);
 }
 
 int	set_token_redirection(t_cmd *cmd, char **token, int i)

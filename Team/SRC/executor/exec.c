@@ -3,53 +3,38 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
+/*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 09:27:37 by yang              #+#    #+#             */
-/*   Updated: 2022/04/27 13:21:03 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/04/29 14:40:40 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	set_cmd(t_cmd *cmd)
+static int	set_cmd(t_cmd *cmd)
 {
 	t_list	*head;
 	int		redir;
 
-	set_args(cmd, cmd->token);
+	if (!set_args(cmd, cmd->token))
+		return (0);
 	head = cmd->token;
 	while (head != NULL && head->type < 3)
 		head = head->next;
-	// if (head == NULL)
-	// {
 	cmd->infile = STDIN;
 	cmd->outfile = STDOUT;
-	//}
 	while (head != NULL)
 	{
 		redir = redirect(cmd, head->content, head->type);
 		if (redir < 0)
-			return ;
+			return (0);
 		head = head->next;
 	}
+	return (1);
 }
 
-void	dup_n_close(int	fd, int fd_dup)
-{
-	dup2(fd, fd_dup);
-	close(fd);
-}
-
-void	dup_infile_outfile(t_cmd *cmd)
-{
-	if (cmd->infile != STDIN)
-		dup_n_close(cmd->infile, STDIN);
-	if (cmd->outfile != STDOUT)
-		dup_n_close(cmd->outfile, STDOUT);
-}
-
-void	pipe_cmd(t_prompt *prompt, int i, int pipefd[2], int keep_fd)
+static void	pipe_cmd(t_prompt *prompt, int i, int pipefd[2], int keep_fd)
 {
 	t_cmd	*cmd;
 
@@ -76,7 +61,7 @@ void	pipe_cmd(t_prompt *prompt, int i, int pipefd[2], int keep_fd)
 	}
 }
 
-int do_exec_cmd(char **argv, t_prompt *prompt) //include build in here
+static int do_exec_cmd(char **argv, t_prompt *prompt)
 {
 	char		*path;
 	struct stat	st;
@@ -102,16 +87,19 @@ int do_exec_cmd(char **argv, t_prompt *prompt) //include build in here
 	return (0);
 }
 
-void	execute(t_prompt *prompt, t_cmd *cmd, int i, int pipefd[2])
+static void	execute(t_prompt *prompt, t_cmd *cmd, int i, int pipefd[2])
 {
 	int			pid;
 	static int	keep_fd;
 
 	pid = fork();
+	signal(SIGINT, SIG_DFL);
+	signal(SIGQUIT, SIG_DFL);
 	if (pid == 0)
 	{
 		pipe_cmd(prompt, i, pipefd, keep_fd);
-		if (ft_is_built(cmd->args, prompt));
+		if (ft_is_built(cmd, prompt))
+			exit(0);
 		else
 			do_exec_cmd(cmd->args, prompt); //check user input is relative path or command
 	}
@@ -125,21 +113,32 @@ void	execute(t_prompt *prompt, t_cmd *cmd, int i, int pipefd[2])
 			keep_fd = pipefd[0];
 		}
 		waitpid(pid, NULL, 0);
-	}	
+	}
 }
 
-void	exec_args(t_prompt *prompt)
+int	exec_args(t_prompt *prompt)
 {
-	int	i;
-	int	pipefd[2];
+	int		i;
+	t_cmd	*cmd;
+	int		pipefd[2];
+	int		save_stdout;
 
 	i = -1;
+	save_stdout = dup(1);
 	while (++i < prompt->total_cmds)
 	{
-		set_cmd(&prompt->cmds[i]); // set args and open infile outfile
-		/* pipe and execve */
+		cmd = &prompt->cmds[i];
+		if (!set_cmd(cmd))
+			return (0);
 		if (prompt->total_cmds > 1 && i < prompt->total_cmds - 1)
 			pipe(pipefd);
-		execute(prompt, &prompt->cmds[i], i, pipefd);
+		if (prompt->total_cmds == 1 && ft_is_built(cmd, prompt))
+		{
+			dup2(save_stdout, 1);
+			close(save_stdout);
+		}
+		else
+			execute(prompt, &prompt->cmds[i], i, pipefd);
 	}
+	return (1);
 }

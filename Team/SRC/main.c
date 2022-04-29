@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 16:53:45 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/04/26 20:29:38 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/04/29 16:50:12 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,17 +41,55 @@ int	init_env(t_prompt *prompt, char *envp[])
 /* get input from user and add it into history list */
 int	get_input(char *str)
 {
-	char *buf;
+	char	*buf;
+	int		i;
 
 	buf = readline(">>> ");
-	if (buf && ft_strlen(buf) != 0)
+	i = 0;
+	if (buf == NULL)
+	{
+		printf("exit\n");
+		return (-1);
+	}
+	while (buf[i] && is_space(buf[i]))
+		i++;
+	if (buf[i])
 	{
 		add_history(buf);
 		ft_strlcpy(str, buf, ft_strlen(buf) + 1);
+	}
+	if (!buf[i])
+	{
+		free(buf);
 		return (0);
 	}
-	else
-		return (1);
+	free(buf);
+	return (1);
+}
+
+static int	minishell(t_prompt *prompt, char *input_str)
+{
+	int	input;
+
+	while (true)
+	{
+		ft_memset(input_str, 0, MAXCOM);
+		input = get_input(input_str);
+		if (input == -1)
+			break ;
+		if (input)
+		{
+			if (parser(prompt, input_str) == -1)
+			{
+				perror("error occurred when parsing command\n");
+				system("leaks minishell");
+				return (clean_up(prompt, 0, 1));
+			}
+			exec_args(prompt);
+		}
+		clean_up(prompt, input - 1, 2);
+	}
+	return (0);
 }
 
 int	main(int argc, char *argv[], char *envp[])
@@ -59,28 +97,35 @@ int	main(int argc, char *argv[], char *envp[])
 	char		input_str[MAXCOM];
 	t_prompt	*prompt;
 
+	(void)argc;
+	(void)argv;
 	prompt = malloc(sizeof(t_prompt));
 	if (!prompt)
-		return EXIT_FAILURE;
+		return (EXIT_FAILURE);
 	ft_memset(prompt, 0, sizeof(t_prompt));
 	init_env(prompt, envp);
-	prompt->env = envp;
-	//signal(SIGINT, new_prompt);
-	while (argc && argv)
-	{
-		if (get_input(input_str))
-			continue;
-		if (parser(prompt, input_str) == -1)
-		{
-			printf("error occurred when parsing command\n");
-			return (1);
-		}
-		exec_args(prompt);
-		//printf("%s\n", getenv("HOME"));
-		//parser(prompt, input_str);
-		//split_args_pipe(input_str, str);
-		//Perform any shutdown/cleanup
-	}
-	
+	signal(SIGINT, new_prompt);
+	signal(SIGQUIT, SIG_IGN);
+	if (minishell(prompt, input_str))
+		return (1);
+	// while (true)
+	// {
+	// 	ft_memset(input_str, 0, MAXCOM);
+	// 	input = get_input(input_str);
+	// 	if (input == -1)
+	// 		break ;
+	// 	if (input)
+	// 	{
+	// 		if (parser(prompt, input_str) == -1)
+	// 		{
+	// 			perror("error occurred when parsing command\n");
+	// 			system("leaks minishell");
+	// 			return (clean_up(prompt, 0, 1));
+	// 		}
+	// 		exec_args(prompt);
+	// 	}
+	// 	clean_up(prompt, input - 1, 2);
+	// }
+	//system("leaks ./minishell");
 	return EXIT_SUCCESS;
 }

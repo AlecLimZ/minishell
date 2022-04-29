@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   alec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leng-chu <leng-chu@student.42kl.edu.m      +#+  +:+       +#+        */
+/*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 12:15:11 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/04/27 13:21:51 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/04/28 17:57:56 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ typedef struct s_prompt	t_prompt;
 typedef struct s_cmd	t_cmd;
 
 /*ft_inbuilts.c*/
-int	ft_is_built(char **cmd, t_prompt *prompt);
+int	ft_is_built(t_cmd *cmd, t_prompt *prompt);
 int	ft_exit(t_prompt *prompt);
 int	ft_pwd(void);
 int	ft_env(t_prompt *prompt);
@@ -34,7 +34,7 @@ int		ft_export(t_prompt *prompt);
 
 /*ft_cdecho*/
 int		ft_cd(t_prompt *prompt);
-int		ft_echo(t_prompt *prompt);
+int		ft_echo(t_cmd *cmd);
 
 /*ft_unset.c*/
 int		ft_unset(t_prompt *prompt);

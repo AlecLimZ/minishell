@@ -1,37 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   remove_quote.c                                     :+:      :+:    :+:   */
+/*   dup_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/13 13:27:45 by yang              #+#    #+#             */
-/*   Updated: 2022/04/29 13:49:39 by yang             ###   ########.fr       */
+/*   Created: 2022/04/29 14:19:17 by yang              #+#    #+#             */
+/*   Updated: 2022/04/29 14:19:50 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	remove_quotes(t_list *lst)
+void	dup_n_close(int	fd, int fd_dup)
 {
-	char	*str;
-	int		i;
-	int		close;
+	dup2(fd, fd_dup);
+	close(fd);
+}
 
-	str = lst->content;
-	i = 0;
-	while (str && str[i])
-	{
-		if (str[i] == '\'' || str[i] == '"')
-		{
-			close = in_quote(str, i) - 1;
-			ft_memmove(&str[i], &str[i + 1], ft_strlen(str) - i);
-			ft_memmove(&str[close], &str[close + 1], ft_strlen(str) - close);
-			i = close;
-		}
-		else
-			i++;
-		if (i <= 0)
-			break ;
-	}
+void	dup_infile_outfile(t_cmd *cmd)
+{
+	if (cmd->infile != STDIN)
+		dup_n_close(cmd->infile, STDIN);
+	if (cmd->outfile != STDOUT)
+		dup_n_close(cmd->outfile, STDOUT);
 }

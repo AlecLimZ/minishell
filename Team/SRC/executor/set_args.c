@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 18:39:10 by yang              #+#    #+#             */
-/*   Updated: 2022/04/26 20:29:15 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/04/29 14:20:59 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 #include "alec.h"
 
-void	set_args(t_cmd *cmd, t_list *token)
+int	set_args(t_cmd *cmd, t_list *token)
 {
 	t_list	*head;
 	char	**args;
@@ -27,8 +27,8 @@ void	set_args(t_cmd *cmd, t_list *token)
 		i++;
 		head = head->next;
 	}
-	// if (!i)
-	// 	return (0);
+	if (!i)
+		return (0);
 	args = (char **)malloc(sizeof(char *) * (i + 1));
 	head = token;
 	i = -1;
@@ -40,6 +40,7 @@ void	set_args(t_cmd *cmd, t_list *token)
 	}
 	args[++i] = 0;
 	cmd->args = args;
+	return (1);
 }
 
 void	set_envp(t_prompt *prompt)

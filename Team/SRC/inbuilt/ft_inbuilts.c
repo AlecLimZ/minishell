@@ -3,30 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   ft_inbuilts.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leng-chu <leng-chu@student.42kl.edu.m      +#+  +:+       +#+        */
+/*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 12:22:38 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/04/27 13:22:22 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/04/28 17:58:22 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_is_built(char **cmd, t_prompt *prompt)
+int	ft_is_built(t_cmd *cmd, t_prompt *prompt)
 {
-	if (!ft_strncmp(cmd[0], "echo", 4))
-		return (ft_echo(prompt));
-	if (!ft_strncmp(cmd[0], "cd", 2) && ft_strlen(cmd[0]) == 2)
+	char	**args;
+	int		len;
+
+	args = cmd->args;
+	len = ft_strlen(args[0]);
+	if (prompt->total_cmds == 1)
+		dup_infile_outfile(cmd);
+	if (!ft_strncmp(args[0], "echo", 4) && len == 4)
+		return (ft_echo(cmd));
+	else if (!ft_strncmp(args[0], "cd", 2) && len == 2)
 		return (ft_cd(prompt));
-	if (!ft_strncmp(cmd[0], "pwd", 3) && ft_strlen(cmd[0]) == 3)
+	else if (!ft_strncmp(args[0], "pwd", 3) && len == 3)
 		return (ft_pwd());
-	if (!ft_strncmp(cmd[0], "export", 6) && ft_strlen(cmd[0]) == 6)
+	else if (!ft_strncmp(args[0], "export", 6) && len == 6)
 		return (ft_export(prompt));
-	if (!ft_strncmp(cmd[0], "unset", 5) && ft_strlen(cmd[0]) == 5)
+	else if (!ft_strncmp(args[0], "unset", 5) && len == 5)
 		return (ft_unset(prompt));
-	if (!ft_strncmp(cmd[0], "env", 3) && ft_strlen(cmd[0]) == 3)
+	else if (!ft_strncmp(args[0], "env", 3) && len == 3)
 		return (ft_env(prompt));
-	if (!ft_strncmp(cmd[0], "exit", 4) && ft_strlen(cmd[0]) == 4)
+	else if (!ft_strncmp(args[0], "exit", 4) && len == 4)
 		return (ft_exit(prompt));
 	return (0);
 }

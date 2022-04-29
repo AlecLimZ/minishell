@@ -6,12 +6,20 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 15:25:35 by yang              #+#    #+#             */
-/*   Updated: 2022/04/25 14:09:55 by yang             ###   ########.fr       */
+/*   Updated: 2022/04/29 13:45:51 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+static int	split_pos(char *str, int i, char c)
+{
+	while (i < (int)ft_strlen(str) - 2
+		&& (str[i + 1] == c
+			|| (str[i + 1] == c && c == ' ' && is_space(c))))
+		i++;
+	return (i);
+}
 
 int	count(char *str, char c)
 {
@@ -25,8 +33,7 @@ int	count(char *str, char c)
 		if (str[i] == c || (str[i] == ' ' && c == ' ' && is_space(c)))
 		{
 			total++;
-			while (i < (int)ft_strlen(str) - 2 && str[i + 1] == c)
-				i++;
+			i = split_pos(str, i, c);
 		}
 		else if (str[i] == '"' || str[i] == '\'')
 			i = in_quote(str, i);
@@ -34,15 +41,6 @@ int	count(char *str, char c)
 			return (-1);
 	}
 	return (total);
-}
-
-int	split_pos(char *str, int i, char c)
-{
-	while (i < (int)ft_strlen(str) - 2
-		&& (str[i + 1] == c
-			|| (str[i + 1] == c && c == ' ' && is_space(c))))
-		i++;
-	return (i);
 }
 
 /* separate user input into each cmd by c */
@@ -73,14 +71,4 @@ char	**ft_split_str(char *str, char c)
 	w_split[++j] = ft_strndup(str + start_pos, i - start_pos);
 	w_split[++j] = NULL;
 	return (w_split);
-}
-
-void	free_malloc(char **array)
-{
-	int	i;
-
-	i = -1;
-	while (!array[++i])
-		free(array[i]);
-	free(array);
 }
