@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 22:32:42 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/04/26 20:18:31 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/04/30 18:00:10 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,10 @@ int	ft_findenv(char *env, t_prompt *prompt)
 		return (0);
 	i = -1;
 	sub = NULL;
-	while (prompt->env[++i])
+	while (prompt->our_env[++i])
 	{
-		if (ft_getcharpos(prompt->env[i], '=') == -1)
-			index = ft_strlen(prompt->env[i]);
-		sub = ft_substr(prompt->env[i], 0, index);
+		index = ft_getcharpos(prompt->our_env[i], '=');
+		sub = ft_substr(prompt->our_env[i], 0, index);
 		if (sub)
 		{
 			if (!ft_strcmp(sub, env))
@@ -36,37 +35,40 @@ int	ft_findenv(char *env, t_prompt *prompt)
 			}
 			free(sub);
 		}
-		i++;
 	}
 	return (-1);
 }
 
 char	**ft_delenv(int index, t_prompt *prompt)
 {
-	char	*tmp;
+	char	**tmp;
 	int		i;
-	int		size;
+//	int		size;
 
 	i = index;
-	size = ft_envcount(prompt);
-	while (prompt->env[i + 1])
-	{
-		tmp = ft_strdup(prompt->env[i + 1]);
-		free(prompt->env[i]);
-		prompt->env[i] = tmp;
-		i++;
-	}
-	return (ft_realloc_env((size - 1), prompt));
+	free(prompt->our_env[i]);
+	prompt->our_env[i] = NULL;
+	tmp = prompt->our_env;
+//	size = ft_envcount(prompt);
+//	while (prompt->our_env[i + 1])
+//	{
+//		tmp = ft_strdup(prompt->our_env[i + 1]);
+//		free(prompt->our_env[i]);
+//		prompt->our_env[i] = tmp;
+//		i++;
+//	}
+//	return (ft_realloc_env((size - 1), prompt));
+	return (tmp);
 }
 
-int	ft_unset(t_prompt *prompt)
+int	ft_unset(t_cmd *cmd, t_prompt *prompt)
 {
 	int		i;
 	int		pos;
 	char	**args;
 
 	i = 0;
-	args = prompt->cmds[0].args;
+	args = cmd->args;
 	if (!args[1])
 		return (1);
 	while (args[++i])
@@ -74,8 +76,8 @@ int	ft_unset(t_prompt *prompt)
 		pos = ft_findenv(args[i], prompt);
 		if (pos != -1)
 		{
-			if (prompt->env[i])
-				prompt->env = ft_delenv(pos, prompt);
+			if (prompt->our_env[pos])
+				prompt->our_env = ft_delenv(pos, prompt);
 		}
 		else
 		{

@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 12:15:11 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/04/29 21:18:34 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/04/30 17:03:08 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int		ft_cd(t_cmd *cmd);
 int		ft_echo(t_cmd *cmd);
 
 /*ft_unset.c*/
-int		ft_unset(t_prompt *prompt);
+int		ft_unset(t_cmd *cmd, t_prompt *prompt);
 char	**ft_delenv(int index, t_prompt *prompt);
 int		ft_findenv(char *env, t_prompt *prompt);
 

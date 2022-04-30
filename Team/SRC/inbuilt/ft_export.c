@@ -6,7 +6,7 @@
 /*   By: leng-chu <leng-chu@student.42kl.edu.m      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 18:08:32 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/04/29 21:51:09 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/04/30 15:19:38 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	ft_is_envar(char **env, char *tmp)
 	int	i;
 
 	i = -1;
-	while (env && env[++i])
+	while (env && (env[++i]))
 		if (!ft_strncmp(env[i], tmp, ft_strlen(tmp)))
 			return (1);
 	return (0);
@@ -68,9 +68,9 @@ char	**ft_create(t_prompt *prompt, char *args)
 
 void	ft_newexport(t_prompt *prompt, char **tmp, char *args)
 {
-	ft_free_split(tmp);
+	//ft_free_split(tmp);
 	tmp = ft_create(prompt, args);
-	ft_free_split(prompt->our_env);
+//	ft_free_split(prompt->our_env);
 	prompt->our_env = tmp;
 }
 
@@ -91,12 +91,12 @@ int	ft_export(t_cmd *cmd, t_prompt *prompt)
 			if (ft_is_envar(prompt->our_env, tmp[0]))
 			{
 				ft_replace_val(prompt->our_env, tmp);
-				ft_free_split(tmp);
+			//	ft_free_split(tmp);
 			}
 			else
 				ft_newexport(prompt, tmp, args[i]);
 		}
-		ft_free_split(args);
+	//	ft_free_split(args);
 	}
 	else
 		ft_env(prompt);

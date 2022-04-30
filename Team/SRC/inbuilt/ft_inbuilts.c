@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 12:22:38 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/04/29 21:28:23 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/04/30 16:21:18 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	ft_inbuilt(t_cmd *cmd, t_prompt *prompt)
 	else if (!ft_strncmp(args[0], "export", 6) && len == 6)
 		return (ft_export(cmd, prompt));
 	else if (!ft_strncmp(args[0], "unset", 5) && len == 5)
-		return (ft_unset(prompt));
+		return (ft_unset(cmd, prompt));
 	else if (!ft_strncmp(args[0], "env", 3) && len == 3)
 		return (ft_env(prompt));
 	else if (!ft_strncmp(args[0], "exit", 4) && len == 4)

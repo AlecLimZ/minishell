@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   extra1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: leng-chu <leng-chu@student.42kl.edu.m      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 20:55:42 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/04/26 15:29:05 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/04/30 17:59:51 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	ft_free_split(char **s)
 {
 	int	i;
-
+	
 	i = -1;
 	if (!s)
 		return ;
@@ -36,12 +36,13 @@ int	ft_tablen(char **s)
 
 int	ft_getcharpos(char *str, char c)
 {
-	char	*ch;
+	int	i;
 
-	ch = ft_strchr(str, c);
-	if (!ch)
-		return (-1);
-	return (ch - str);
+	i = -1;
+	while (str[++i])
+		if (str[i] == c)
+			break ;
+	return (i);
 }
 
 int	ft_envcount(t_prompt *prompt)
