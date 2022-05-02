@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 16:53:45 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/02 16:02:03 by yang             ###   ########.fr       */
+/*   Updated: 2022/05/02 19:01:35 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,8 @@ static int	minishell(t_prompt *prompt, char *input_str)
 
 	while (true)
 	{
+		signal(SIGINT, new_prompt);
+		signal(SIGQUIT, SIG_IGN);
 		ft_memset(input_str, 0, MAXCOM);
 		input = get_input(input_str);
 		if (input == -1)
@@ -110,8 +112,6 @@ int	main(int argc, char *argv[], char *envp[])
 		return (EXIT_FAILURE);
 	ft_memset(prompt, 0, sizeof(t_prompt));
 	init_env(prompt, envp);
-	signal(SIGINT, new_prompt);
-	signal(SIGQUIT, SIG_IGN);
 	if (minishell(prompt, input_str))
 	{
 		tcsetattr(0, 0, &termios_save);
