@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 15:25:35 by yang              #+#    #+#             */
-/*   Updated: 2022/04/29 13:45:51 by yang             ###   ########.fr       */
+/*   Updated: 2022/05/02 16:05:23 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static int	split_pos(char *str, int i, char c)
 {
 	while (i < (int)ft_strlen(str) - 2
 		&& (str[i + 1] == c
-			|| (str[i + 1] == c && c == ' ' && is_space(c))))
+			|| (c == ' ' && is_space(str[i + 1]))))
 		i++;
 	return (i);
 }
@@ -30,7 +30,7 @@ int	count(char *str, char c)
 	total = 1;
 	while (str[++i])
 	{
-		if (str[i] == c || (str[i] == ' ' && c == ' ' && is_space(c)))
+		if (str[i] == c || (c == ' ' && is_space(str[i])))
 		{
 			total++;
 			i = split_pos(str, i, c);
@@ -59,7 +59,7 @@ char	**ft_split_str(char *str, char c)
 	j = -1;
 	while (str[++i])
 	{
-		if (str[i] == c || (str[i] == ' ' && c == ' ' && is_space(c)))
+		if (str[i] == c || (c == ' ' && is_space(str[i])))
 		{
 			w_split[++j] = ft_strndup(str + start_pos, i - start_pos);
 			i = split_pos(str, i, c);
