@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 14:38:20 by yang              #+#    #+#             */
-/*   Updated: 2022/04/29 17:53:02 by yang             ###   ########.fr       */
+/*   Updated: 2022/05/02 15:48:54 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	free_lst(t_list **lst)
 	t_list	*tmp;
 
 	head = *lst;
-	while (head)
+	while (head != NULL)
 	{
 		tmp = head;
 		head = head->next;
