@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 16:53:45 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/04/29 21:27:10 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/02 14:42:58 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,9 +82,8 @@ static int	minishell(t_prompt *prompt, char *input_str)
 		{
 			if (parser(prompt, input_str) == -1)
 			{
-				perror("error occurred when parsing command\n");
-				system("leaks minishell");
-				return (clean_up(prompt, 0, 1));
+				ft_putendl_fd("error occurred when parsing command", 2);
+				continue ;
 			}
 			exec_args(prompt);
 		}
