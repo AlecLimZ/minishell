@@ -6,7 +6,7 @@
 /*   By: leng-chu <leng-chu@student.42kl.edu.m      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 18:55:41 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/02 14:49:08 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/02 15:04:38 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	ft_launch_heredoc(t_cmd *cmd)
 {
 	int		fd;
 	char	*filename;
-
+	
 	filename = NULL;
 	fd = -1;
 	while (fd == -1)
@@ -68,14 +68,21 @@ int	ft_write_infd(int fd, t_cmd *cmd)
 {
 	char	*str;
 	char	*eof;
+	t_list	*token;
 
-	eof = cmd->args[2];
+	token = cmd->token;
+	while (token != NULL)
+	{
+		if (token->type == 4)
+			eof = token->content;
+		token = token->next;
+	}
 	while (1)
 	{
 		str = readline("myheredoc>> ");
 		if (!str)
 			return (0);
-		if (ft_strcmp(eof, str) == 1)
+		if (ft_strcmp(eof, str) == 0)
 			break ;
 	/*	if (str[0] != '\0')
 		{
