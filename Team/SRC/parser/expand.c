@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 11:21:45 by yang              #+#    #+#             */
-/*   Updated: 2022/04/29 13:51:01 by yang             ###   ########.fr       */
+/*   Updated: 2022/05/02 15:39:57 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static char	*expand_path(char *prefix, char *postfix, char *path)
 	else
 		temp = ft_strjoin(prefix, path);
 	if (!postfix)
-		expand = temp;
+		expand = ft_strdup(temp);
 	else
 		expand = ft_strjoin(temp, postfix);
 	return (expand);
