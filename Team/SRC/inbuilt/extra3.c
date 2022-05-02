@@ -6,7 +6,7 @@
 /*   By: leng-chu <-chu@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 14:45:09 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/02 17:38:34 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/02 20:23:18 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,28 +57,17 @@ int	ft_N(char *s)
 int	ft_exportcheck(char **args, t_prompt *prompt)
 {
 	char	**tmp;
-	int		len;
 
-	len = -1;
-	while (args[++len]);
-	if (args[0] || args[1])
+	if ((ft_tablen(args) == 1) || !ft_strcmp(args[1], "") || args[1][0] == '=')
 	{
 		tmp = ft_split(args[1], '=');
-		if (len == 1 || ft_strcmp(args[1], "") == 0)
-		{
+		if ((ft_tablen(args) == 1) || (ft_strcmp(args[1], "") == 0))
 			ft_env(prompt);
-			return (0);
-		}
 		else if (ft_strcmp(args[1], "=") == 0)
-		{
 			ft_putendl_fd("minishell: bad assigment", 2);
-			return (0);
-		}
 		else if (args[1][0] == '=')
-		{
 			printf("minishell: %s not found\n", tmp[0]);
-			return (0);
-		}
+		return (0);
 	}
 	return (1);
 }

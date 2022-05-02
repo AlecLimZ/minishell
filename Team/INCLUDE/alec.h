@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 12:15:11 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/02 16:58:56 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/02 21:25:40 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,10 @@ void	ft_newexport(t_prompt *prompt, char **tmp, char *args);
 int		ft_export(t_cmd *cmd, t_prompt *prompt);
 
 /*ft_cdecho*/
-int		ft_cd(t_cmd *cmd);
+int		ft_cd(t_cmd *cmd, t_prompt *prompt);
 int		ft_echo(t_cmd *cmd);
+void	ft_oldpwd(t_prompt *prompt);
+void	ft_cdirectory(char **args, t_prompt *prompt);
 
 /*ft_unset.c*/
 int		ft_unset(t_cmd *cmd, t_prompt *prompt);
