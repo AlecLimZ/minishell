@@ -6,7 +6,7 @@
 /*   By: leng-chu <leng-chu@student.42kl.edu.m      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 18:08:32 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/04/30 15:19:38 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/02 16:40:34 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,11 @@ int	ft_export(t_cmd *cmd, t_prompt *prompt)
 
 	args = cmd->args;
 	tmp = NULL;
+	printf("args[0]: %s\n", args[0]);
+	printf("args[1]: %s\n", args[1]);
+	if (ft_strcmp(args[1],"") == 0)
+		printf(GRN"U got it correct\n"DEF);
+	printf("args[2]: %s\n", args[2]);
 	if (args[0] && args[1])
 	{
 		i = 0;

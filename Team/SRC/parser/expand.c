@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 11:21:45 by yang              #+#    #+#             */
-/*   Updated: 2022/05/02 15:49:06 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/02 16:14:15 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static char	*expand_str(char *str, int pos, char *path)
 	return (expand);
 }
 
-static char	*var_expand(char *str, int pos)
+static char	*var_expand(char *str, int pos, t_prompt *prompt)
 {
 	char	*path;
 	char	*expand;
@@ -71,7 +71,7 @@ static char	*var_expand(char *str, int pos)
 	//if (temp[0] == '?')
 	if (!is_name(temp))
 		return (NULL);
-	path = getenv(temp); //have to create own ft_getnenv
+	path = ft_getenv(temp, prompt); //have to create own ft_getnenv
 	free(temp);
 	temp = NULL;
 	expand = expand_str(str, pos, path);
@@ -120,7 +120,7 @@ void	expand_token(t_prompt *prompt)
 			pos = get_env_pos(head->content);
 			if (pos != -1)
 			{
-				str = var_expand(head->content, pos);
+				str = var_expand(head->content, pos, prompt);
 				del = add_var_to_list(&prompt->cmds[i], head, str);
 			}
 			remove_quotes(head);

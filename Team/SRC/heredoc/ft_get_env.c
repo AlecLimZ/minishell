@@ -6,7 +6,7 @@
 /*   By: leng-chu <-chu@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 16:12:24 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/04/26 17:30:36 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/02 16:20:08 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,4 +68,19 @@ char	*ft_alloc(int *cur)
 		return (new);
 	}
 	return (NULL);
+}
+
+char	*ft_getenv(char *s, t_prompt *prompt)
+{
+	int	pos;
+	int	sign;
+
+	pos = ft_findenv(s, prompt);
+	if (pos != -1)
+	{
+		sign = ft_getcharpos(prompt->our_env[pos], '=');
+		return (prompt->our_env[pos] + (sign + 1));
+	}
+	else
+		return ("");
 }
