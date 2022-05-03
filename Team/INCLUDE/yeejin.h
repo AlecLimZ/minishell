@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 14:50:34 by yang              #+#    #+#             */
-/*   Updated: 2022/05/03 17:54:10 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/03 20:52:25 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@
 # define STDOUT	1
 # define STDIN	0
 
-typedef struct	s_prompt t_prompt;
-typedef struct	s_cmd t_cmd;
+typedef struct s_prompt	t_prompt;
+typedef struct s_cmd	t_cmd;
 
 /* --------------------------- PARSER ---------------------------- */
 int		parser(t_prompt *prompt, char *str);
@@ -50,11 +50,11 @@ int		in_quote(char *str, int i);
 int		is_space(char c);
 int		is_operator(char c);
 int		is_quote(char c);
-int 	is_env(char c);
+int		is_env(char c);
 
 /* --------------------- EXECUTOR ------------------ */
 /* ----------- dup utils ---------- */
-void	dup_n_close(int	fd, int fd_dup);
+void	dup_n_close(int fd, int fd_dup);
 void	dup_infile_outfile(t_cmd *cmd);
 /* ----------- exec ------------ */
 int		exec_args(t_prompt *prompt);

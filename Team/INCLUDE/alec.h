@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 12:15:11 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/03 17:52:24 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/03 20:51:06 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@ typedef struct s_prompt	t_prompt;
 typedef struct s_cmd	t_cmd;
 
 /*ft_inbuilts.c*/
-int	ft_is_built(t_cmd *cmd);
-int	ft_inbuilt(t_cmd *cmd, t_prompt *prompt);
-int	ft_exit(t_prompt *prompt);
-int	ft_pwd(char **args);
-int	ft_env(t_prompt *prompt);
+int		ft_is_built(t_cmd *cmd);
+int		ft_inbuilt(t_cmd *cmd, t_prompt *prompt);
+int		ft_exit(t_prompt *prompt);
+int		ft_pwd(char **args);
+int		ft_env(t_prompt *prompt);
 
 /*ft_export.c*/
 int		ft_is_envar(char **env, char *tmp);
