@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 22:32:42 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/04/30 18:00:10 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/03 17:09:32 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,21 +43,16 @@ char	**ft_delenv(int index, t_prompt *prompt)
 {
 	char	**tmp;
 	int		i;
-//	int		size;
 
 	i = index;
-	free(prompt->our_env[i]);
 	prompt->our_env[i] = NULL;
 	tmp = prompt->our_env;
-//	size = ft_envcount(prompt);
-//	while (prompt->our_env[i + 1])
-//	{
-//		tmp = ft_strdup(prompt->our_env[i + 1]);
-//		free(prompt->our_env[i]);
-//		prompt->our_env[i] = tmp;
-//		i++;
-//	}
-//	return (ft_realloc_env((size - 1), prompt));
+	while (prompt->our_env[i + 1])
+	{
+		tmp[i] = ft_strdup(prompt->our_env[i + 1]);
+		i++;
+	}
+	tmp[i] = NULL;
 	return (tmp);
 }
 
@@ -70,7 +65,7 @@ int	ft_unset(t_cmd *cmd, t_prompt *prompt)
 	i = 0;
 	args = cmd->args;
 	if (!args[1])
-		return (1);
+		return (1 && printf("minishell: unset: not enough arguments\n"));
 	while (args[++i])
 	{
 		pos = ft_findenv(args[i], prompt);

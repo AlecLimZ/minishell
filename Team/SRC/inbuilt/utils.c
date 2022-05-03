@@ -6,7 +6,7 @@
 /*   By: leng-chu <leng-chu@student.42kl.edu.m      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 20:55:42 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/04/23 15:29:46 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/03 16:24:02 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	ft_envcount(t_prompt *prompt)
 	int	count;
 
 	count = 0;
-	while (prompt->environment[count])
+	while (prompt->our_env[count])
 		count++;
 	return (count);
 }

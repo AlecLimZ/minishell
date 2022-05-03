@@ -6,7 +6,7 @@
 /*   By: leng-chu <-chu@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 14:45:09 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/02 20:23:18 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/03 17:12:29 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,15 @@ void	ft_delete_token(void *arg)
 	token = NULL;
 }
 
-int	ft_N(char *s)
+int	ft_n(char *s)
 {
 	int	i;
 
 	i = 0;
 	if (s[i] == '-')
 	{
-		while (s[++i] == 'n');
+		while (s[++i] == 'n')
+			;
 		if (s[i] == '\0')
 			return (1);
 	}

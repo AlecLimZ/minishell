@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 12:15:11 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/02 21:25:40 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/03 17:17:39 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ typedef struct s_cmd	t_cmd;
 int	ft_is_built(t_cmd *cmd);
 int	ft_inbuilt(t_cmd *cmd, t_prompt *prompt);
 int	ft_exit(t_prompt *prompt);
-int	ft_pwd(void);
+int	ft_pwd(char **args);
 int	ft_env(t_prompt *prompt);
 
 /*ft_export.c*/
@@ -47,6 +47,9 @@ int		ft_findenv(char *env, t_prompt *prompt);
 /*ft_path*/
 char	*ft_conc(char *path, char *filename);
 char	**ft_get_path(t_prompt *prompt);
+char	*ft_getpwd(void);
+char	*ft_rmslash(char *s);
+char	*ft_getparentdir(char *string, char *sub);
 
 /*ft_create*/
 int		ft_char(void);
@@ -82,6 +85,6 @@ char	*ft_strncpy(char *dst, const char *src, size_t len);
 /*extra3.c*/
 int		ft_strcmp(const char *s1, const char *s2);
 void	ft_delete_toen(void *arg);
-int		ft_N(char *s);
+int		ft_n(char *s);
 int		ft_exportcheck(char **args, t_prompt *prompt);
 #endif

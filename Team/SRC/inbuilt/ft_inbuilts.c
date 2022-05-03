@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 12:22:38 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/02 19:58:35 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/03 17:14:32 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,13 @@ int	ft_is_built(t_cmd *cmd)
 
 	args = cmd->args;
 	len = ft_strlen(args[0]);
-	if ((!ft_strncmp(args[0], "echo", 4) && len == 4) ||
-		(!ft_strncmp(args[0], "cd", 2) && len == 2) ||
-		(!ft_strncmp(args[0], "pwd", 3) && len == 3) ||
-		(!ft_strncmp(args[0], "export", 6) && len == 6) ||
-		(!ft_strncmp(args[0], "unset", 5) && len == 5) ||
-		(!ft_strncmp(args[0], "env", 3) && len == 3) ||
-		(!ft_strncmp(args[0], "exit", 4) && len == 4))
+	if ((!ft_strncmp(args[0], "echo", 4) && len == 4)
+		|| (!ft_strncmp(args[0], "cd", 2) && len == 2)
+		|| (!ft_strncmp(args[0], "pwd", 3) && len == 3)
+		|| (!ft_strncmp(args[0], "export", 6) && len == 6)
+		|| (!ft_strncmp(args[0], "unset", 5) && len == 5)
+		|| (!ft_strncmp(args[0], "env", 3) && len == 3)
+		|| (!ft_strncmp(args[0], "exit", 4) && len == 4))
 		return (1);
 	return (0);
 }
@@ -44,7 +44,7 @@ int	ft_inbuilt(t_cmd *cmd, t_prompt *prompt)
 	else if (!ft_strncmp(args[0], "cd", 2) && len == 2)
 		return (ft_cd(cmd, prompt));
 	else if (!ft_strncmp(args[0], "pwd", 3) && len == 3)
-		return (ft_pwd());
+		return (ft_pwd(args));
 	else if (!ft_strncmp(args[0], "export", 6) && len == 6)
 		return (ft_export(cmd, prompt));
 	else if (!ft_strncmp(args[0], "unset", 5) && len == 5)
@@ -83,14 +83,17 @@ int	ft_exit(t_prompt *prompt)
 	exit(0);
 }
 
-int	ft_pwd(void)
+int	ft_pwd(char **args)
 {
-	char	buf[4222];
+	char	*pwd;
 
-	if (getcwd(buf, sizeof(buf)) != NULL)
-		ft_putendl_fd(buf, STDOUT);
+	pwd = ft_getpwd();
+	if (ft_tablen(args) > 1)
+		ft_putendl_fd("minishell: pwd: too many arguments", STDERR);
+	else if (pwd)
+		ft_putendl_fd(pwd, STDOUT);
 	else
-		ft_putendl_fd("pwd: error\n", STDERR);
+		ft_putendl_fd("minishell: pwd: error", STDERR);
 	return (1);
 }
 
