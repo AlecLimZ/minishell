@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 14:50:34 by yang              #+#    #+#             */
-/*   Updated: 2022/04/29 19:42:54 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/03 17:54:10 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	dup_infile_outfile(t_cmd *cmd);
 /* ----------- exec ------------ */
 int		exec_args(t_prompt *prompt);
 /* ---------- redirect ----------- */
-int		redirect(t_cmd *cmd, char *fd, int type);
+int		redirect(t_cmd *cmd, char *fd, int type, t_prompt *prompt);
 /* --------- search path ---------- */
 char	*search_path(char *path, char *command);
 /* ---------- set_args ----------- */

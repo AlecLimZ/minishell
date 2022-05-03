@@ -6,18 +6,18 @@
 /*   By: leng-chu <leng-chu@student.42kl.edu.m      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 18:55:41 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/02 15:04:38 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/03 17:52:49 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*if_env(char *str, char *s, int *cur)
+char	*if_env(char *str, char *s, int *cur, t_prompt *prompt)
 {
 	char	*env;
 	char	*join;
 
-	env = ft_stringenv(str, s, cur);
+	env = ft_stringenv(str, s, cur, prompt);
 	if (!env)
 		return (ft_freestr(s));
 	join = ft_strjoin(s, env);
@@ -45,11 +45,11 @@ char	*if_no_env(char *str, char *s, int *cur)
 	return (join);
 }
 
-int	ft_launch_heredoc(t_cmd *cmd)
+int	ft_launch_heredoc(t_cmd *cmd, t_prompt *prompt)
 {
 	int		fd;
 	char	*filename;
-	
+
 	filename = NULL;
 	fd = -1;
 	while (fd == -1)
@@ -59,16 +59,17 @@ int	ft_launch_heredoc(t_cmd *cmd)
 		filename = ft_create_file();
 		fd = open(filename, O_CREAT | O_EXCL | O_RDWR, 0644);
 	}
-	ft_write_infd(fd, cmd);
+	ft_write_infd(fd, cmd, prompt);
 	fd = open(filename, O_RDONLY);
 	return (fd);
 }
 
-int	ft_write_infd(int fd, t_cmd *cmd)
+int	ft_write_infd(int fd, t_cmd *cmd, t_prompt *prompt)
 {
 	char	*str;
 	char	*eof;
 	t_list	*token;
+	(void)prompt;
 
 	token = cmd->token;
 	while (token != NULL)
@@ -84,11 +85,12 @@ int	ft_write_infd(int fd, t_cmd *cmd)
 			return (0);
 		if (ft_strcmp(eof, str) == 0)
 			break ;
+	// need ask Yee Jin about expand on env's $
 	/*	if (str[0] != '\0')
 		{
 			if (expanded == 0)
 			{
-				str = ft_expanded(str);
+				str = ft_expanded(str, prompt);
 				if (str == NULL)
 					return (50);
 			}
@@ -100,7 +102,7 @@ int	ft_write_infd(int fd, t_cmd *cmd)
 	return (0);
 }
 
-char	*ft_expanded(char *str)
+char	*ft_expanded(char *str, t_prompt *prompt)
 {
 	char	*new;
 	int		i;
@@ -111,7 +113,7 @@ char	*ft_expanded(char *str)
 	{
 		if (str[i] == '$')
 		{
-			new = if_env(str, new, &i);
+			new = if_env(str, new, &i, prompt);
 			if (!new)
 				return (NULL);
 		}

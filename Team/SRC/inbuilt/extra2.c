@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils2.c                                           :+:      :+:    :+:   */
+/*   extra2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: leng-chu <-chu@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 15:21:30 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/04/26 16:25:26 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/03 17:46:45 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,12 @@ char	*ft_freestr(char *s)
 	return (NULL);
 }
 
-char	*ft_stringenv(char *s, char *tmp, int *cur)
+char	*ft_stringenv(char *s, char *tmp, int *cur, t_prompt *prompt)
 {
 	char	*tmp2;
 
 	tmp2 = NULL;
-	tmp2 = ft_get_envp(cur, s + *cur);
+	tmp2 = ft_get_envp(cur, s + *cur, prompt);
 	if (!tmp2)
 		return (ft_freestr(tmp));
 	return (tmp2);

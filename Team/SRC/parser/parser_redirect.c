@@ -6,12 +6,11 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 10:59:12 by yang              #+#    #+#             */
-/*   Updated: 2022/04/29 14:05:06 by yang             ###   ########.fr       */
+/*   Updated: 2022/05/03 18:10:10 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
 
 static void	token_bef_operator(t_cmd *cmd, char **token, int pos, int i)
 {
@@ -55,7 +54,7 @@ static int	get_operator_pos(char **token, int pos)
 	len_redirect = 0;
 	while (is_operator(str[i + len_redirect]))
 		len_redirect++;
-	if ((i == (int)ft_strlen(str) - len_redirect && token[pos + 1] == NULL) 
+	if ((i == (int)ft_strlen(str) - len_redirect && token[pos + 1] == NULL)
 		|| len_redirect > 2 || (len_redirect == 2 && str[i + 1] != redirect)
 		|| (token[pos + 1] != NULL && is_operator(token[pos + 1][0])))
 		return (-1);

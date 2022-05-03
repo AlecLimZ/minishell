@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 12:15:11 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/03 17:17:39 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/03 17:52:24 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,14 +56,14 @@ int		ft_char(void);
 char	*ft_create_file(void);
 
 /*ft_heredoc*/
-char	*if_env(char *str, char *s, int *cur);
+char	*if_env(char *str, char *s, int *cur, t_prompt *prompt);
 char	*if_no_env(char *str, char *s, int *cur);
-int		ft_launch_heredoc(t_cmd *cmd);
-int		ft_write_infd(int fd, t_cmd *cmd);
-char	*ft_expanded(char *str);
+int		ft_launch_heredoc(t_cmd *cmd, t_prompt *prompt);
+int		ft_write_infd(int fd, t_cmd *cmd, t_prompt *prompt);
+char	*ft_expanded(char *str, t_prompt *prompt);
 
 /*ft_get_env.c*/
-char	*ft_get_envp(int *cur, char *str);
+char	*ft_get_envp(int *cur, char *str, t_prompt *prompt);
 int		ft_env_len(char *str);
 char	*ft_alloc(int *cur);
 char	*ft_getenv(char *s, t_prompt *prompt);
@@ -79,7 +79,7 @@ char	**ft_realloc_env(int size, t_prompt *prompt);
 void	ft_free_array(char **array);
 char	*ft_strcat(char *s1, const char *s2);
 char	*ft_freestr(char *s);
-char	*ft_stringenv(char *s, char *tmp, int *cur);
+char	*ft_stringenv(char *s, char *tmp, int *cur, t_prompt *prompt);
 char	*ft_strncpy(char *dst, const char *src, size_t len);
 
 /*extra3.c*/

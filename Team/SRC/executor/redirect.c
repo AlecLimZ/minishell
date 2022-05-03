@@ -6,13 +6,13 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 17:19:18 by yang              #+#    #+#             */
-/*   Updated: 2022/04/29 16:57:10 by yang             ###   ########.fr       */
+/*   Updated: 2022/05/03 17:53:25 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	redirect(t_cmd *cmd, char *fd, int type)
+int	redirect(t_cmd *cmd, char *fd, int type, t_prompt *prompt)
 {
 	if (type == LESS)
 	{
@@ -22,7 +22,7 @@ int	redirect(t_cmd *cmd, char *fd, int type)
 	}
 	else if (type == LESSLESS)
 		// heredoc
-		cmd->infile = ft_launch_heredoc(cmd);
+		cmd->infile = ft_launch_heredoc(cmd, prompt);
 	else if (type == GREAT || type == GREATGREAT)
 	{
 		if (cmd->outfile != STDOUT)

@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 14:08:21 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/03 17:22:00 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/03 17:39:34 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,7 @@ void	ft_cdirectory(char **args, t_prompt *prompt)
 	if (args[1][ft_strlen(args[1]) - 1] == '\\')
 	{
 		tmp = ft_split(args[1], '\\');
-		dir = ft_strjoin(tmp[0], " ");
-		dir = ft_strcat(dir, args[2]);
+		dir = ft_strcat(ft_strjoin(tmp[0], " "), args[2]);
 		ft_oldpwd(prompt);
 		if (chdir(dir) != 0)
 			printf("minishell: cd: no such file or directory: %s\n", dir);
@@ -52,24 +51,11 @@ void	ft_oldpwd(t_prompt *prompt)
 	free(tmp);
 }
 
-int	ft_cd(t_cmd *cmd, t_prompt *prompt)
+static void	ft_cd2(char **args, t_prompt *prompt)
 {
-	char	**args;
 	char	*tmp;
 
-	args = cmd->args;
-	if (ft_tablen(args) > 3)
-		ft_putendl_fd("minishell: cd: too many arguments", 2);
-	else if (ft_tablen(args) == 3)
-		ft_cdirectory(args, prompt);
-	else if (!args[1] || !ft_strcmp(args[1], "~") || !ft_strcmp(args[1], "--"))
-	{
-		if (!ft_getenv("HOME", prompt))
-			ft_putendl_fd("minishell: cd: HOME not set", 2);
-		chdir(ft_getenv("HOME", prompt));
-		return (1);
-	}
-	else if (!ft_strcmp(args[1], "-") || !ft_strcmp(args[1], "~-"))
+	if (!ft_strcmp(args[1], "-") || !ft_strcmp(args[1], "~-"))
 	{
 		if (!ft_getenv("OLDPWD", prompt))
 			ft_putendl_fd("OLDPWD not set", 2);
@@ -85,6 +71,26 @@ int	ft_cd(t_cmd *cmd, t_prompt *prompt)
 			printf("minishell: cd: no such file or directory: %s\n", tmp);
 		free(tmp);
 	}
+}
+
+int	ft_cd(t_cmd *cmd, t_prompt *prompt)
+{
+	char	**args;
+
+	args = cmd->args;
+	if (ft_tablen(args) > 3)
+		ft_putendl_fd("minishell: cd: too many arguments", 2);
+	else if (ft_tablen(args) == 3)
+		ft_cdirectory(args, prompt);
+	else if (!args[1] || !ft_strcmp(args[1], "~") || !ft_strcmp(args[1], "--"))
+	{
+		if (!ft_getenv("HOME", prompt))
+			ft_putendl_fd("minishell: cd: HOME not set", 2);
+		ft_oldpwd(prompt);
+		chdir(ft_getenv("HOME", prompt));
+	}
+	else
+		ft_cd2(args, prompt);
 	return (1);
 }
 
