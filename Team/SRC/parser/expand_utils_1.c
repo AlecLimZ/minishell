@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 11:22:23 by yang              #+#    #+#             */
-/*   Updated: 2022/04/29 13:00:08 by yang             ###   ########.fr       */
+/*   Updated: 2022/05/04 15:32:29 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,12 @@ int	is_name(char *str)
 	return (1);
 }
 
-int	get_env_pos(char *str)
+int	get_env_pos(char *str, int pos)
 {
 	int	i;
 	int	quote;
 
-	i = -1;
+	i = pos - 1;
 	quote = 0;
 	while (str[++i])
 	{
@@ -53,20 +53,22 @@ char	*get_prefix(char *str, int i)
 	return (NULL);
 }
 
-char	*get_postfix(char *str, int i)
+char	*get_postfix(char *str, int *i)
 {
 	int		postfix_pos;
+	int		j;
 
 	postfix_pos = 0;
-	while (str[++i])
+	j = *i;
+	while (str[++j])
 	{
-		if (!is_env(str[i]))
+		if (!is_env(str[j]))
 		{
-			postfix_pos = i;
+			postfix_pos = j;
 			break ;
 		}
 	}
 	if (postfix_pos != 0)
-		return (ft_strndup(str + i, ft_strlen(str) - i));
+		return (ft_strndup(str + j, ft_strlen(str) - j));
 	return (NULL);
 }
