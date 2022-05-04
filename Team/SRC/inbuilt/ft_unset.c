@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 22:32:42 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/03 17:09:32 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/04 14:58:47 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int	ft_unset(t_cmd *cmd, t_prompt *prompt)
 	i = 0;
 	args = cmd->args;
 	if (!args[1])
-		return (1 && printf("minishell: unset: not enough arguments\n"));
+		return (ERROR && printf("minishell: unset: not enough arguments\n"));
 	while (args[++i])
 	{
 		pos = ft_findenv(args[i], prompt);
@@ -79,7 +79,8 @@ int	ft_unset(t_cmd *cmd, t_prompt *prompt)
 			ft_putstr_fd("minishell: unset: '", 2);
 			ft_putstr_fd(args[i], 2);
 			ft_putstr_fd("': not a valid identifier\n", 2);
+			return (ERROR);
 		}
 	}
-	return (1);
+	return (SUCCESS);
 }

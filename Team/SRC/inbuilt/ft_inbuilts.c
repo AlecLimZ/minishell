@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 12:22:38 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/03 17:14:32 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/04 14:52:00 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,14 +50,15 @@ int	ft_inbuilt(t_cmd *cmd, t_prompt *prompt)
 	else if (!ft_strncmp(args[0], "unset", 5) && len == 5)
 		return (ft_unset(cmd, prompt));
 	else if (!ft_strncmp(args[0], "env", 3) && len == 3)
-		return (ft_env(prompt));
+		return (ft_env(args, prompt));
 	else if (!ft_strncmp(args[0], "exit", 4) && len == 4)
-		return (ft_exit(prompt));
-	return (0);
+		ft_exit(prompt);
+	g_ret = NOCMD;
+	return (g_ret);
 }
 
 //	line 53		ft_lstdelone(tmp, ft_delete_token);
-int	ft_exit(t_prompt *prompt)
+void	ft_exit(t_prompt *prompt)
 {
 	t_list	*token;
 	t_list	*tmp;
@@ -88,21 +89,37 @@ int	ft_pwd(char **args)
 	char	*pwd;
 
 	pwd = ft_getpwd();
+	g_ret = SUCCESS;
 	if (ft_tablen(args) > 1)
+	{
 		ft_putendl_fd("minishell: pwd: too many arguments", STDERR);
+		g_ret = ERROR;
+	}
 	else if (pwd)
 		ft_putendl_fd(pwd, STDOUT);
 	else
+	{
 		ft_putendl_fd("minishell: pwd: error", STDERR);
-	return (1);
+		g_ret = ERROR;
+	}
+	return (g_ret);
 }
 
-int	ft_env(t_prompt *prompt)
+int	ft_env(char **args, t_prompt *prompt)
 {
 	int	i;
 
 	i = -1;
-	while (prompt->our_env[++i])
+	g_ret = SUCCESS;
+	if (args[1] && ft_strcmp(args[1], "") != 0)
+	{
+		ft_putstr_fd("minishell: env: ", 2);
+		ft_putstr_fd(args[1], 2);
+		ft_putendl_fd(": No such file or directory", 2);
+		g_ret = NOCMD;
+		return (g_ret);
+	}
+	while (prompt->our_env[++i] != NULL)
 		ft_putendl_fd(prompt->our_env[i], 1);
-	return (1);
+	return (g_ret);
 }

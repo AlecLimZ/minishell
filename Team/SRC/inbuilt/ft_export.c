@@ -6,7 +6,7 @@
 /*   By: leng-chu <leng-chu@student.42kl.edu.m      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 18:08:32 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/03 17:13:30 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/04 14:38:58 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,9 @@ int	ft_export(t_cmd *cmd, t_prompt *prompt)
 
 	args = cmd->args;
 	tmp = NULL;
+	g_ret = SUCCESS;
 	if (!ft_exportcheck(args, prompt))
-		return (1);
+		return (g_ret);
 	i = 0;
 	while (args[++i])
 	{
@@ -97,5 +98,5 @@ int	ft_export(t_cmd *cmd, t_prompt *prompt)
 		else
 			ft_newexport(prompt, tmp, args[i]);
 	}
-	return (1);
+	return (g_ret);
 }
