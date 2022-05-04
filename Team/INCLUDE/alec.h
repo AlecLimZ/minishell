@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 12:15:11 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/03 20:51:06 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/04 16:59:54 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ typedef struct s_cmd	t_cmd;
 /*ft_inbuilts.c*/
 int		ft_is_built(t_cmd *cmd);
 int		ft_inbuilt(t_cmd *cmd, t_prompt *prompt);
-int		ft_exit(t_prompt *prompt);
+void	ft_exit(t_prompt *prompt);
 int		ft_pwd(char **args);
-int		ft_env(t_prompt *prompt);
+int		ft_env(char **args, t_prompt *prompt);
 
 /*ft_export.c*/
 int		ft_is_envar(char **env, char *tmp);
@@ -36,7 +36,6 @@ int		ft_export(t_cmd *cmd, t_prompt *prompt);
 /*ft_cdecho*/
 int		ft_cd(t_cmd *cmd, t_prompt *prompt);
 int		ft_echo(t_cmd *cmd);
-void	ft_oldpwd(t_prompt *prompt);
 void	ft_cdirectory(char **args, t_prompt *prompt);
 
 /*ft_unset.c*/
@@ -54,6 +53,8 @@ char	*ft_getparentdir(char *string, char *sub);
 /*ft_create*/
 int		ft_char(void);
 char	*ft_create_file(void);
+void	ft_oldpwd(t_prompt *prompt);
+char	*ft_geteof(t_cmd *cmd);
 
 /*ft_heredoc*/
 char	*if_env(char *str, char *s, int *cur, t_prompt *prompt);

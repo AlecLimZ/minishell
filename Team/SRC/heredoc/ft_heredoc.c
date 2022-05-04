@@ -6,7 +6,7 @@
 /*   By: leng-chu <leng-chu@student.42kl.edu.m      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 18:55:41 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/03 17:52:49 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/04 17:04:51 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ char	*if_no_env(char *str, char *s, int *cur)
 	if (!new)
 		return (ft_freestr(s));
 	new = ft_strncpy(new, str + start, ((*cur) - start));
+	if (s == NULL)
+		s = ft_strdup("");
 	join = ft_strjoin(s, new);
 	ft_freestr(s);
 	ft_freestr(new);
@@ -68,38 +70,23 @@ int	ft_write_infd(int fd, t_cmd *cmd, t_prompt *prompt)
 {
 	char	*str;
 	char	*eof;
-	t_list	*token;
-	(void)prompt;
 
-	token = cmd->token;
-	while (token != NULL)
-	{
-		if (token->type == 4)
-			eof = token->content;
-		token = token->next;
-	}
+	eof = ft_geteof(cmd);
 	while (1)
 	{
-		str = readline("myheredoc>> ");
+		str = readline(YEL"myheredoc>> "DEF);
 		if (!str)
-			return (0);
+			return (ERROR);
 		if (ft_strcmp(eof, str) == 0)
 			break ;
-	// need ask Yee Jin about expand on env's $
-	/*	if (str[0] != '\0')
-		{
-			if (expanded == 0)
-			{
+		if (str[0] != '\0')
+			if (ft_strchr(str, '$'))
 				str = ft_expanded(str, prompt);
-				if (str == NULL)
-					return (50);
-			}
-		}*/
 		ft_putendl_fd(str, fd);
 		free(str);
 	}
 	free(str);
-	return (0);
+	return (SUCCESS);
 }
 
 char	*ft_expanded(char *str, t_prompt *prompt)
@@ -113,16 +100,12 @@ char	*ft_expanded(char *str, t_prompt *prompt)
 	{
 		if (str[i] == '$')
 		{
-			new = if_env(str, new, &i, prompt);
-			if (!new)
-				return (NULL);
+			if (new == NULL)
+				new = "";
+			new = ft_strjoin(new, ft_stringenv(str, new, &i, prompt));
 		}
 		else
-		{
 			new = if_no_env(str, new, &i);
-			if (!new)
-				return (NULL);
-		}
 	}
 	free(str);
 	return (new);

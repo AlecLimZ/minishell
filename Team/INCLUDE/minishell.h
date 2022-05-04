@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 16:54:47 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/03 20:46:16 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/04 13:55:23 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@
 # define ERROR 1
 # define NOCMD 127
 # define CTRLC 130
+
+int	g_ret;
 
 enum	e_token_type
 {
