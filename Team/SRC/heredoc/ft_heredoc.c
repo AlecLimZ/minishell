@@ -6,7 +6,7 @@
 /*   By: leng-chu <leng-chu@student.42kl.edu.m      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 18:55:41 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/04 17:04:51 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/04 17:53:44 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ char	*ft_expanded(char *str, t_prompt *prompt)
 		{
 			if (new == NULL)
 				new = "";
+			ft_getenvword(str + (i + 1));
 			new = ft_strjoin(new, ft_stringenv(str, new, &i, prompt));
 		}
 		else

@@ -6,7 +6,7 @@
 /*   By: leng-chu <-chu@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 16:12:24 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/03 17:46:03 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/04 17:49:58 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,4 +83,14 @@ char	*ft_getenv(char *s, t_prompt *prompt)
 	}
 	else
 		return ("");
+}
+
+char	*ft_getenvword(char *s)
+{
+	int	i;
+
+	i = 0;
+	while (s[i] && s[i] != '$' && s[i] != ' ')
+		i++;
+	return (ft_substr(s, 0, i));
 }
