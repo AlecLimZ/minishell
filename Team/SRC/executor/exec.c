@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 09:27:37 by yang              #+#    #+#             */
-/*   Updated: 2022/05/04 13:10:43 by yang             ###   ########.fr       */
+/*   Updated: 2022/05/04 19:33:20 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,20 +71,19 @@ static int	do_exec_cmd(char **argv, t_prompt *prompt)
 		if (stat(argv[0], &st) == 0 && S_ISREG(st.st_mode))
 			execve(argv[0], argv, prompt->env);
 		else if (S_ISDIR(st.st_mode))
-			printf("is a directory\n");
+			exit_status(126, "is a directory");
 		else
-			printf("Incorrect command\n");
+			exit_status(127, "No such file or directory");
 	}
 	else
 	{
-		/* check if command is build in */
 		path = search_path(ft_getenv("PATH", prompt), argv[0]);
 		if (!path)
-			exit(1);
+			exit_status(127, "command not found");
 		execve(path, argv, prompt->env);
 		free(path);
 	}
-	return(0);
+	return (0);
 }
 
 static void	execute(t_prompt *prompt, t_cmd *cmd, int i, int pipefd[2])
@@ -98,13 +97,10 @@ static void	execute(t_prompt *prompt, t_cmd *cmd, int i, int pipefd[2])
 	if (pid == 0)
 	{
 		pipe_cmd(prompt, i, pipefd, keep_fd);
-		if (ft_is_built(cmd))
-		{
-			ft_inbuilt(cmd, prompt);
+		if (ft_is_built(cmd) && ft_inbuilt(cmd, prompt))
 			exit(0);
-		}
 		else
-			do_exec_cmd(cmd->args, prompt); //check user input is relative path or command
+			do_exec_cmd(cmd->args, prompt);
 	}
 	else
 	{

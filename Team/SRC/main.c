@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 16:53:45 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/04 13:57:12 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/04 19:41:24 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ static int	minishell(t_prompt *prompt, char *input_str)
 		{
 			if (parser(prompt, input_str) == -1)
 			{
-				ft_putendl_fd("error occurred when parsing command", 2);
+				ft_putendl_fd("minishell: syntax error", 2);
 				continue ;
 			}
 			exec_args(prompt);
@@ -103,6 +103,7 @@ int	main(int argc, char *argv[], char *envp[])
 
 	(void)argc;
 	(void)argv;
+	g_ret = SUCCESS;
 	tcgetattr(0, &termios_save);
 	termios_new = termios_save;
 	termios_new.c_lflag &= ~ECHOCTL;

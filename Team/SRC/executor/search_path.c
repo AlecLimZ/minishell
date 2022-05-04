@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 16:44:25 by yang              #+#    #+#             */
-/*   Updated: 2022/04/25 19:18:28 by yang             ###   ########.fr       */
+/*   Updated: 2022/05/04 19:33:54 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ char	*search_path(char *path, char *command)
 	char		*temp;
 	struct stat	st;
 
-	//search = getenv("PATH");
 	search = ft_strdup(path);
 	while (next_path(&search, &file))
 	{
@@ -55,6 +54,5 @@ char	*search_path(char *path, char *command)
 			free(file);
 		}
 	}
-	printf("command not found\n");
 	return (NULL);
 }

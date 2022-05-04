@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 16:07:39 by yang              #+#    #+#             */
-/*   Updated: 2022/05/04 16:21:21 by yang             ###   ########.fr       */
+/*   Updated: 2022/05/04 19:38:40 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,11 @@ char	*var_expand(char *str, int *pos, t_prompt *prompt)
 		*pos = i + 1;
 		return (str);
 	}
-	//else if (str[i + 1] == '?')
+	else if (str[i + 1] == '?')
+	{
+		printf("g_ret: %d\n", g_ret);
+		expand = ft_strdup(ft_itoa(g_ret));
+	}
 	else
 	{
 		while (str[i] && is_env(str[i + 1]))

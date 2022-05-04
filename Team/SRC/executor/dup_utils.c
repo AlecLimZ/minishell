@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/29 14:19:17 by yang              #+#    #+#             */
-/*   Updated: 2022/05/03 17:57:10 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/04 19:56:23 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,4 +24,14 @@ void	dup_infile_outfile(t_cmd *cmd)
 		dup_n_close(cmd->infile, STDIN);
 	if (cmd->outfile != STDOUT)
 		dup_n_close(cmd->outfile, STDOUT);
+}
+
+void	exit_status(int err, char *err_msg)
+{
+	ft_putstr_fd("minishell: ", 2);
+	ft_putstr_fd(err_msg, 2);
+	ft_putstr_fd("\n", 2);
+	g_ret = err;
+	printf("g_ret: %d\n", g_ret);
+	exit(err);
 }

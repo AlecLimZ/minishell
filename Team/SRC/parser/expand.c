@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 11:21:45 by yang              #+#    #+#             */
-/*   Updated: 2022/05/04 16:29:27 by yang             ###   ########.fr       */
+/*   Updated: 2022/05/04 18:19:59 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,10 @@ int	add_var_to_list(t_cmd *cmd, t_list *head, char *str)
 	return (i + 1);
 }
 
-static void	expand_loop(t_prompt *prompt, int i, t_list *head, int *del)
+static int	expand_loop(t_prompt *prompt, int i, t_list *head, int *del)
 {
 	int		pos;
-	char 	*str;
+	char	*str;
 
 	pos = get_env_pos(head->content, 0);
 	while (pos >= 0 && head->content[pos + 1])
@@ -48,19 +48,19 @@ static void	expand_loop(t_prompt *prompt, int i, t_list *head, int *del)
 		if (str == NULL)
 		{
 			printf("minishell: event not found\n");
-			exit(1);
+			return (1);
 		}
 		*del = add_var_to_list(&prompt->cmds[i], head, str);
 		pos = get_env_pos(head->content, pos);
 	}
+	return (0);
 }
 
-void	expand_token(t_prompt *prompt)
+int	expand_token(t_prompt *prompt)
 {
 	int		i;
 	t_list	*head;
-	//int		pos;
-	//char	*str;
+	int		err;
 	int		del;
 
 	i = -1;
@@ -70,10 +70,13 @@ void	expand_token(t_prompt *prompt)
 		head = prompt->cmds[i].token;
 		while (head && head->type <= 2)
 		{
-			expand_loop(prompt, i, head, &del);
+			err = expand_loop(prompt, i, head, &del);
+			if (err)
+				return (err);
 			remove_quotes(head);
 			head = head->next;
 		}
 		ft_lstdel_pos(&prompt->cmds[i].token, del);
 	}
+	return (0);
 }

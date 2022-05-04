@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 14:50:34 by yang              #+#    #+#             */
-/*   Updated: 2022/05/04 16:15:01 by yang             ###   ########.fr       */
+/*   Updated: 2022/05/04 19:28:39 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef struct s_cmd	t_cmd;
 int		parser(t_prompt *prompt, char *str);
 /* ----------- Check Pipe ----------- */
 int		check_pipe(char *str);
+int		err_msg(int err, char str[100]);
 /* ----------- Clean Up ------------- */
 int		free_double_ptr(char **argv, bool error);
 void	free_lst(t_list **lst);
@@ -35,7 +36,7 @@ int		is_name(char *str);
 int		get_env_pos(char *str, int pos);
 char	*get_prefix(char *str, int i);
 char	*get_postfix(char *str, int *i);
-void	expand_token(t_prompt *prompt);
+int		expand_token(t_prompt *prompt);
 char	*var_expand(char *str, int *pos, t_prompt *prompt);
 /* ------------ Redirect ----------- */
 int		set_token_redirection(t_cmd *cmd, char **token, int i);
@@ -57,6 +58,7 @@ int		is_env(char c);
 /* ----------- dup utils ---------- */
 void	dup_n_close(int fd, int fd_dup);
 void	dup_infile_outfile(t_cmd *cmd);
+void	exit_status(int err, char *err_msg);
 /* ----------- exec ------------ */
 int		exec_args(t_prompt *prompt);
 /* ---------- redirect ----------- */
