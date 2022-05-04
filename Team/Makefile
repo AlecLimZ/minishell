@@ -5,7 +5,7 @@ SRC			=	main.c
 SRC_DIR		= 	SRC/
 SRCS		=	$(addprefix $(SRC_DIR), $(SRC))
 
-PARSING		=	check_pipe.c expand.c expand_utils.c parser.c parser_redirect.c split_cmds.c remove_quote.c utils.c cleanup.c
+PARSING		=	check_pipe.c expand.c expand_utils_1.c expand_utils_2.c parser.c parser_redirect.c split_cmds.c remove_quote.c utils.c cleanup.c
 PARSING_DIR	=	SRC/parser/
 PARSINGS 	=	$(addprefix $(PARSING_DIR), $(PARSING))
 

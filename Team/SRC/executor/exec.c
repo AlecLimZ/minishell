@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 09:27:37 by yang              #+#    #+#             */
-/*   Updated: 2022/05/03 17:58:29 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/04 13:10:43 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ static int	do_exec_cmd(char **argv, t_prompt *prompt)
 		execve(path, argv, prompt->env);
 		free(path);
 	}
-	return (0);
+	return(0);
 }
 
 static void	execute(t_prompt *prompt, t_cmd *cmd, int i, int pipefd[2])
