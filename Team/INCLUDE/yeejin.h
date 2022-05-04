@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 14:50:34 by yang              #+#    #+#             */
-/*   Updated: 2022/05/04 19:28:39 by yang             ###   ########.fr       */
+/*   Updated: 2022/05/04 20:26:36 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int		is_env(char c);
 /* ----------- dup utils ---------- */
 void	dup_n_close(int fd, int fd_dup);
 void	dup_infile_outfile(t_cmd *cmd);
-void	exit_status(int err, char *err_msg);
+void	exit_status(int err, char *err_msg, t_prompt *prompt);
 /* ----------- exec ------------ */
 int		exec_args(t_prompt *prompt);
 /* ---------- redirect ----------- */

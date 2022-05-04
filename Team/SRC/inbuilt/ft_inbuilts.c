@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 12:22:38 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/04 19:53:59 by yang             ###   ########.fr       */
+/*   Updated: 2022/05/04 20:45:41 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,9 @@ void	ft_exit(t_prompt *prompt)
 			tmp = NULL;
 		}
 	}
-	exit_status(0, "exit");
+	//exit_status(0, "exit", prompt);
+	system("leaks minishell");
+	exit(0);
 }
 
 int	ft_pwd(char **args)
