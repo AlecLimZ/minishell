@@ -6,13 +6,13 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 09:27:37 by yang              #+#    #+#             */
-/*   Updated: 2022/05/02 18:58:36 by yang             ###   ########.fr       */
+/*   Updated: 2022/05/04 13:10:43 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	set_cmd(t_cmd *cmd)
+static int	set_cmd(t_cmd *cmd, t_prompt *prompt)
 {
 	t_list	*head;
 	int		redir;
@@ -26,7 +26,7 @@ static int	set_cmd(t_cmd *cmd)
 	cmd->outfile = STDOUT;
 	while (head != NULL)
 	{
-		redir = redirect(cmd, head->content, head->type);
+		redir = redirect(cmd, head->content, head->type, prompt);
 		if (redir < 0)
 			return (0);
 		head = head->next;
@@ -61,7 +61,7 @@ static void	pipe_cmd(t_prompt *prompt, int i, int pipefd[2], int keep_fd)
 	}
 }
 
-static int do_exec_cmd(char **argv, t_prompt *prompt)
+static int	do_exec_cmd(char **argv, t_prompt *prompt)
 {
 	char		*path;
 	struct stat	st;
@@ -78,7 +78,7 @@ static int do_exec_cmd(char **argv, t_prompt *prompt)
 	else
 	{
 		/* check if command is build in */
-		path = search_path(getenv("PATH"), argv[0]);
+		path = search_path(ft_getenv("PATH", prompt), argv[0]);
 		if (!path)
 			exit(1);
 		execve(path, argv, prompt->env);
@@ -131,7 +131,7 @@ int	exec_args(t_prompt *prompt)
 	while (++i < prompt->total_cmds)
 	{
 		cmd = &prompt->cmds[i];
-		if (!set_cmd(cmd))
+		if (!set_cmd(cmd, prompt))
 			return (0);
 		if (prompt->total_cmds > 1 && i < prompt->total_cmds - 1)
 			pipe(pipefd);

@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 15:31:23 by yang              #+#    #+#             */
-/*   Updated: 2022/05/02 15:31:05 by yang             ###   ########.fr       */
+/*   Updated: 2022/05/03 18:09:22 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,11 @@
 
 void	print_cmds(t_prompt *prompt)
 {
-	int i = -1;
-	t_list *token;
+	int		i;
+	t_list	*token;
 
-	while(++i < prompt->total_cmds)
+	i = -1;
+	while (++i < prompt->total_cmds)
 	{
 		token = prompt->cmds[i].token;
 		printf(BRED"Command %d\n"WHT, i);

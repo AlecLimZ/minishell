@@ -6,14 +6,14 @@
 /*   By: leng-chu <-chu@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 16:12:24 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/02 16:20:08 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/03 17:46:03 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 // line:29 return need to modify for exit status
-char	*ft_get_envp(int *cur, char *str)
+char	*ft_get_envp(int *cur, char *str, t_prompt *prompt)
 {
 	int		len;
 	char	*cpy;
@@ -32,7 +32,7 @@ char	*ft_get_envp(int *cur, char *str)
 	if (cpy == NULL)
 		return (NULL);
 	cpy = ft_strncpy(cpy, str + 1, len);
-	env = getenv(cpy);
+	env = ft_getenv(cpy, prompt);
 	free(cpy);
 	if (!env)
 		return (NULL);

@@ -6,7 +6,7 @@
 /*   By: leng-chu <leng-chu@student.42kl.edu.m      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 16:10:08 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/04/26 17:32:36 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/03 17:17:54 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,24 +46,54 @@ char	**ft_get_path(t_prompt *prompt)
 	return (path);
 }
 
-/*
-void	ft_exec(t_prompt *prompt)
+char	*ft_getpwd(void)
 {
-	char 	**path;
-	char 	*buf;
-	int		i;
+	char	pwd[4222];
+	char	*s;
 
-	i = 0;
-	path = ft_get_path(prompt->env);
-	while (path[i])
+	if (getcwd(pwd, sizeof(pwd)) != NULL)
 	{
-		buf = ft_conc(path[i], prompt->cmds[0].args[0]);
-		if (execve(buf, argv, envp) != -1)
-			break ;
-		else
-			i++;
+		s = pwd;
+		return (s);
 	}
-	if (i >= 0)
-		ft_putendl_fd("Could not find command\n", 2);
+	else
+		return (NULL);
 }
-*/
+
+char	*ft_rmslash(char *s)
+{
+	int		i;
+	int		j;
+	char	*new;
+
+	i = -1;
+	j = 0;
+	new = malloc(sizeof(char) * (ft_strlen(s) + 1));
+	while (s[++i])
+	{
+		if (s[i] != '\\')
+			new[j++] = s[i];
+	}
+	new[j] = '\0';
+	return (new);
+}
+
+char	*ft_getparentdir(char *string, char *sub)
+{
+	int	i;
+	int	j;
+	int	pos;
+
+	i = -1;
+	pos = -1;
+	while (string[++i] && pos == -1)
+	{
+		j = 0;
+		while (string[i + j] == sub[j])
+			j++;
+		if (sub[j] == '\0')
+			pos = i;
+	}
+	string[pos] = '\0';
+	return (string);
+}

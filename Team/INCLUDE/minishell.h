@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 16:54:47 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/04/29 21:26:26 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/03 20:46:16 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,14 @@
 # define WHT "\033[0;37m"
 # define MAXCOM 1000
 # define MAX 100
-//# define SPACE	32
+
+// NOCMD is for 
+// 1. no command found
+// 2. no such file or directory from env's 2nd parameter
+# define SUCCESS 0
+# define ERROR 1
+# define NOCMD 127
+# define CTRLC 130
 
 enum	e_token_type
 {

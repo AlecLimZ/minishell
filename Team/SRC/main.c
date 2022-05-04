@@ -6,14 +6,14 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 16:53:45 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/02 19:01:35 by yang             ###   ########.fr       */
+/*   Updated: 2022/05/03 17:10:13 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /* refresh the prompt if user hit Ctrl + C */
-void new_prompt(int sig)
+void	new_prompt(int sig)
 {
 	(void)sig;
 	printf("\n");
@@ -118,5 +118,5 @@ int	main(int argc, char *argv[], char *envp[])
 		return (1);
 	}
 	tcsetattr(0, 0, &termios_save);
-	return EXIT_SUCCESS;
+	return (EXIT_SUCCESS);
 }
