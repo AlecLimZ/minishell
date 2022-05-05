@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 14:38:20 by yang              #+#    #+#             */
-/*   Updated: 2022/05/03 18:10:35 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/05 15:34:25 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ void	free_lst(t_list **lst)
 
 int	clean_up(t_prompt *prompt, int total, int stage)
 {
-	int	i;
+	int		i;
+	t_cmd	*cmd;
 
 	(void)stage;
 	i = -1;
@@ -58,7 +59,11 @@ int	clean_up(t_prompt *prompt, int total, int stage)
 	if (stage == 2 && total >= 0)
 	{
 		while (++i <= total)
+		{
+			cmd = &prompt->cmds[i];
+			free_double_ptr(cmd->args, 0);
 			free_lst(&prompt->cmds[i].token);
+		}
 		free(prompt->cmds);
 	}
 	return (-1);

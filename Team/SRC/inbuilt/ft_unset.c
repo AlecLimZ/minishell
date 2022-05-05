@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 22:32:42 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/04 14:58:47 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/05 16:46:40 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,24 @@ char	**ft_delenv(int index, t_prompt *prompt)
 	return (tmp);
 }
 
+static int	ft_posenv(int pos, int i, char **args, t_prompt *prompt)
+{
+	if (pos != -1)
+	{
+		if (prompt->our_env[pos])
+			prompt->our_env = ft_delenv(pos, prompt);
+	}
+	else
+	{
+		ft_putstr_fd("minishell: unset: '", 2);
+		ft_putstr_fd(args[i], 2);
+		ft_putstr_fd("': not a valid identifier\n", 2);
+		g_ret = ERROR;
+		return (-1);
+	}
+	return (1);
+}
+
 int	ft_unset(t_cmd *cmd, t_prompt *prompt)
 {
 	int		i;
@@ -64,23 +82,17 @@ int	ft_unset(t_cmd *cmd, t_prompt *prompt)
 
 	i = 0;
 	args = cmd->args;
+	g_ret = SUCCESS;
 	if (!args[1])
-		return (ERROR && printf("minishell: unset: not enough arguments\n"));
+	{
+		g_ret = ERROR;
+		return (g_ret && printf("minishell: unset: not enough arguments\n"));
+	}
 	while (args[++i])
 	{
 		pos = ft_findenv(args[i], prompt);
-		if (pos != -1)
-		{
-			if (prompt->our_env[pos])
-				prompt->our_env = ft_delenv(pos, prompt);
-		}
-		else
-		{
-			ft_putstr_fd("minishell: unset: '", 2);
-			ft_putstr_fd(args[i], 2);
-			ft_putstr_fd("': not a valid identifier\n", 2);
-			return (ERROR);
-		}
+		if (!ft_posenv(pos, i, args, prompt))
+			return (g_ret);
 	}
-	return (SUCCESS);
+	return (g_ret);
 }

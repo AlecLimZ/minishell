@@ -6,7 +6,7 @@
 /*   By: leng-chu <leng-chu@student.42kl.edu.m      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 20:55:42 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/03 17:11:05 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/05 14:55:01 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	ft_envcount(t_prompt *prompt)
 	int	count;
 
 	count = 0;
-	while (prompt->env[count])
+	while (prompt->our_env[count])
 		count++;
 	return (count);
 }
@@ -64,12 +64,12 @@ char	**ft_realloc_env(int size, t_prompt *prompt)
 	if (!new)
 		return (NULL);
 	i = 0;
-	while (prompt->env[i] && i < size)
+	while (prompt->our_env[i] && i < size)
 	{
-		new[i] = ft_strdup(prompt->env[i]);
+		new[i] = ft_strdup(prompt->our_env[i]);
 		i++;
 	}
 	new[size] = NULL;
-	ft_free_array(prompt->env);
+	ft_free_array(prompt->our_env);
 	return (new);
 }

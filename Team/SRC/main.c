@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 16:53:45 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/04 20:19:24 by yang             ###   ########.fr       */
+/*   Updated: 2022/05/05 19:43:39 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,6 @@ int	main(int argc, char *argv[], char *envp[])
 
 	(void)argc;
 	(void)argv;
-	// g_ret = SUCCESS;
 	tcgetattr(0, &termios_save);
 	termios_new = termios_save;
 	termios_new.c_lflag &= ~ECHOCTL;

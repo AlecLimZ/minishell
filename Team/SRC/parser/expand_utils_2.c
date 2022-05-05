@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 16:07:39 by yang              #+#    #+#             */
-/*   Updated: 2022/05/04 19:38:40 by yang             ###   ########.fr       */
+/*   Updated: 2022/05/05 19:36:25 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ char	*var_expand(char *str, int *pos, t_prompt *prompt)
 	}
 	else
 	{
+		printf(GRN"ENTER\n"DEF);
 		while (str[i] && is_env(str[i + 1]))
 			i++;
 		expand = var_expand_env(str, pos, prompt, i);
