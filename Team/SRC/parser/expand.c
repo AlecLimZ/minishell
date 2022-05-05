@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 11:21:45 by yang              #+#    #+#             */
-/*   Updated: 2022/05/04 18:19:59 by yang             ###   ########.fr       */
+/*   Updated: 2022/05/05 12:35:53 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,6 @@ static int	expand_loop(t_prompt *prompt, int i, t_list *head, int *del)
 	while (pos >= 0 && head->content[pos + 1])
 	{
 		str = var_expand(head->content, &pos, prompt);
-		if (str == NULL)
-		{
-			printf("minishell: event not found\n");
-			return (1);
-		}
 		*del = add_var_to_list(&prompt->cmds[i], head, str);
 		pos = get_env_pos(head->content, pos);
 	}

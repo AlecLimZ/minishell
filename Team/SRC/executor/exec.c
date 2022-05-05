@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 09:27:37 by yang              #+#    #+#             */
-/*   Updated: 2022/05/04 20:26:24 by yang             ###   ########.fr       */
+/*   Updated: 2022/05/05 12:04:22 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,10 @@ static int	do_exec_cmd(char **argv, t_prompt *prompt)
 	if (ft_strchr(argv[0], '/'))
 	{
 		if (stat(argv[0], &st) == 0 && S_ISREG(st.st_mode))
+		{
+			g_ret = 0;
 			execve(argv[0], argv, prompt->env);
+		}
 		else if (S_ISDIR(st.st_mode))
 			exit_status(126, "is a directory", prompt);
 		else
@@ -80,8 +83,8 @@ static int	do_exec_cmd(char **argv, t_prompt *prompt)
 		path = search_path(ft_getenv("PATH", prompt), argv[0]);
 		if (!path)
 			exit_status(127, "command not found", prompt);
+		g_ret = 0;
 		execve(path, argv, prompt->env);
-		free(path);
 	}
 	return (0);
 }
@@ -112,6 +115,7 @@ static void	execute(t_prompt *prompt, t_cmd *cmd, int i, int pipefd[2])
 			keep_fd = pipefd[0];
 		}
 		waitpid(pid, NULL, 0);
+		free_double_ptr(cmd->args, 0);
 	}
 }
 
@@ -136,6 +140,7 @@ int	exec_args(t_prompt *prompt)
 			ft_inbuilt(cmd, prompt);
 			dup2(save_stdout, 1);
 			close(save_stdout);
+			free_double_ptr(cmd->args, 0);
 		}
 		else
 			execute(prompt, &prompt->cmds[i], i, pipefd);

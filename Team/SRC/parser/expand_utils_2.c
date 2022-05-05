@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_utils_2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 16:07:39 by yang              #+#    #+#             */
-/*   Updated: 2022/05/04 19:38:40 by yang             ###   ########.fr       */
+/*   Updated: 2022/05/05 12:35:18 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,23 +64,10 @@ static char	*var_expand_env(char *str, int *pos, t_prompt *prompt, int i)
 	char	*path;
 
 	temp = ft_strndup(str + *pos + 1, i - *pos);
-	if (!is_name(temp))
-	{
-		if (ft_isdigit(temp[0]))
-		{
-			ft_memmove(&str[*pos], &str[*pos + 2], ft_strlen(str) - *pos + 2);
-			expand = str;
-			return (expand);
-		}
-		return (NULL);
-	}
-	else
-	{
-		path = ft_getenv(temp, prompt);
-		free(temp);
-		temp = NULL;
-		expand = expand_str(str, pos, path);
-	}
+	path = ft_getenv(temp, prompt);
+	free(temp);
+	temp = NULL;
+	expand = expand_str(str, pos, path);
 	return (expand);
 }
 
