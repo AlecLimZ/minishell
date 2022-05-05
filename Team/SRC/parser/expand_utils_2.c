@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 16:07:39 by yang              #+#    #+#             */
-/*   Updated: 2022/05/05 12:35:18 by yang             ###   ########.fr       */
+/*   Updated: 2022/05/05 19:51:50 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,25 +19,19 @@ static char	*expand_path(char *prefix, char *postfix, char *path)
 
 	temp = NULL;
 	expand = NULL;
-	if (!path)
+	if (!prefix && !postfix)
+		return (ft_strdup(path));
+	else if (!prefix)
+		return (ft_strjoin(path, postfix));
+	else if (!postfix)
+		return (ft_strjoin(prefix, path));
+	else
 	{
-		if (!prefix && !postfix)
-			return (NULL);
-		else if (!prefix)
-			return (ft_strjoin("", postfix));
-		else if (!postfix)
-			return (ft_strjoin(prefix, ""));
-		else
-			return (ft_strjoin(prefix, postfix));
-	}
-	if (!prefix)
-		temp = path;
-	else
 		temp = ft_strjoin(prefix, path);
-	if (!postfix)
-		expand = ft_strdup(temp);
-	else
 		expand = ft_strjoin(temp, postfix);
+		free(temp);
+		return (expand);
+	}
 	return (expand);
 }
 
@@ -49,7 +43,19 @@ static char	*expand_str(char *str, int *pos, char *path)
 
 	prefix = get_prefix(str, *pos);
 	postfix = get_postfix(str, pos);
-	expand = expand_path(prefix, postfix, path);
+	if (!path)
+	{
+		if (!prefix && !postfix)
+			expand = NULL;
+		else if (!prefix)
+			expand = ft_strjoin("", postfix);
+		else if (!postfix)
+			expand = ft_strjoin(prefix, "");
+		else
+			expand = ft_strjoin(prefix, postfix);
+	}
+	else
+		expand = expand_path(prefix, postfix, path);
 	free(prefix);
 	prefix = NULL;
 	free(postfix);
@@ -85,10 +91,7 @@ char	*var_expand(char *str, int *pos, t_prompt *prompt)
 		return (str);
 	}
 	else if (str[i + 1] == '?')
-	{
-		printf("g_ret: %d\n", g_ret);
 		expand = ft_strdup(ft_itoa(g_ret));
-	}
 	else
 	{
 		while (str[i] && is_env(str[i + 1]))

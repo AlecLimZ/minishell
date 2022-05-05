@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 11:22:23 by yang              #+#    #+#             */
-/*   Updated: 2022/05/05 12:34:32 by yang             ###   ########.fr       */
+/*   Updated: 2022/05/05 19:51:14 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	get_env_pos(char *str, int pos)
 	quote = 0;
 	while (str[++i])
 	{
-		if (str[i] == '$' && str[i + 1] 
+		if (str[i] == '$' && str[i + 1]
 			&& (is_name(&str[i + 1]) || str[i + 1] == '?'))
 			return (i);
 		else if (str[i] == '\'')

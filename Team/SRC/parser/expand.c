@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 11:21:45 by yang              #+#    #+#             */
-/*   Updated: 2022/05/05 12:35:53 by yang             ###   ########.fr       */
+/*   Updated: 2022/05/05 19:52:59 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 int	add_var_to_list(t_cmd *cmd, t_list *head, char *str)
 {
 	char	**token;
+	char	*temp;
 	int		i;
 	t_list	*new;
 
@@ -32,7 +33,11 @@ int	add_var_to_list(t_cmd *cmd, t_list *head, char *str)
 		free_double_ptr(token, false);
 	}
 	else
+	{
+		temp = head->content;
 		head->content = str;
+		free(temp);
+	}
 	return (i + 1);
 }
 

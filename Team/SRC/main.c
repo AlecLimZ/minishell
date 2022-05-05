@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 16:53:45 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/05 12:05:31 by yang             ###   ########.fr       */
+/*   Updated: 2022/05/05 19:01:34 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ static int	minishell(t_prompt *prompt, char *input_str)
 				ft_putendl_fd("minishell: syntax error", 2);
 				continue ;
 			}
+			system("leaks minishell");
 			exec_args(prompt);
 		}
 		clean_up(prompt, input - 1, 2);
