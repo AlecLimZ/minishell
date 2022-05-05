@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 14:08:21 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/04 19:46:33 by yang             ###   ########.fr       */
+/*   Updated: 2022/05/05 16:32:10 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,27 @@
 static void	ft_cdirectory2(char **args, char *pwd)
 {
 	char	*fpwd;
+	char	*tmp;
 
-	if (!ft_strnstr(pwd, ft_rmslash(args[1]), ft_strlen(pwd)))
+	tmp = args[1];
+	if (ft_strchr(args[1], '\\'))
+		tmp = ft_rmslash(args[1]);
+	if (!ft_strnstr(pwd, tmp, ft_strlen(pwd)))
 	{
-		printf("minishell: cd: string not in pwd: %s\n", ft_rmslash(args[1]));
+		printf("minishell: cd: string not in pwd: %s\n", tmp);
 		g_ret = ERROR;
 	}
 	else
 	{
-		fpwd = ft_strjoin(ft_getparentdir(pwd, ft_rmslash(args[1])), args[2]);
+		fpwd = ft_strjoin(ft_getparentdir(pwd, tmp), args[2]);
 		if (chdir(fpwd) != 0)
 		{
 			printf("minishell: cd: no such file or directory: %s\n", fpwd);
 			g_ret = ERROR;
 		}
 	}
+	if (ft_strchr(args[1], '\\'))
+		free(tmp);
 }
 
 void	ft_cdirectory(char **args, t_prompt *prompt)
@@ -113,9 +119,10 @@ int	ft_echo(t_cmd *cmd)
 	int		i;
 	char	**args;
 
+	g_ret = SUCCESS;
 	args = cmd->args;
 	if (!args[1])
-		return (SUCCESS);
+		return (g_ret);
 	i = 0;
 	if (args[1] && ft_n(args[1]))
 		i = 1;
@@ -127,5 +134,5 @@ int	ft_echo(t_cmd *cmd)
 	}
 	if (!ft_n(args[1]))
 		ft_putstr_fd("\n", STDOUT);
-	return (SUCCESS);
+	return (g_ret);
 }

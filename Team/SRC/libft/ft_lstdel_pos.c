@@ -6,13 +6,13 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 10:40:29 by yang              #+#    #+#             */
-/*   Updated: 2022/04/13 13:12:33 by yang             ###   ########.fr       */
+/*   Updated: 2022/05/05 16:00:09 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void ft_lstdel_pos(t_list **head, int pos)
+void	ft_lstdel_pos(t_list **head, int pos)
 {
 	t_list	*temp;
 	t_list	*del;

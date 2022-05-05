@@ -6,7 +6,11 @@
 /*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 16:07:39 by yang              #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2022/05/05 19:51:50 by yang             ###   ########.fr       */
+=======
+/*   Updated: 2022/05/05 19:36:25 by leng-chu         ###   ########.fr       */
+>>>>>>> 719c686bcdfec28647dbdd6446bdea263f5a818b
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +98,7 @@ char	*var_expand(char *str, int *pos, t_prompt *prompt)
 		expand = ft_strdup(ft_itoa(g_ret));
 	else
 	{
+		printf(GRN"ENTER\n"DEF);
 		while (str[i] && is_env(str[i + 1]))
 			i++;
 		expand = var_expand_env(str, pos, prompt, i);

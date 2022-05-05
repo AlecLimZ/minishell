@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/29 14:19:17 by yang              #+#    #+#             */
-/*   Updated: 2022/05/05 12:01:44 by yang             ###   ########.fr       */
+/*   Updated: 2022/05/05 19:56:38 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,6 @@ void	dup_infile_outfile(t_cmd *cmd)
 
 void	exit_status(int err, char *err_msg, t_prompt *prompt)
 {
-	(void)prompt;
-
 	ft_putstr_fd("minishell: ", 2);
 	ft_putstr_fd(err_msg, 2);
 	ft_putstr_fd("\n", 2);

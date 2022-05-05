@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 09:27:37 by yang              #+#    #+#             */
-/*   Updated: 2022/05/05 12:04:22 by yang             ###   ########.fr       */
+/*   Updated: 2022/05/05 19:56:51 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,6 @@ static void	execute(t_prompt *prompt, t_cmd *cmd, int i, int pipefd[2])
 			keep_fd = pipefd[0];
 		}
 		waitpid(pid, NULL, 0);
-		free_double_ptr(cmd->args, 0);
 	}
 }
 
@@ -140,7 +139,6 @@ int	exec_args(t_prompt *prompt)
 			ft_inbuilt(cmd, prompt);
 			dup2(save_stdout, 1);
 			close(save_stdout);
-			free_double_ptr(cmd->args, 0);
 		}
 		else
 			execute(prompt, &prompt->cmds[i], i, pipefd);
