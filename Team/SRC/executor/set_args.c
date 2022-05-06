@@ -6,15 +6,13 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 18:39:10 by yang              #+#    #+#             */
-/*   Updated: 2022/05/05 17:38:00 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/06 17:52:09 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-#include "alec.h"
-
-int	set_args(t_cmd *cmd, t_list *token)
+static int	set_args(t_cmd *cmd, t_list *token)
 {
 	t_list	*head;
 	char	**args;
@@ -64,4 +62,26 @@ void	set_envp(t_prompt *prompt)
 		head = head->next;
 	}
 	prompt->env[++i] = 0;
+}
+
+int	set_cmd(t_cmd *cmd, t_prompt *prompt)
+{
+	t_list	*head;
+	int		redir;
+
+	if (!set_args(cmd, cmd->token))
+		return (0);
+	head = cmd->token;
+	while (head != NULL && head->type < 3)
+		head = head->next;
+	cmd->infile = STDIN;
+	cmd->outfile = STDOUT;
+	while (head != NULL)
+	{
+		redir = redirect(cmd, head->content, head->type, prompt);
+		if (redir < 0)
+			return (0);
+		head = head->next;
+	}
+	return (1);
 }

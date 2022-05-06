@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 16:53:45 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/05 19:43:39 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/06 18:57:37 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 void	new_prompt(int sig)
 {
 	(void)sig;
+	g_ret = 1;
 	printf("\n");
 	rl_on_new_line();
 	rl_replace_line("", 0);
@@ -87,9 +88,11 @@ static int	minishell(t_prompt *prompt, char *input_str)
 				ft_putendl_fd("minishell: syntax error", 2);
 				continue ;
 			}
+			printf("***************Leaks from parser***************\n");
+			system("leaks minishell");
 			exec_args(prompt);
 		}
-		clean_up(prompt, input - 1, 2);
+		clean_up(prompt, prompt->total_cmds - 1, 2);
 	}
 	return (0);
 }

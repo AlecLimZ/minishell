@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_utils_2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 16:07:39 by yang              #+#    #+#             */
-/*   Updated: 2022/05/05 19:36:25 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/06 00:00:01 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,29 +19,23 @@ static char	*expand_path(char *prefix, char *postfix, char *path)
 
 	temp = NULL;
 	expand = NULL;
-	if (!path)
+	if (!prefix && !postfix)
+		return (ft_strdup(path));
+	else if (!prefix)
+		return (ft_strjoin(path, postfix));
+	else if (!postfix)
+		return (ft_strjoin(prefix, path));
+	else
 	{
-		if (!prefix && !postfix)
-			return (NULL);
-		else if (!prefix)
-			return (ft_strjoin("", postfix));
-		else if (!postfix)
-			return (ft_strjoin(prefix, ""));
-		else
-			return (ft_strjoin(prefix, postfix));
-	}
-	if (!prefix)
-		temp = path;
-	else
 		temp = ft_strjoin(prefix, path);
-	if (!postfix)
-		expand = ft_strdup(temp);
-	else
 		expand = ft_strjoin(temp, postfix);
+		free(temp);
+		return (expand);
+	}
 	return (expand);
 }
 
-static char	*expand_str(char *str, int *pos, char *path)
+static char	*expand_str(char *str, int *pos, char *path, bool heap)
 {
 	char	*expand;
 	char	*prefix;
@@ -49,11 +43,23 @@ static char	*expand_str(char *str, int *pos, char *path)
 
 	prefix = get_prefix(str, *pos);
 	postfix = get_postfix(str, pos);
-	expand = expand_path(prefix, postfix, path);
+	if (!path)
+	{
+		if (!prefix && !postfix)
+			expand = NULL;
+		else if (!prefix)
+			expand = ft_strjoin("", postfix);
+		else if (!postfix)
+			expand = ft_strjoin(prefix, "");
+		else
+			expand = ft_strjoin(prefix, postfix);
+	}
+	else
+		expand = expand_path(prefix, postfix, path);
 	free(prefix);
-	prefix = NULL;
 	free(postfix);
-	postfix = NULL;
+	if (heap)
+		free(path);
 	return (expand);
 }
 
@@ -64,23 +70,10 @@ static char	*var_expand_env(char *str, int *pos, t_prompt *prompt, int i)
 	char	*path;
 
 	temp = ft_strndup(str + *pos + 1, i - *pos);
-	if (!is_name(temp))
-	{
-		if (ft_isdigit(temp[0]))
-		{
-			ft_memmove(&str[*pos], &str[*pos + 2], ft_strlen(str) - *pos + 2);
-			expand = str;
-			return (expand);
-		}
-		return (NULL);
-	}
-	else
-	{
-		path = ft_getenv(temp, prompt);
-		free(temp);
-		temp = NULL;
-		expand = expand_str(str, pos, path);
-	}
+	path = ft_getenv(temp, prompt);
+	free(temp);
+	temp = NULL;
+	expand = expand_str(str, pos, path, false);
 	return (expand);
 }
 
@@ -98,13 +91,9 @@ char	*var_expand(char *str, int *pos, t_prompt *prompt)
 		return (str);
 	}
 	else if (str[i + 1] == '?')
-	{
-		printf("g_ret: %d\n", g_ret);
-		expand = ft_strdup(ft_itoa(g_ret));
-	}
+		expand = expand_str(str, pos, ft_itoa(g_ret), true);
 	else
 	{
-		printf(GRN"ENTER\n"DEF);
 		while (str[i] && is_env(str[i + 1]))
 			i++;
 		expand = var_expand_env(str, pos, prompt, i);

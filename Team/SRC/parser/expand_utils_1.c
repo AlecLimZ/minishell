@@ -1,16 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expand_utils.c                                     :+:      :+:    :+:   */
+/*   expand_utils_1.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 11:22:23 by yang              #+#    #+#             */
-/*   Updated: 2022/05/04 15:32:29 by yang             ###   ########.fr       */
+/*   Updated: 2022/05/05 23:52:11 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/* check if env name is valid
+** i. start with alpha or '_'
+** ii. only consist of alpha, digit or '_'
+*/
 
 int	is_name(char *str)
 {
@@ -36,7 +41,8 @@ int	get_env_pos(char *str, int pos)
 	quote = 0;
 	while (str[++i])
 	{
-		if (str[i] == '$')
+		if (str[i] == '$' && str[i + 1] && (ft_isalpha(str[i + 1]) \
+			|| str[i + 1] == '_' || str[i + 1] == '?'))
 			return (i);
 		else if (str[i] == '\'')
 			quote = in_quote(str, i);
@@ -60,12 +66,20 @@ char	*get_postfix(char *str, int *i)
 
 	postfix_pos = 0;
 	j = *i;
-	while (str[++j])
+	if (str[j + 1] == '?' && str[j + 2])
 	{
-		if (!is_env(str[j]))
+		j += 2;
+		postfix_pos = j;
+	}
+	else if (str[j + 1] != '?')
+	{
+		while (str[++j])
 		{
-			postfix_pos = j;
-			break ;
+			if (!is_env(str[j]))
+			{
+				postfix_pos = j;
+				break ;
+			}
 		}
 	}
 	if (postfix_pos != 0)
