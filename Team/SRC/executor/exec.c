@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 09:27:37 by yang              #+#    #+#             */
-/*   Updated: 2022/05/06 18:58:48 by yang             ###   ########.fr       */
+/*   Updated: 2022/05/06 19:13:55 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,8 +106,6 @@ static void	exec_child(t_prompt *prompt, t_cmd *cmd)
 		printf("is built in\n");
 		g_ret = ft_inbuilt(cmd, prompt);
 		printf("cmd->token: %p\t cmd->args: %p\n", cmd->token, cmd->args);
-		free_double_ptr(cmd->args, 0);
-		free_lst(&cmd->token);
 		exit(g_ret);
 	}
 	else
