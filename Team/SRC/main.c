@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
+/*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 16:53:45 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/05 19:56:11 by yang             ###   ########.fr       */
+/*   Updated: 2022/05/06 18:57:37 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,10 +88,11 @@ static int	minishell(t_prompt *prompt, char *input_str)
 				ft_putendl_fd("minishell: syntax error", 2);
 				continue ;
 			}
+			printf("***************Leaks from parser***************\n");
 			system("leaks minishell");
 			exec_args(prompt);
 		}
-		clean_up(prompt, input - 1, 2);
+		clean_up(prompt, prompt->total_cmds - 1, 2);
 	}
 	return (0);
 }

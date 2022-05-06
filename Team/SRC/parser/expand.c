@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
+/*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 11:21:45 by yang              #+#    #+#             */
-/*   Updated: 2022/05/05 23:56:57 by yang             ###   ########.fr       */
+/*   Updated: 2022/05/06 17:24:11 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ int	add_var_to_list(t_cmd *cmd, t_list *head, char *str)
 	int		i;
 	t_list	*new;
 
-	token = NULL;
 	i = -1;
 	if (head->type == 1 && str != NULL)
 	{
 		token = ft_split_str(str, ' ');
+		free(str);
 		while (token[++i])
 		{
 			new = ft_lstnew(token[i]);
@@ -47,11 +47,11 @@ static int	expand_loop(t_prompt *prompt, int i, t_list *head, int *del)
 	char	*str;
 
 	pos = get_env_pos(head->content, 0);
-	while (pos >= 0 && head->content[pos + 1])
+	while (pos != -1 && head->content[pos + 1])
 	{
 		str = var_expand(head->content, &pos, prompt);
 		*del = add_var_to_list(&prompt->cmds[i], head, str);
-		pos = get_env_pos(head->content, pos);
+		pos = get_env_pos(head->content, pos + 1);
 	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 12:22:38 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/05 19:08:52 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/06 18:02:17 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ int	ft_inbuilt(t_cmd *cmd, t_prompt *prompt)
 	else if (!ft_strncmp(args[0], "env", 3) && len == 3)
 		return (ft_env(args, prompt));
 	else if (!ft_strncmp(args[0], "exit", 4) && len == 4)
-//		exit_status(0, "exit", prompt);
 		ft_exit(prompt);
 	g_ret = NOCMD;
 	return (g_ret);
