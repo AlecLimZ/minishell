@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 12:15:11 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/04 17:35:00 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/06 19:32:42 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,10 @@ int		ft_env_len(char *str);
 char	*ft_alloc(int *cur);
 char	*ft_getenv(char *s, t_prompt *prompt);
 char	*ft_getenvword(char *s);
+
+/*ft_env2.c*/
+char	*ft_dollar(char *str, char *nstr, int *i, t_prompt *prompt);
+char	*ft_nodollar(char *str, char *nstr, int *i);
 
 /*extra1.c*/
 void	ft_free_split(char **s);

@@ -13,7 +13,7 @@ INBUILT		=	extra1.c extra2.c extra3.c ft_cdecho.c ft_export.c ft_inbuilts.c ft_p
 INBUILT_DIR	=	SRC/inbuilt/
 INBUILTS	=	$(addprefix $(INBUILT_DIR), $(INBUILT))
 
-HEREDOC		=	ft_create.c ft_get_env.c ft_heredoc.c
+HEREDOC		=	ft_create.c ft_get_env.c ft_heredoc.c ft_env2.c
 HEREDOC_DIR	=	SRC/heredoc/
 HEREDOCS	=	$(addprefix $(HEREDOC_DIR), $(HEREDOC))
 

@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 16:12:24 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/04 20:42:20 by yang             ###   ########.fr       */
+/*   Updated: 2022/05/06 18:09:25 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ char	*ft_getenv(char *s, t_prompt *prompt)
 		return (prompt->our_env[pos] + (sign + 1));
 	}
 	else
-		return ("");
+		return (NULL);
 }
 
 char	*ft_getenvword(char *s)

@@ -6,7 +6,7 @@
 /*   By: leng-chu <leng-chu@student.42kl.edu.m      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 18:55:41 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/05 19:09:13 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/06 19:32:47 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,17 +98,12 @@ char	*ft_expanded(char *str, t_prompt *prompt)
 
 	i = 0;
 	new = NULL;
-	while (str[i])
+	while (str[i] != '\0' && i < (int)ft_strlen(str))
 	{
 		if (str[i] == '$')
-		{
-			if (new == NULL)
-				new = "";
-			ft_getenvword(str + (i + 1));
-			new = ft_strjoin(new, ft_stringenv(str, new, &i, prompt));
-		}
+			new = ft_dollar(str, new, &i, prompt);
 		else
-			new = if_no_env(str, new, &i);
+			new = ft_nodollar(str, new, &i);
 	}
 	free(str);
 	return (new);
