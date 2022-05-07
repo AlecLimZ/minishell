@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   yeejin.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 14:50:34 by yang              #+#    #+#             */
-/*   Updated: 2022/05/06 17:30:25 by yang             ###   ########.fr       */
+/*   Updated: 2022/05/08 00:14:53 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,11 @@ int		is_name(char *str);
 int		get_env_pos(char *str, int pos);
 char	*get_prefix(char *str, int i);
 char	*get_postfix(char *str, int *i);
-int		expand_token(t_prompt *prompt);
-char	*var_expand(char *str, int *pos, t_prompt *prompt);
+// int		expand_token(t_prompt *prompt);
+void	expand_token(char *src, t_list *head, t_cmd *cmd, t_prompt *prompt);
+int	var_expand(char *str, char **expand, t_prompt *prompt);
+int	expand_n_remove_quote(t_prompt *prompt);
+// char	*var_expand(char *str, int *pos, t_prompt *prompt);
 /* ------------ Redirect ----------- */
 int		set_token_redirection(t_cmd *cmd, char **token, int i);
 int		is_operator_in_str(char *str);

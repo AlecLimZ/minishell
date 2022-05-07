@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cleanup.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 14:38:20 by yang              #+#    #+#             */
-/*   Updated: 2022/05/05 15:34:25 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/07 20:58:20 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,12 @@ int	clean_up(t_prompt *prompt, int total, int stage)
 	}
 	if (stage == 2 && total >= 0)
 	{
+
 		while (++i <= total)
 		{
 			cmd = &prompt->cmds[i];
-			free_double_ptr(cmd->args, 0);
+			if (cmd->args)
+				free_double_ptr(cmd->args, 0);
 			free_lst(&prompt->cmds[i].token);
 		}
 		free(prompt->cmds);

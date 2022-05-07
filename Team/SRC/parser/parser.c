@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 15:31:23 by yang              #+#    #+#             */
-/*   Updated: 2022/05/06 19:50:56 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/07 22:32:12 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,8 +101,11 @@ static int	tokenize(t_cmd *cmd, char *str)
 		ft_lstadd_back(&cmd->token, new);
 	}
 	redirect = set_token_redirection(cmd, token, i);
-	if (set_token_after_redirect(cmd, token, redirect) == -1)
+	if (redirect == -1 || set_token_after_redirect(cmd, token, redirect) == -1)
+	{
+		free_double_ptr(token, false);
 		return (-1);
+	}
 	return (0);
 }
 
@@ -129,8 +132,9 @@ int	parser(t_prompt *prompt, char *str)
 		}
 	}
 	free_double_ptr(split_cmd, false);
-	if (expand_token(prompt))
-		return (-1);
+	expand_n_remove_quote(prompt);
+	// if (expand_token(prompt))
+	// 	return (-1);
 	print_cmds(prompt);
 	return (0);
 }

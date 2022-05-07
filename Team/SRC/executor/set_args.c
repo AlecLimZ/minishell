@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_args.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 18:39:10 by yang              #+#    #+#             */
-/*   Updated: 2022/05/06 17:52:09 by yang             ###   ########.fr       */
+/*   Updated: 2022/05/08 00:34:36 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,10 @@ static int	set_args(t_cmd *cmd, t_list *token)
 		head = head->next;
 	}
 	if (!i)
+	{
+		printf("no arguments\n");
 		return (0);
+	}
 	args = (char **)malloc(sizeof(char *) * (i + 1));
 	head = token;
 	i = -1;
