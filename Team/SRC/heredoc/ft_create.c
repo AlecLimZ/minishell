@@ -6,7 +6,7 @@
 /*   By: leng-chu <-chu@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 13:35:26 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/04 17:00:38 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/07 16:30:27 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ void	ft_oldpwd(t_prompt *prompt)
 	oldpwd = ft_getpwd();
 	pos = ft_findenv("OLDPWD", prompt);
 	tmp = ft_strjoin("OLDPWD", "=");
+	free(prompt->our_env[pos]);
 	prompt->our_env[pos] = ft_strjoin(tmp, oldpwd);
 	free(tmp);
 }

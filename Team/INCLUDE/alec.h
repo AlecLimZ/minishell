@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 12:15:11 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/07 15:11:05 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/07 17:00:52 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	ft_cdirectory(char **args, t_prompt *prompt);
 int		ft_unset(t_cmd *cmd, t_prompt *prompt);
 char	**ft_delenv(int index, t_prompt *prompt);
 int		ft_findenv(char *env, t_prompt *prompt);
+void	ft_freeourenvp(t_prompt *prompt);
 
 /*ft_path*/
 char	*ft_conc(char *path, char *filename);

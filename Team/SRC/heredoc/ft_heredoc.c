@@ -6,7 +6,7 @@
 /*   By: leng-chu <leng-chu@student.42kl.edu.m      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 18:55:41 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/07 13:41:50 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/07 18:29:06 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,10 @@ int	ft_launch_heredoc(t_cmd *cmd, t_prompt *prompt)
 			free(filename);
 		filename = ft_create_file();
 		fd = open(filename, O_CREAT | O_EXCL | O_RDWR, 0644);
-		free(filename);
 	}
 	ft_write_infd(fd, cmd, prompt);
 	fd = open(filename, O_RDONLY);
+	free(filename);
 	return (fd);
 }
 

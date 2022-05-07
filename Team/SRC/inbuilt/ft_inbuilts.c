@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 12:22:38 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/07 15:16:24 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/07 18:03:41 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ void	ft_exit(t_prompt *prompt)
 			tmp = NULL;
 		}
 	}
+	ft_free_split(prompt->our_env);
 	exit(g_ret);
 }
 

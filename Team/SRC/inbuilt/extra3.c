@@ -6,7 +6,7 @@
 /*   By: leng-chu <-chu@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 14:45:09 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/07 15:17:33 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/07 17:57:23 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,13 @@ int	ft_exportcheck(char **args, t_prompt *prompt)
 			printf("minishell: %s not found\n", tmp[0]);
 			g_ret = ERROR;
 		}
+		ft_free_split(tmp);
+		return (0);
+	}
+	if (args[2] && args[2][0] == '=')
+	{
+		printf("minishell: %s not found\n", args[2] + 1);
+		g_ret = ERROR;
 		return (0);
 	}
 	return (1);
@@ -93,13 +100,8 @@ int	ft_getexit(t_cmd *cmds)
 		return (0);
 	}
 	while (args[1] && args[1][++i])
-	{
 		if (!ft_isdigit(args[1][i]))
-		{
 			g_ret = -1;
-			break ;
-		}
-	}
 	if (g_ret != -1)
 		g_ret = ft_atoi(args[1]);
 	return (1);

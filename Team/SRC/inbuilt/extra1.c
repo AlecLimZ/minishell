@@ -6,7 +6,7 @@
 /*   By: leng-chu <leng-chu@student.42kl.edu.m      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 20:55:42 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/05 14:55:01 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/07 17:01:00 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	ft_free_split(char **s)
 	if (!s)
 		return ;
 	while (s[++i])
-		free(s);
+		free(s[i]);
 	free(s);
 }
 

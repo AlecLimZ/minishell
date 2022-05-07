@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 22:32:42 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/05 16:46:40 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/07 18:11:53 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,12 @@ char	**ft_delenv(int index, t_prompt *prompt)
 	int		i;
 
 	i = index;
+	free(prompt->our_env[i]);
 	prompt->our_env[i] = NULL;
 	tmp = prompt->our_env;
 	while (prompt->our_env[i + 1])
 	{
-		tmp[i] = ft_strdup(prompt->our_env[i + 1]);
+		tmp[i] = prompt->our_env[i + 1];
 		i++;
 	}
 	tmp[i] = NULL;
