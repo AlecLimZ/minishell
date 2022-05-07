@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 12:15:11 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/06 19:32:42 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/07 15:11:05 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,4 +93,6 @@ int		ft_strcmp(const char *s1, const char *s2);
 void	ft_delete_toen(void *arg);
 int		ft_n(char *s);
 int		ft_exportcheck(char **args, t_prompt *prompt);
+int		ft_getexit(t_cmd *cmds);
+
 #endif

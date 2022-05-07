@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 12:22:38 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/06 18:02:17 by yang             ###   ########.fr       */
+/*   Updated: 2022/05/07 15:16:24 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ void	ft_exit(t_prompt *prompt)
 	int		j;
 
 	i = -1;
+	if (!ft_getexit(prompt->cmds))
+		return ;
 	while (++i < prompt->total_cmds)
 	{
 		j = -1;
@@ -81,7 +83,7 @@ void	ft_exit(t_prompt *prompt)
 			tmp = NULL;
 		}
 	}
-	exit(0);
+	exit(g_ret);
 }
 
 int	ft_pwd(char **args)

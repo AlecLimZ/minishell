@@ -6,13 +6,13 @@
 /*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/04 14:33:55 by yang              #+#    #+#             */
-/*   Updated: 2021/05/20 21:22:31 by yang             ###   ########.fr       */
+/*   Updated: 2022/05/07 14:56:03 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-bool	is_space(char c)
+static bool	is_space(char c)
 {
 	return (c == ' ' || c == '\t' || c == '\n' || c == '\v'
 		|| c == '\r' || c == '\f');
