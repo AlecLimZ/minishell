@@ -6,7 +6,7 @@
 /*   By: leng-chu <leng-chu@student.42kl.edu.m      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 18:08:32 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/07 18:00:34 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/07 19:14:18 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,6 @@ void	ft_newexport(t_prompt *prompt, char **tmp, char *args)
 	prompt->our_env = tmp;
 }
 
-//		ft_free_split(tmp) after replace;
-//	ft_free_split(args) before return ;
 int	ft_export(t_cmd *cmd, t_prompt *prompt)
 {
 	int		i;

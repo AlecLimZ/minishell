@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 12:15:11 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/07 17:00:52 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/07 19:03:35 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	ft_free_split(char **s);
 int		ft_tablen(char **s);
 int		ft_getcharpos(char *str, char c);
 int		ft_envcount(t_prompt *prompt);
-char	**ft_realloc_env(int size, t_prompt *prompt);
+int		ft_exportcheck2(char **args);
 
 /*extra2.c*/
 void	ft_free_array(char **array);

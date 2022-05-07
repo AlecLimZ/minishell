@@ -6,7 +6,7 @@
 /*   By: leng-chu <-chu@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 14:45:09 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/07 17:57:23 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/07 19:13:54 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,12 +74,8 @@ int	ft_exportcheck(char **args, t_prompt *prompt)
 		ft_free_split(tmp);
 		return (0);
 	}
-	if (args[2] && args[2][0] == '=')
-	{
-		printf("minishell: %s not found\n", args[2] + 1);
-		g_ret = ERROR;
+	if (!ft_exportcheck2(args))
 		return (0);
-	}
 	return (1);
 }
 

@@ -6,7 +6,7 @@
 /*   By: leng-chu <leng-chu@student.42kl.edu.m      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 20:55:42 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/07 17:01:00 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/07 19:14:24 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,21 +55,23 @@ int	ft_envcount(t_prompt *prompt)
 	return (count);
 }
 
-char	**ft_realloc_env(int size, t_prompt *prompt)
+int	ft_exportcheck2(char **args)
 {
-	char	**new;
-	int		i;
+	char	**tmp;
 
-	new = (char **)malloc(sizeof(char *) * (size + 1));
-	if (!new)
-		return (NULL);
-	i = 0;
-	while (prompt->our_env[i] && i < size)
+	if (args[2] && args[2][0] == '=')
 	{
-		new[i] = ft_strdup(prompt->our_env[i]);
-		i++;
+		printf("minishell: %s not found\n", args[2]);
+		g_ret = ERROR;
+		return (0);
 	}
-	new[size] = NULL;
-	ft_free_array(prompt->our_env);
-	return (new);
+	if (ft_isdigit(args[1][0]))
+	{
+		tmp = ft_split(args[1], '=');
+		printf("minishell: export: not an identifier: %s\n", tmp[0]);
+		ft_free_split(tmp);
+		g_ret = ERROR;
+		return (0);
+	}
+	return (1);
 }
