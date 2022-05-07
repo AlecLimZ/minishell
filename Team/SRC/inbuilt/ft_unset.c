@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 22:32:42 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/07 18:11:53 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/07 20:36:04 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,12 @@ int	ft_unset(t_cmd *cmd, t_prompt *prompt)
 	{
 		g_ret = ERROR;
 		return (g_ret && printf("minishell: unset: not enough arguments\n"));
+	}
+	else if (ft_isdigit(args[1][0]))
+	{
+		g_ret = ERROR;
+		printf("minishell: unset: %s: invalid parameter name\n", args[1]);
+		return (g_ret);
 	}
 	while (args[++i])
 	{
