@@ -6,7 +6,7 @@
 /*   By: leng-chu <leng-chu@student.42kl.edu.m      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 18:55:41 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/06 19:41:03 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/07 13:41:50 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,12 +83,10 @@ int	ft_write_infd(int fd, t_cmd *cmd, t_prompt *prompt)
 		if (str[0] != '\0')
 			if (ft_strchr(str, '$'))
 				str = ft_expanded(str, prompt);
-		printf(GRN"str: %s\n"DEF, str);
 		ft_putendl_fd(str, fd);
 		free(str);
 	}
 	free(str);
-	system("leaks minishell");
 	return (SUCCESS);
 }
 

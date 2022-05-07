@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 14:08:21 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/06 19:47:26 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/07 13:36:15 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,14 +123,16 @@ int	ft_echo(t_cmd *cmd)
 	args = cmd->args;
 	if (!args[1])
 		return (g_ret);
-	i = 0;
+	i = 1;
 	if (args[1] && ft_n(args[1]))
-		i = 1;
-	while (args[++i])
+		while (i < ft_tablen(args) && ft_n(args[i]) != 0)
+			i++;
+	while (args[i])
 	{
 		ft_putstr_fd(args[i], STDOUT);
 		if (args[i + 1])
 			write(1, " ", 1);
+		i++;
 	}
 	if (!ft_n(args[1]))
 		ft_putstr_fd("\n", STDOUT);
