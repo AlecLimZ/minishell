@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 14:42:59 by yang              #+#    #+#             */
-/*   Updated: 2022/05/05 12:14:13 by yang             ###   ########.fr       */
+/*   Updated: 2022/05/08 23:47:04 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,11 @@
 /* check pipe: check if user input valid syntax for '|'
 ** Invalid syntax:
 ** i. '|' located at args[0] or args[last]
-** ii. more than 2 consecutive '|'
+** ii. 2 consecutive '|' with no commands
 **
 ** Notes: 
-** i. echo || echo is valid
-** ii. it can be no space in between pipe, echo||echo is valid
-** iii. becareful on quotation
+** i. it can be no space in between pipe, echo||echo is valid
+** ii. becareful on quotation
 */
 
 static int	check_pipe_2(char **check, int i, int j)
@@ -47,7 +46,7 @@ int	check_pipe(char *str)
 		{
 			if (check[i][j] == '|')
 			{
-				if ((j < (int)ft_strlen(check[i]) - 2 && check[i][j + 2] == '|')
+				if ((j < (int)ft_strlen(check[i]) - 1 && check[i][j + 1] == '|')
 					|| (i < len - 1 && check[i + 1][0] == '|'))
 					return (free_double_ptr(check, true));
 			}

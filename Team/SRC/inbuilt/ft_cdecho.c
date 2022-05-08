@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cdecho.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 14:08:21 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/07 16:52:20 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/08 23:53:21 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,7 @@ int	ft_echo(t_cmd *cmd)
 	while (args[i])
 	{
 		ft_putstr_fd(args[i], STDOUT);
-		if (args[i + 1])
+		if (ft_strlen(args[i]) && args[i + 1])
 			write(1, " ", 1);
 		i++;
 	}
