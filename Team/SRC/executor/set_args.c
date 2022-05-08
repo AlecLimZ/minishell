@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 18:39:10 by yang              #+#    #+#             */
-/*   Updated: 2022/05/08 00:34:36 by yang             ###   ########.fr       */
+/*   Updated: 2022/05/08 23:36:58 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,13 @@ static int	set_args(t_cmd *cmd, t_list *token)
 		i++;
 		head = head->next;
 	}
-	if (!i)
-	{
-		printf("no arguments\n");
+	if (!i || (i == 1 && !token->content[0]))
 		return (0);
-	}
 	args = (char **)malloc(sizeof(char *) * (i + 1));
 	head = token;
 	i = -1;
 	while (head && head->type < 3)
-	{	
+	{
 		if (head->content)
 			args[++i] = ft_strdup(head->content);
 		head = head->next;
@@ -71,9 +68,9 @@ int	set_cmd(t_cmd *cmd, t_prompt *prompt)
 {
 	t_list	*head;
 	int		redir;
+	int		command;
 
-	if (!set_args(cmd, cmd->token))
-		return (0);
+	command = set_args(cmd, cmd->token);
 	head = cmd->token;
 	while (head != NULL && head->type < 3)
 		head = head->next;
@@ -86,5 +83,7 @@ int	set_cmd(t_cmd *cmd, t_prompt *prompt)
 			return (0);
 		head = head->next;
 	}
+	if (!command)
+		return (0);
 	return (1);
 }

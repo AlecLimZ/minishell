@@ -3,36 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 09:27:37 by yang              #+#    #+#             */
-/*   Updated: 2022/05/06 19:13:55 by yang             ###   ########.fr       */
+/*   Updated: 2022/05/08 23:32:37 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-// static int	set_cmd(t_cmd *cmd, t_prompt *prompt)
-// {
-// 	t_list	*head;
-// 	int		redir;
-
-// 	if (!set_args(cmd, cmd->token))
-// 		return (0);
-// 	head = cmd->token;
-// 	while (head != NULL && head->type < 3)
-// 		head = head->next;
-// 	cmd->infile = STDIN;
-// 	cmd->outfile = STDOUT;
-// 	while (head != NULL)
-// 	{
-// 		redir = redirect(cmd, head->content, head->type, prompt);
-// 		if (redir < 0)
-// 			return (0);
-// 		head = head->next;
-// 	}
-// 	return (1);
-// }
 
 static void	pipe_cmd(t_prompt *prompt, int i, int pipefd[2], int keep_fd)
 {
@@ -103,9 +81,9 @@ static void	exec_child(t_prompt *prompt, t_cmd *cmd)
 {
 	if (ft_is_built(cmd))
 	{
-		printf("is built in\n");
+		//printf("is built in\n");
 		g_ret = ft_inbuilt(cmd, prompt);
-		printf("cmd->token: %p\t cmd->args: %p\n", cmd->token, cmd->args);
+		//printf("cmd->token: %p\t cmd->args: %p\n", cmd->token, cmd->args);
 		exit(g_ret);
 	}
 	else
@@ -123,17 +101,17 @@ static void	execute(t_prompt *prompt, t_cmd *cmd, int i, int pipefd[2])
 	signal(SIGQUIT, SIG_DFL);
 	if (pid == 0)
 	{
-		printf("******* Child Process ********\n");
-		printf("pid: %d\n", getpid());
+		// printf("******* Child Process ********\n");
+		// printf("pid: %d\n", getpid());
 		pipe_cmd(prompt, i, pipefd, keep_fd);
 		exec_child(prompt, cmd);
 	}
 	else
 	{
 		waitpid(pid, &status, 0);
-		printf("******* Parent Process ********\n");
-		printf("pid: %d\n", getpid());
-		printf("cmd->token: %p\t cmd->args: %p\n", cmd->token, cmd->args);
+		// printf("******* Parent Process ********\n");
+		// printf("pid: %d\n", getpid());
+		// printf("cmd->token: %p\t cmd->args: %p\n", cmd->token, cmd->args);
 		if (prompt->total_cmds > 1)
 		{
 			if (i > 0)
