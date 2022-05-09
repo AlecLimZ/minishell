@@ -6,29 +6,29 @@
 /*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 15:31:23 by yang              #+#    #+#             */
-/*   Updated: 2022/05/07 22:32:12 by yang             ###   ########.fr       */
+/*   Updated: 2022/05/09 15:18:09 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	print_cmds(t_prompt *prompt)
-{
-	int		i;
-	t_list	*token;
-
-	i = -1;
-	while (++i < prompt->total_cmds)
-	{
-		token = prompt->cmds[i].token;
-		printf(BRED"Command %d\n"WHT, i);
-		while (token != NULL)
-		{
-			printf("content: %s\t type: %d\n", token->content, token->type);
-			token = token->next;
-		}
-	}
-}
+//void	print_cmds(t_prompt *prompt)
+//{
+//	int		i;
+//	t_list	*token;
+//
+//	i = -1;
+//	while (++i < prompt->total_cmds)
+//	{
+//		token = prompt->cmds[i].token;
+//		printf(BRED"Command %d\n"WHT, i);
+//		while (token != NULL)
+//		{
+//			printf("content: %s\t type: %d\n", token->content, token->type);
+//			token = token->next;
+//		}
+//	}
+//}
 
 int	is_operator_in_str(char *str)
 {
@@ -133,8 +133,5 @@ int	parser(t_prompt *prompt, char *str)
 	}
 	free_double_ptr(split_cmd, false);
 	expand_n_remove_quote(prompt);
-	// if (expand_token(prompt))
-	// 	return (-1);
-	print_cmds(prompt);
 	return (0);
 }

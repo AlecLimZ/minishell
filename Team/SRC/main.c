@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 16:53:45 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/09 14:12:58 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/09 15:08:38 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,6 @@ static int	minishell(t_prompt *prompt, char *input_str)
 				ft_putendl_fd("minishell: syntax error", 2);
 				continue ;
 			}
-			printf("***************Leaks from parser***************\n");
-			system("leaks minishell");
 			exec_args(prompt);
 		}
 		clean_up(prompt, prompt->total_cmds - 1, 2);
