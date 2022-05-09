@@ -1,0 +1,12 @@
+total 656
+drwxr-xr-x  11 leng-chu  2021_kuala-lumpur     374 May  9 16:40 .
+drwxr-xr-x   8 leng-chu  2021_kuala-lumpur     272 May  9 16:51 ..
+-rw-r--r--   1 leng-chu  2021_kuala-lumpur    3094 May  9 16:36 README.md
+-rw-r--r--   1 leng-chu  2021_kuala-lumpur       0 May  9 16:51 echo>
+-rw-r--r--   1 leng-chu  2021_kuala-lumpur       0 May  9 16:40 echo>>
+drwxr-xr-x  10 leng-chu  2021_kuala-lumpur     340 May  9 16:36 file_tests
+-rwxr-xr-x   1 leng-chu  2021_kuala-lumpur  312760 May  9 16:51 minishell
+-rw-r--r--   1 leng-chu  2021_kuala-lumpur      10 May  9 16:51 test
+-rwxr-xr-x   1 leng-chu  2021_kuala-lumpur    8991 May  9 16:39 test.sh
+drwxr-xr-x  10 leng-chu  2021_kuala-lumpur     340 May  9 16:51 tmp
+drwxr-xr-x   3 leng-chu  2021_kuala-lumpur     102 May  9 16:36 tofix

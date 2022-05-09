@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/29 14:19:17 by yang              #+#    #+#             */
-/*   Updated: 2022/05/09 14:13:09 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/09 16:48:58 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	exit_status(int err, char *err_msg, t_prompt *prompt)
 	clean_up(prompt, prompt->total_cmds - 1, 2);
 	ft_free_split(prompt->our_env);
 	g_ret = err;
-	printf("g_ret: %d\n", g_ret);
-	system("leaks minishell");
+//	printf("g_ret: %d\n", g_ret);
+//	system("leaks minishell");
 	exit(err);
 }

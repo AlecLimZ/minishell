@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 12:22:38 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/09 14:29:10 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/09 16:49:15 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void	ft_exit(t_prompt *prompt)
 		}
 	}
 	ft_free_split(prompt->our_env);
-	system("leaks minishell");
+//	system("leaks minishell");
 	exit(g_ret);
 }
 
