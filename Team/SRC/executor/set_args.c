@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 18:39:10 by yang              #+#    #+#             */
-/*   Updated: 2022/05/08 23:49:36 by yang             ###   ########.fr       */
+/*   Updated: 2022/05/09 18:48:53 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,10 @@ static int	set_args(t_cmd *cmd, t_list *token)
 	return (1);
 }
 
-void	set_envp(t_prompt *prompt)
+char	**set_envp(t_prompt *prompt)
 {
 	t_list	*head;
+	char	**env;
 	int		i;
 
 	i = 0;
@@ -53,15 +54,16 @@ void	set_envp(t_prompt *prompt)
 		i++;
 		head = head->next;
 	}
-	prompt->env = (char **)malloc(sizeof(char *) * (i + 1));
+	env = (char **)malloc(sizeof(char *) * (i + 1));
 	head = prompt->envp;
 	i = -1;
 	while (head)
 	{
-		prompt->env[++i] = ft_strdup(head->content);
+		env[++i] = ft_strdup(head->content);
 		head = head->next;
 	}
-	prompt->env[++i] = 0;
+	env[++i] = 0;
+	return (env);
 }
 
 int	set_cmd(t_cmd *cmd, t_prompt *prompt)
