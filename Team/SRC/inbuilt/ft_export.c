@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leng-chu <leng-chu@student.42kl.edu.m      +#+  +:+       +#+        */
+/*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 18:08:32 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/09 20:17:07 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/09 23:24:15 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,8 @@ int	ft_export(t_cmd *cmd, t_prompt *prompt)
 		if (ft_findenv(tmp[0], prompt))
 		{
 			ft_replace_val(prompt, tmp);
-			ft_free_split(tmp);
+			free_double_ptr(tmp, false);
+			//ft_free_split(tmp);
 		}
 		else
 			ft_newexport(prompt, tmp, args[i]);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 16:53:45 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/09 18:52:51 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/09 23:47:50 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,8 @@ static int	minishell(t_prompt *prompt, char *input_str)
 //			printf("***************Leaks from parser***************\n");
 //			system("leaks minishell");
 			exec_args(prompt);
+			clean_up(prompt, prompt->total_cmds - 1, 2);
 		}
-		clean_up(prompt, prompt->total_cmds - 1, 2);
 	}
 	return (0);
 }

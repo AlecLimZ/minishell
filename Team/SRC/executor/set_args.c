@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 18:39:10 by yang              #+#    #+#             */
-/*   Updated: 2022/05/09 18:48:53 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/09 23:31:06 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static int	set_args(t_cmd *cmd, t_list *token)
 			args[++i] = ft_strdup(head->content);
 		head = head->next;
 	}
-	args[++i] = 0;
+	args[++i] = NULL;
 	cmd->args = args;
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 14:42:59 by yang              #+#    #+#             */
-/*   Updated: 2022/05/08 23:47:04 by yang             ###   ########.fr       */
+/*   Updated: 2022/05/09 23:20:59 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,6 @@
 ** ii. becareful on quotation
 */
 
-static int	check_pipe_2(char **check, int i, int j)
-{
-	if (check[0][0] == '|' || check[i][j] == '|')
-		return (free_double_ptr(check, true));
-	return (free_double_ptr(check, false));
-}
-
 int	check_pipe(char *str)
 {
 	char	**check;
@@ -42,7 +35,7 @@ int	check_pipe(char *str)
 	while (++i < len)
 	{
 		j = -1;
-		while (j < (int)ft_strlen(check[i]) && check[i][++j] != '\0')
+		while (++j < (int)ft_strlen(check[i]))
 		{
 			if (check[i][j] == '|')
 			{
@@ -54,5 +47,5 @@ int	check_pipe(char *str)
 				j = in_quote(check[i], j);
 		}
 	}
-	return (check_pipe_2(check, --i, --j));
+	return (0);
 }
