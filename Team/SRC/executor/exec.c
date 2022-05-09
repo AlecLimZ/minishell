@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
+/*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 09:27:37 by yang              #+#    #+#             */
-/*   Updated: 2022/05/08 23:32:37 by yang             ###   ########.fr       */
+/*   Updated: 2022/05/09 18:38:44 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,13 @@ static int	do_exec_cmd(char **argv, t_prompt *prompt)
 {
 	char		*path;
 	struct stat	st;
+	char		**env_array;
 
+	env_array = set_envp(prompt);
 	if (ft_strchr(argv[0], '/'))
 	{
 		if (stat(argv[0], &st) == 0 && S_ISREG(st.st_mode))
-			execve(argv[0], argv, prompt->env);
+			execve(argv[0], argv, env_array);
 		else if (S_ISDIR(st.st_mode))
 			exit_status(126, "is a directory", prompt);
 		else
@@ -58,60 +60,39 @@ static int	do_exec_cmd(char **argv, t_prompt *prompt)
 		path = search_path(ft_getenv("PATH", prompt), argv[0]);
 		if (!path)
 			exit_status(127, "command not found", prompt);
-		execve(path, argv, prompt->env);
+		execve(path, argv, env_array);
 	}
+	free_double_ptr(env_array, false);
 	return (0);
 }
-
-// Previous code: having malloc problem for fork
-// static void	exec_child(t_prompt *prompt, t_cmd *cmd)
-// {
-// 	if (ft_is_built(cmd)) && ft_inbuilt(cmd, prompt))
-// 	{
-// 		exit_status(1, "", prompt);
-// 	}
-// 	else
-// 	{
-// 		printf("entering execute command\n");
-// 		do_exec_cmd(cmd->args, prompt);
-// 	}
-// }
 
 static void	exec_child(t_prompt *prompt, t_cmd *cmd)
 {
 	if (ft_is_built(cmd))
 	{
-		//printf("is built in\n");
 		g_ret = ft_inbuilt(cmd, prompt);
-		//printf("cmd->token: %p\t cmd->args: %p\n", cmd->token, cmd->args);
 		exit(g_ret);
 	}
 	else
 		do_exec_cmd(cmd->args, prompt);
 }
 
-static void	execute(t_prompt *prompt, t_cmd *cmd, int i, int pipefd[2])
+static int	execute(t_prompt *prompt, t_cmd *cmd, int i, int pipefd[2])
 {
 	int			pid;
 	static int	keep_fd;
-	int			status;
+	//int			status;
 
 	pid = fork();
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
 	if (pid == 0)
 	{
-		// printf("******* Child Process ********\n");
-		// printf("pid: %d\n", getpid());
 		pipe_cmd(prompt, i, pipefd, keep_fd);
 		exec_child(prompt, cmd);
 	}
-	else
+	else if (pid)
 	{
-		waitpid(pid, &status, 0);
-		// printf("******* Parent Process ********\n");
-		// printf("pid: %d\n", getpid());
-		// printf("cmd->token: %p\t cmd->args: %p\n", cmd->token, cmd->args);
 		if (prompt->total_cmds > 1)
 		{
 			if (i > 0)
@@ -119,9 +100,9 @@ static void	execute(t_prompt *prompt, t_cmd *cmd, int i, int pipefd[2])
 			close(pipefd[1]);
 			keep_fd = pipefd[0];
 		}
-		if (WIFEXITED(status))
-			g_ret = WEXITSTATUS(status);
+		return (pid);
 	}
+	return (pid);
 }
 
 int	exec_args(t_prompt *prompt)
@@ -130,6 +111,7 @@ int	exec_args(t_prompt *prompt)
 	t_cmd	*cmd;
 	int		pipefd[2];
 	int		save_stdout;
+	int		pid;
 
 	i = -1;
 	save_stdout = dup(1);
@@ -147,7 +129,7 @@ int	exec_args(t_prompt *prompt)
 			close(save_stdout);
 		}
 		else
-			execute(prompt, &prompt->cmds[i], i, pipefd);
+			pid = execute(prompt, &prompt->cmds[i], i, pipefd);
 	}
-	return (1);
+	return (wait_exit_status(pid));
 }

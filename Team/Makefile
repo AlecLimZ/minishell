@@ -1,5 +1,5 @@
 NAME		=	minishell
-GCC			=	gcc -Wall -Wextra -Werror
+GCC			=	gcc -Wall -Wextra -Werror -fsanitize=address -g3
 
 SRC			=	main.c
 SRC_DIR		= 	SRC/
@@ -17,7 +17,7 @@ HEREDOC		=	ft_create.c ft_get_env.c ft_heredoc.c ft_env2.c
 HEREDOC_DIR	=	SRC/heredoc/
 HEREDOCS	=	$(addprefix $(HEREDOC_DIR), $(HEREDOC))
 
-EXEC		=	exec.c redirect.c search_path.c set_args.c dup_utils.c
+EXEC		=	exec.c redirect.c search_path.c set_args.c dup_utils.c exit.c
 EXEC_DIR	=	SRC/executor/
 EXECS		=	$(addprefix $(EXEC_DIR), $(EXEC))
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   yeejin.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
+/*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 14:50:34 by yang              #+#    #+#             */
-/*   Updated: 2022/05/08 23:20:16 by yang             ###   ########.fr       */
+/*   Updated: 2022/05/09 16:47:19 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,9 @@ int		is_env(char c);
 /* ----------- dup utils ---------- */
 void	dup_n_close(int fd, int fd_dup);
 void	dup_infile_outfile(t_cmd *cmd);
+/* ----------- exit ---------- */
 void	exit_status(int err, char *err_msg, t_prompt *prompt);
+int		wait_exit_status(int last_pid);
 /* ----------- exec ------------ */
 int		exec_args(t_prompt *prompt);
 /* ---------- redirect ----------- */

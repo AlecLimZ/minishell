@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 16:53:45 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/09 14:12:58 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/09 18:05:22 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,22 @@ int	init_env(t_prompt *prompt, char *envp[])
 	t_list	*new;
 
 	i = -1;
-	prompt->envp = NULL;
-	prompt->our_env = (char **)malloc(sizeof(char *) * (ft_tablen(envp) + 1));
+	//prompt->envp = NULL;
 	while (envp[++i] != NULL)
 	{
-		prompt->our_env[i] = ft_strdup(envp[i]);
+		prompt->envp = ft_strdup(envp[i]);
 		new = ft_lstnew(envp[i]);
 		ft_lstadd_back(&prompt->envp, new);
 	}
-	prompt->our_env[i] = NULL;
+	// printf("tablen: %d\n", f)
+	// prompt->our_env = (char **)malloc(sizeof(char *) * (ft_tablen(envp) + 1));
+	// while (envp[++i] != NULL)
+	// {
+	// 	prompt->our_env[i] = ft_strdup(envp[i]);
+	// 	new = ft_lstnew(envp[i]);
+	// 	ft_lstadd_back(&prompt->envp, new);
+	// }
+	// prompt->our_env[i] = NULL;
 	return (0);
 }
 
@@ -90,8 +97,8 @@ static int	minishell(t_prompt *prompt, char *input_str)
 				ft_putendl_fd("minishell: syntax error", 2);
 				continue ;
 			}
-			printf("***************Leaks from parser***************\n");
-			system("leaks minishell");
+			//printf("***************Leaks from parser***************\n");
+			//system("leaks minishell");
 			exec_args(prompt);
 		}
 		clean_up(prompt, prompt->total_cmds - 1, 2);
