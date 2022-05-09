@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 16:53:45 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/09 18:59:56 by yang             ###   ########.fr       */
+/*   Updated: 2022/05/09 19:57:18 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ static int	minishell(t_prompt *prompt, char *input_str)
 	{
 		signal(SIGINT, new_prompt);
 		signal(SIGQUIT, SIG_IGN);
-		ft_memset(input_str, 0, MAXCOM);
+		ft_memset(input_str, 0, sizeof(char));
 		input = get_input(input_str);
 		if (input == -1)
 			break ;
@@ -97,8 +97,10 @@ static int	minishell(t_prompt *prompt, char *input_str)
 
 int	ft_runscript(int argc, char **argv, char **envp, t_prompt *prompt, struct termios termios_save)
 {
-	if (argc == 3 && !ft_strcmp(argv[1], "-c"))
-	{
+	(void)argc;
+	(void)argv;
+	// if (argc == 3 && !ft_strcmp(argv[1], "-c"))
+	// {
 		if (!prompt)
 			return (0);
 		ft_memset(prompt, 0,sizeof(t_prompt));
@@ -108,7 +110,7 @@ int	ft_runscript(int argc, char **argv, char **envp, t_prompt *prompt, struct te
 			tcsetattr(0, 0, &termios_save);
 			return (1);
 		}
-	}
+	// }
 	return (0);
 }
 

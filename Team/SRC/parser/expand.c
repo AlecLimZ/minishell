@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expand_try.c                                       :+:      :+:    :+:   */
+/*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
+/*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 21:31:16 by yang              #+#    #+#             */
-/*   Updated: 2022/05/08 23:27:00 by yang             ###   ########.fr       */
+/*   Updated: 2022/05/09 19:57:46 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ int	var_expand(char *str, char **expand, t_prompt *prompt)
 	int		i;
 	char	ptr[500];
 
+	(void)prompt;
 	i = 0;
 	if (str[i + 1] == '?')
 	{
@@ -61,7 +62,8 @@ int	var_expand(char *str, char **expand, t_prompt *prompt)
 		while (str[i] && is_env(str[i + 1]))
 			i++;
 		ft_strlcpy(temp, str + 1, i + 1);
-		*expand = ft_getenv(temp, prompt);
+		*expand = getenv(temp);
+		// *expand = ft_getenv(temp, prompt);
 	}
 	return (i);
 }

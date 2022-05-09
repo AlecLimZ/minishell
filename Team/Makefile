@@ -42,10 +42,20 @@ LIBS		=	SRC/libft/libft.a /usr/local/opt/readline/lib/*.a -lncurses
 
 all:		$(NAME)
 
-$(NAME):	$(OBJS_S) $(OBJS_P) $(OBJS_I) $(OBJS_H) $(OBJS_E) $(LIBS)
+# $(NAME):	$(OBJS_S) $(OBJS_P) $(OBJS_I) $(OBJS_H) $(OBJS_E) $(LIBS)
+# 			@echo $(GREEN)"\nObject files successfully created ✅"$(DEF)
+# 			@echo $(GREEN)"\nLibft successfully created ✅"$(DEF)
+# 			@$(GCC) $(LIBS) $(OBJS_S) $(OBJS_P) $(OBJS_I) $(OBJS_H) $(OBJS_E) $(INCLUDE) -o $(NAME)
+# 			@echo $(GREEN)"\nMinishell program successfully created ✅"$(DEF)
+# 			@mkdir -p OBJS
+# 			@mv SRC/*.o OBJS
+# 			@mv SRC/*/*.o OBJS
+# 			@mv OBJS SRC
+
+$(NAME):	$(OBJS_S) $(OBJS_P) $(LIBS)
 			@echo $(GREEN)"\nObject files successfully created ✅"$(DEF)
 			@echo $(GREEN)"\nLibft successfully created ✅"$(DEF)
-			@$(GCC) $(LIBS) $(OBJS_S) $(OBJS_P) $(OBJS_I) $(OBJS_H) $(OBJS_E) $(INCLUDE) -o $(NAME)
+			@$(GCC) $(LIBS) $(OBJS_S) $(OBJS_P) $(INCLUDE) -o $(NAME)
 			@echo $(GREEN)"\nMinishell program successfully created ✅"$(DEF)
 			@mkdir -p OBJS
 			@mv SRC/*.o OBJS
