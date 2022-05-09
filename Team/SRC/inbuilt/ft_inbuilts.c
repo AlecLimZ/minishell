@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 12:22:38 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/09 14:11:41 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/09 14:18:51 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ int	ft_inbuilt(t_cmd *cmd, t_prompt *prompt)
 		return (ft_env(args, prompt));
 	else if (!ft_strncmp(args[0], "exit", 4) && len == 4)
 		ft_exit(prompt);
+	system("leaks minishell");
 	g_ret = NOCMD;
 	return (g_ret);
 }
@@ -123,6 +124,10 @@ int	ft_env(char **args, t_prompt *prompt)
 		return (g_ret);
 	}
 	while (prompt->our_env[++i] != NULL)
+	{
+		if (!ft_strcmp(args[0], "export"))
+			ft_putstr_fd("declare -x ", 2);
 		ft_putendl_fd(prompt->our_env[i], 1);
+	}
 	return (g_ret);
 }
