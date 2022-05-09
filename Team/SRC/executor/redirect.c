@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 17:19:18 by yang              #+#    #+#             */
-/*   Updated: 2022/05/07 18:18:53 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/09 15:01:08 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,7 @@ int	redirect(t_cmd *cmd, char *fd, int type, t_prompt *prompt)
 		cmd->infile = open(fd, O_RDONLY);
 	}
 	else if (type == LESSLESS)
-	{
 		cmd->infile = ft_launch_heredoc(cmd, prompt);
-		printf("%d\n", cmd->infile);
-	}
 	else if (type == GREAT || type == GREATGREAT)
 	{
 		if (cmd->outfile != STDOUT)
