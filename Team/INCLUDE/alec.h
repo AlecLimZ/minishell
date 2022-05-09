@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 12:15:11 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/09 20:28:51 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/10 01:18:30 by jacklearn        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int		ft_env(char **args, t_prompt *prompt);
 int		ft_is_envar(char **env, char *tmp);
 void	ft_replace_val(t_prompt *prompt, char **tmp);
 char	**ft_create(char **array, char *args);
-void	ft_newexport(t_prompt *prompt, char **tmp, char *args);
+void	ft_newexport(t_prompt *prompt, char *args);
 int		ft_export(t_cmd *cmd, t_prompt *prompt);
 
 /*ft_cdecho*/

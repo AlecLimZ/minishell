@@ -1,5 +1,6 @@
 NAME		=	minishell
-GCC			=	gcc -Wall -Wextra -Werror -fsanitize=address -g3
+#GCC			=	gcc -Wall -Wextra -Werror -fsanitize=address -g3
+GCC			=	gcc -Wall -Wextra -Werror
 SRC			=	main.c
 SRC_DIR		= 	SRC/
 SRCS		=	$(addprefix $(SRC_DIR), $(SRC))
@@ -21,6 +22,7 @@ EXEC_DIR	=	SRC/executor/
 EXECS		=	$(addprefix $(EXEC_DIR), $(EXEC))
 
 READLINE	=	-I /usr/local/opt/readline/include
+READLINE	=	-I /usr/local/opt/readline/include
 INC_DIR		=	-I INCLUDE
 INC_LIB		=	-I SRC/libft
 INCLUDE 	=	$(READLINE) $(INC_DIR) $(INC_LIB)
@@ -38,12 +40,14 @@ RED			=	"\033[0;31m"
 CYAN		=	"\033[3;36m"
 
 LIBS		=	SRC/libft/libft.a /usr/local/opt/readline/lib/*.a -lncurses
+#LIBS		=	SRC/libft/libft.a -lreadline
 
 all:		$(NAME)
 
 $(NAME):	$(OBJS_S) $(OBJS_P) $(OBJS_I) $(OBJS_H) $(OBJS_E) $(LIBS)
 			@echo $(GREEN)"\nObject files successfully created ✅"$(DEF)
 			@echo $(GREEN)"\nLibft successfully created ✅"$(DEF)
+#			@$(GCC) $(OBJS_S) $(OBJS_P) $(OBJS_I) $(OBJS_H) $(OBJS_E) $(INCLUDE) $(LIBS) -o $(NAME)
 			@$(GCC) $(LIBS) $(OBJS_S) $(OBJS_P) $(OBJS_I) $(OBJS_H) $(OBJS_E) $(INCLUDE) -o $(NAME)
 			@echo $(GREEN)"\nMinishell program successfully created ✅"$(DEF)
 			@mkdir -p OBJS

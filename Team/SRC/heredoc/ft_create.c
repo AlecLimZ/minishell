@@ -6,7 +6,7 @@
 /*   By: leng-chu <-chu@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 13:35:26 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/09 21:27:43 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/10 00:42:19 by jacklearn        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,9 @@ char	*ft_create_file(void)
 void	ft_oldpwd(t_prompt *prompt)
 {
 	char	*oldpwd;
-	int		i;
 	char	*tmp2;
 	t_list	*envp;
 
-	i = -1;
 	oldpwd = ft_getpwd();
 	envp = prompt->envp;
 	printf("%s\n", oldpwd);

@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 22:32:42 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/09 20:35:35 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/10 01:35:09 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int	ft_findenv(char *env, t_prompt *prompt)
 {
-	int		i;
 	char	*sub;
 	int		index;
 	t_list	*envp;
@@ -22,7 +21,6 @@ int	ft_findenv(char *env, t_prompt *prompt)
 	envp = prompt->envp;
 	if (!env)
 		return (0);
-	i = 0;
 	while (envp != NULL)
 	{
 		index = ft_getcharpos(envp->content, '=');
@@ -30,10 +28,9 @@ int	ft_findenv(char *env, t_prompt *prompt)
 		if (sub && !ft_strcmp(sub, env))
 		{
 			free(sub);
-			return (i);
+			return (1);
 		}
 		free(sub);
-		i++;
 		envp = envp->next;
 	}
 	return (-1);

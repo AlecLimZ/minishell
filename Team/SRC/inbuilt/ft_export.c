@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 18:08:32 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/09 23:24:15 by yang             ###   ########.fr       */
+/*   Updated: 2022/05/10 01:33:54 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,9 @@ int	ft_is_envar(char **env, char *tmp)
 
 void	ft_replace_val(t_prompt *prompt, char **tmp)
 {
-	int		i;
 	char	*tmp2;
 	t_list	*envp;
-
-	i = -1;
+	
 	envp = prompt->envp;
 	while (envp != NULL)
 	{
@@ -69,16 +67,14 @@ char	**ft_create(char **array, char *args)
 	return (tmp);
 }
 
-void	ft_newexport(t_prompt *prompt, char **tmp, char *args)
+void	ft_newexport(t_prompt *prompt, char *args)
 {
-	char	**array;
+	t_list	*envp;
+	t_list	*new;
 
-	array = set_envp(prompt);
-	ft_free_split(tmp);
-	tmp = ft_create(array, args);
-	clean_up(prompt, prompt->total_cmds - 1, 2);
-	init_env(prompt, tmp);
-	ft_free_split(array);
+	envp = prompt->envp;
+	new = ft_lstnew(args);
+	ft_lstadd_back(&envp, new);
 }
 
 int	ft_export(t_cmd *cmd, t_prompt *prompt)
@@ -93,18 +89,14 @@ int	ft_export(t_cmd *cmd, t_prompt *prompt)
 	if (!ft_exportcheck(args, prompt))
 		return (g_ret);
 	i = 0;
-	while (args[++i])
+	while (args[++i] != NULL && i < ft_tablen(args))
 	{
 		tmp = ft_split(args[i], '=');
 		if (ft_findenv(tmp[0], prompt))
-		{
 			ft_replace_val(prompt, tmp);
-			free_double_ptr(tmp, false);
-			//ft_free_split(tmp);
-		}
 		else
-			ft_newexport(prompt, tmp, args[i]);
+			ft_newexport(prompt, args[1]);
+		free_double_ptr(tmp, false);
 	}
-	i = 0;
 	return (g_ret);
 }

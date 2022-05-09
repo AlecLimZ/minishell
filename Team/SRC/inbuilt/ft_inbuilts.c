@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 12:22:38 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/09 20:20:17 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/10 00:42:00 by jacklearn        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,10 +110,8 @@ int	ft_pwd(char **args)
 
 int	ft_env(char **args, t_prompt *prompt)
 {
-	int		i;
 	t_list	*envp;
 
-	i = -1;
 	envp = prompt->envp;
 	g_ret = SUCCESS;
 	if (args[1] && ft_strcmp(args[1], "") && ft_strcmp(args[1], "``"))
