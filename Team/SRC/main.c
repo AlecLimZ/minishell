@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 16:53:45 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/09 18:56:34 by yang             ###   ########.fr       */
+/*   Updated: 2022/05/09 18:59:56 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,22 +30,11 @@ int	init_env(t_prompt *prompt, char *envp[])
 	t_list	*new;
 
 	i = -1;
-	//prompt->envp = NULL;
 	while (envp[++i] != NULL)
 	{
-		prompt->envp = ft_strdup(envp[i]);
 		new = ft_lstnew(envp[i]);
 		ft_lstadd_back(&prompt->envp, new);
 	}
-	// printf("tablen: %d\n", f)
-	// prompt->our_env = (char **)malloc(sizeof(char *) * (ft_tablen(envp) + 1));
-	// while (envp[++i] != NULL)
-	// {
-	// 	prompt->our_env[i] = ft_strdup(envp[i]);
-	// 	new = ft_lstnew(envp[i]);
-	// 	ft_lstadd_back(&prompt->envp, new);
-	// }
-	// prompt->our_env[i] = NULL;
 	return (0);
 }
 
