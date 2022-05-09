@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 18:39:10 by yang              #+#    #+#             */
-/*   Updated: 2022/05/09 18:35:28 by yang             ###   ########.fr       */
+/*   Updated: 2022/05/09 18:56:50 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ static int	set_args(t_cmd *cmd, t_list *token)
 char	**set_envp(t_prompt *prompt)
 {
 	t_list	*head;
+	char	**env;
 	int		i;
 
 	i = 0;

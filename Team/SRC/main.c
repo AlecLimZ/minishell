@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 16:53:45 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/09 18:05:22 by yang             ###   ########.fr       */
+/*   Updated: 2022/05/09 18:56:34 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,11 +97,28 @@ static int	minishell(t_prompt *prompt, char *input_str)
 				ft_putendl_fd("minishell: syntax error", 2);
 				continue ;
 			}
-			//printf("***************Leaks from parser***************\n");
-			//system("leaks minishell");
+//			printf("***************Leaks from parser***************\n");
+//			system("leaks minishell");
 			exec_args(prompt);
 		}
 		clean_up(prompt, prompt->total_cmds - 1, 2);
+	}
+	return (0);
+}
+
+int	ft_runscript(int argc, char **argv, char **envp, t_prompt *prompt, struct termios termios_save)
+{
+	if (argc == 3 && !ft_strcmp(argv[1], "-c"))
+	{
+		if (!prompt)
+			return (0);
+		ft_memset(prompt, 0,sizeof(t_prompt));
+		init_env(prompt, envp);
+		if (minishell(prompt, argv[2]))
+		{
+			tcsetattr(0, 0, &termios_save);
+			return (1);
+		}
 	}
 	return (0);
 }
@@ -113,13 +130,13 @@ int	main(int argc, char *argv[], char *envp[])
 	struct termios	termios_new;
 	struct termios	termios_save;
 
-	(void)argc;
-	(void)argv;
+	prompt = malloc(sizeof(t_prompt));
 	tcgetattr(0, &termios_save);
 	termios_new = termios_save;
 	termios_new.c_lflag &= ~ECHOCTL;
 	tcsetattr(0, 0, &termios_new);
-	prompt = malloc(sizeof(t_prompt));
+	if (ft_runscript(argc, argv, envp, prompt, termios_save))
+		return (1);
 	if (!prompt)
 		return (EXIT_FAILURE);
 	ft_memset(prompt, 0, sizeof(t_prompt));

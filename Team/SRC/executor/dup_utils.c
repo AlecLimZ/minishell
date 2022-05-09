@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/29 14:19:17 by yang              #+#    #+#             */
-/*   Updated: 2022/05/09 16:48:10 by yang             ###   ########.fr       */
+/*   Updated: 2022/05/09 18:57:13 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,4 +25,3 @@ void	dup_infile_outfile(t_cmd *cmd)
 	if (cmd->outfile != STDOUT)
 		dup_n_close(cmd->outfile, STDOUT);
 }
-
