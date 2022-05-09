@@ -1,6 +1,5 @@
 NAME		=	minishell
-GCC			=	gcc -Wall -Wextra -Werror
-
+GCC			=	gcc -Wall -Wextra -Werror -fsanitize=address -g3
 SRC			=	main.c
 SRC_DIR		= 	SRC/
 SRCS		=	$(addprefix $(SRC_DIR), $(SRC))

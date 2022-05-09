@@ -6,7 +6,7 @@
 /*   By: leng-chu <-chu@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 19:29:03 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/09 19:45:01 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/09 21:35:09 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char	*ft_genvp(char *env, t_prompt *prompt)
 		if (name && !ft_strcmp(name, env))
 		{
 			free(name);
-			str = ft_substr(envp->content, index, ft_strlen(envp->content));
+			str = ft_substr(envp->content, index + 1, ft_strlen(envp->content));
 			return (str);
 		}
 		free(name);

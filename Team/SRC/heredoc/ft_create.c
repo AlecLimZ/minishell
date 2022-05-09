@@ -6,7 +6,7 @@
 /*   By: leng-chu <-chu@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 13:35:26 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/09 20:36:08 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/09 21:27:43 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,17 +44,25 @@ char	*ft_create_file(void)
 void	ft_oldpwd(t_prompt *prompt)
 {
 	char	*oldpwd;
-	int		pos;
-	char	*tmp;
-	t_list	*new;
+	int		i;
+	char	*tmp2;
+	t_list	*envp;
 
+	i = -1;
 	oldpwd = ft_getpwd();
-	pos = ft_findenv("OLDPWD", prompt);
-	tmp = ft_strjoin("OLDPWD=", oldpwd);
-	ft_lstdel_pos(&prompt->envp, pos);
-	new = ft_lstnew(tmp);
-	ft_lstadd_back(&prompt->envp, new);
-	free(tmp);
+	envp = prompt->envp;
+	printf("%s\n", oldpwd);
+	while (envp != NULL)
+	{
+		if (!ft_strncmp(envp->content, "OLDPWD", 6))
+		{
+			printf("%s\n", envp->content);
+			tmp2 = ft_strjoin("OLDPWD=", oldpwd);
+			free(envp->content);
+			envp->content = tmp2;
+		}
+		envp = envp->next;
+	}
 }
 
 char	*ft_geteof(t_cmd *cmd)
