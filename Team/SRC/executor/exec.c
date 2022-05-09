@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 09:27:37 by yang              #+#    #+#             */
-/*   Updated: 2022/05/08 23:32:37 by yang             ###   ########.fr       */
+/*   Updated: 2022/05/09 20:51:37 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,13 @@ static int	do_exec_cmd(char **argv, t_prompt *prompt)
 {
 	char		*path;
 	struct stat	st;
+	char		**envp;
 
+	envp = set_envp(prompt);
 	if (ft_strchr(argv[0], '/'))
 	{
 		if (stat(argv[0], &st) == 0 && S_ISREG(st.st_mode))
-			execve(argv[0], argv, prompt->env);
+			execve(argv[0], argv, envp);
 		else if (S_ISDIR(st.st_mode))
 			exit_status(126, "is a directory", prompt);
 		else
@@ -55,10 +57,10 @@ static int	do_exec_cmd(char **argv, t_prompt *prompt)
 	}
 	else
 	{
-		path = search_path(ft_getenv("PATH", prompt), argv[0]);
+		path = search_path(ft_genvp("PATH", prompt), argv[0]);
 		if (!path)
 			exit_status(127, "command not found", prompt);
-		execve(path, argv, prompt->env);
+		execve(path, argv, envp);
 	}
 	return (0);
 }

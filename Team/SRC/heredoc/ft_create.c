@@ -6,7 +6,7 @@
 /*   By: leng-chu <-chu@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 13:35:26 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/07 16:30:27 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/09 20:36:08 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,14 @@ void	ft_oldpwd(t_prompt *prompt)
 	char	*oldpwd;
 	int		pos;
 	char	*tmp;
+	t_list	*new;
 
 	oldpwd = ft_getpwd();
 	pos = ft_findenv("OLDPWD", prompt);
-	tmp = ft_strjoin("OLDPWD", "=");
-	free(prompt->our_env[pos]);
-	prompt->our_env[pos] = ft_strjoin(tmp, oldpwd);
+	tmp = ft_strjoin("OLDPWD=", oldpwd);
+	ft_lstdel_pos(&prompt->envp, pos);
+	new = ft_lstnew(tmp);
+	ft_lstadd_back(&prompt->envp, new);
 	free(tmp);
 }
 

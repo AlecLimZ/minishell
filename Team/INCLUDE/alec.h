@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 12:15:11 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/07 19:03:35 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/09 20:28:51 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ int		ft_env(char **args, t_prompt *prompt);
 
 /*ft_export.c*/
 int		ft_is_envar(char **env, char *tmp);
-void	ft_replace_val(char **env, char **tmp);
-char	**ft_create(t_prompt *prompt, char *args);
+void	ft_replace_val(t_prompt *prompt, char **tmp);
+char	**ft_create(char **array, char *args);
 void	ft_newexport(t_prompt *prompt, char **tmp, char *args);
 int		ft_export(t_cmd *cmd, t_prompt *prompt);
 
@@ -40,13 +40,11 @@ void	ft_cdirectory(char **args, t_prompt *prompt);
 
 /*ft_unset.c*/
 int		ft_unset(t_cmd *cmd, t_prompt *prompt);
-char	**ft_delenv(int index, t_prompt *prompt);
 int		ft_findenv(char *env, t_prompt *prompt);
 void	ft_freeourenvp(t_prompt *prompt);
 
 /*ft_path*/
 char	*ft_conc(char *path, char *filename);
-char	**ft_get_path(t_prompt *prompt);
 char	*ft_getpwd(void);
 char	*ft_rmslash(char *s);
 char	*ft_getparentdir(char *string, char *sub);
@@ -70,6 +68,9 @@ int		ft_env_len(char *str);
 char	*ft_alloc(int *cur);
 char	*ft_getenv(char *s, t_prompt *prompt);
 char	*ft_getenvword(char *s);
+
+/*ft_get_env2.c*/
+char	*ft_genvp(char *env, t_prompt *prompt);
 
 /*ft_env2.c*/
 char	*ft_dollar(char *str, char *nstr, int *i, t_prompt *prompt);

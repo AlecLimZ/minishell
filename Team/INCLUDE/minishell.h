@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 16:54:47 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/09 18:45:35 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/09 20:14:28 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,5 +71,8 @@ struct s_cmd
 	int		infile;
 	int		outfile;
 };
+
+/*main.c*/
+int	init_env(t_prompt *prompt, char *envp[]);
 
 #endif

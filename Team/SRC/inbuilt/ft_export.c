@@ -6,7 +6,7 @@
 /*   By: leng-chu <leng-chu@student.42kl.edu.m      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 18:08:32 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/07 19:14:18 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/09 20:17:07 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,44 +23,47 @@ int	ft_is_envar(char **env, char *tmp)
 	return (0);
 }
 
-void	ft_replace_val(char **env, char **tmp)
+void	ft_replace_val(t_prompt *prompt, char **tmp)
 {
 	int		i;
 	char	*tmp2;
+	t_list	*envp;
 
 	i = -1;
-	while (env[++i])
+	envp = prompt->envp;
+	while (envp != NULL)
 	{
-		if (!ft_strncmp(env[i], tmp[0], ft_strlen(tmp[0])))
+		if (!ft_strncmp(envp->content, tmp[0], ft_strlen(tmp[0])))
 		{
-			if (tmp && env)
+			if (tmp && envp->content)
 			{
 				tmp2 = ft_strjoin(tmp[0], "=");
-				free(env[i]);
+				free(envp->content);
 				if (!tmp[1])
-					env[i] = ft_strdup(tmp2);
+					envp->content = ft_strdup(tmp2);
 				else
-					env[i] = ft_strjoin(tmp2, tmp[1]);
+					envp->content = ft_strjoin(tmp2, tmp[1]);
 				free(tmp2);
 			}
 		}
+		envp = envp->next;
 	}
 }
 
-char	**ft_create(t_prompt *prompt, char *args)
+char	**ft_create(char **array, char *args)
 {
 	char	**tmp;
 	int		i;
 
 	i = -1;
-	if (!prompt->our_env || !args)
+	if (!array || !args)
 		return (NULL);
 	tmp = (char **)malloc(sizeof(char *)
-			* (ft_tablen(prompt->our_env) + 2));
+			* (ft_tablen(array) + 2));
 	if (!tmp)
 		return (NULL);
-	while (prompt->our_env[++i])
-		tmp[i] = ft_strdup(prompt->our_env[i]);
+	while (array[++i])
+		tmp[i] = ft_strdup(array[i]);
 	tmp[i] = ft_strdup(args);
 	tmp[++i] = NULL;
 	return (tmp);
@@ -68,10 +71,14 @@ char	**ft_create(t_prompt *prompt, char *args)
 
 void	ft_newexport(t_prompt *prompt, char **tmp, char *args)
 {
+	char	**array;
+
+	array = set_envp(prompt);
 	ft_free_split(tmp);
-	tmp = ft_create(prompt, args);
-	ft_free_split(prompt->our_env);
-	prompt->our_env = tmp;
+	tmp = ft_create(array, args);
+	clean_up(prompt, prompt->total_cmds - 1, 2);
+	init_env(prompt, tmp);
+	ft_free_split(array);
 }
 
 int	ft_export(t_cmd *cmd, t_prompt *prompt)
@@ -89,9 +96,9 @@ int	ft_export(t_cmd *cmd, t_prompt *prompt)
 	while (args[++i])
 	{
 		tmp = ft_split(args[i], '=');
-		if (ft_is_envar(prompt->our_env, tmp[0]))
+		if (ft_findenv(tmp[0], prompt))
 		{
-			ft_replace_val(prompt->our_env, tmp);
+			ft_replace_val(prompt, tmp);
 			ft_free_split(tmp);
 		}
 		else

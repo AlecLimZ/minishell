@@ -6,7 +6,7 @@
 /*   By: leng-chu <leng-chu@student.42kl.edu.m      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 16:10:08 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/04 13:46:34 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/09 20:22:25 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,29 +21,6 @@ char	*ft_conc(char *path, char *filename)
 	ft_strcat(bin, "/");
 	ft_strcat(bin, filename);
 	return (bin);
-}
-
-char	**ft_get_path(t_prompt *prompt)
-{
-	int		i;
-	char	*p;
-	char	**path;
-
-	i = 0;
-	path = NULL;
-	while (prompt->env[i])
-	{
-		if (ft_strcmp(prompt->env[i], "PATH") == 0)
-		{
-			p = prompt->env[i];
-			p += 5;
-			path = ft_split(p, ':');
-			break ;
-		}
-		else
-			i++;
-	}
-	return (path);
 }
 
 char	*ft_getpwd(void)

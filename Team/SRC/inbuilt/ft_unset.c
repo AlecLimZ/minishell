@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 22:32:42 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/09 14:26:15 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/09 20:35:35 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,56 +14,35 @@
 
 int	ft_findenv(char *env, t_prompt *prompt)
 {
-	char	*sub;
 	int		i;
+	char	*sub;
 	int		index;
+	t_list	*envp;
 
+	envp = prompt->envp;
 	if (!env)
 		return (0);
-	i = -1;
-	sub = NULL;
-	while (prompt->our_env[++i])
+	i = 0;
+	while (envp != NULL)
 	{
-		index = ft_getcharpos(prompt->our_env[i], '=');
-		sub = ft_substr(prompt->our_env[i], 0, index);
-		if (sub)
+		index = ft_getcharpos(envp->content, '=');
+		sub = ft_substr(envp->content, 0, index);
+		if (sub && !ft_strcmp(sub, env))
 		{
-			if (!ft_strcmp(sub, env))
-			{
-				free(sub);
-				return (i);
-			}
 			free(sub);
+			return (i);
 		}
+		free(sub);
+		i++;
+		envp = envp->next;
 	}
 	return (-1);
-}
-
-char	**ft_delenv(int index, t_prompt *prompt)
-{
-	char	**tmp;
-	int		i;
-
-	i = index;
-	free(prompt->our_env[i]);
-	prompt->our_env[i] = NULL;
-	tmp = prompt->our_env;
-	while (prompt->our_env[i + 1])
-	{
-		tmp[i] = prompt->our_env[i + 1];
-		i++;
-	}
-	tmp[i] = NULL;
-	return (tmp);
 }
 
 static int	ft_posenv(int pos, int i, char **args, t_prompt *prompt)
 {
 	if (pos != -1)
-	{
-		if (prompt->our_env[pos])
-			prompt->our_env = ft_delenv(pos, prompt);
-	}
+		ft_lstdel_pos(&prompt->envp, pos);
 	else
 	{
 		ft_putstr_fd("minishell: unset: '", 2);

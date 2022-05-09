@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 12:22:38 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/09 16:49:15 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/09 20:20:17 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@ void	ft_exit(t_prompt *prompt)
 			tmp = NULL;
 		}
 	}
-	ft_free_split(prompt->our_env);
 //	system("leaks minishell");
 	exit(g_ret);
 }
@@ -111,9 +110,11 @@ int	ft_pwd(char **args)
 
 int	ft_env(char **args, t_prompt *prompt)
 {
-	int	i;
+	int		i;
+	t_list	*envp;
 
 	i = -1;
+	envp = prompt->envp;
 	g_ret = SUCCESS;
 	if (args[1] && ft_strcmp(args[1], "") && ft_strcmp(args[1], "``"))
 	{
@@ -123,11 +124,12 @@ int	ft_env(char **args, t_prompt *prompt)
 		g_ret = NOCMD;
 		return (g_ret);
 	}
-	while (prompt->our_env[++i] != NULL)
+	while (envp != NULL)
 	{
 		if (!ft_strcmp(args[0], "export"))
 			ft_putstr_fd("declare -x ", 2);
-		ft_putendl_fd(prompt->our_env[i], 1);
+		ft_putendl_fd(envp->content, 1);
+		envp = envp->next;
 	}
 	return (g_ret);
 }

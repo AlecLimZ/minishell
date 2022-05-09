@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 14:50:34 by yang              #+#    #+#             */
-/*   Updated: 2022/05/09 16:47:20 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/09 20:18:37 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int		redirect(t_cmd *cmd, char *fd, int type, t_prompt *prompt);
 char	*search_path(char *path, char *command);
 /* ---------- set_args ----------- */
 // int		set_args(t_cmd *cmd, t_list *token);
-void	set_envp(t_prompt *prompt);
+char	**set_envp(t_prompt *prompt);
 int		set_cmd(t_cmd *cmd, t_prompt *prompt);
 
 void	print_cmds(t_prompt *prompt);
