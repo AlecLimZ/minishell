@@ -6,7 +6,7 @@
 /*   By: leng-chu <-chu@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 14:45:09 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/07 19:13:54 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/09 13:55:40 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,25 +57,25 @@ int	ft_n(char *s)
 
 int	ft_exportcheck(char **args, t_prompt *prompt)
 {
-	char	**tmp;
+	char	*tmp;
 
-	if ((ft_tablen(args) == 1) || !ft_strcmp(args[1], "") || args[1][0] == '=')
+	tmp = NULL;
+	if ((ft_tablen(args) == 1) || (args[1][0] != '_' && !ft_isalpha(args[1][0]))
+		|| !ft_strcmp(args[1], "``"))
 	{
-		tmp = ft_split(args[1], '=');
-		if ((ft_tablen(args) == 1) || (ft_strcmp(args[1], "") == 0))
+		if ((ft_tablen(args) == 1) || !ft_strcmp(args[1], "``"))
 			ft_env(args, prompt);
-		else if (ft_strcmp(args[1], "=") == 0)
-			ft_putendl_fd("minishell: bad assigment", 2);
-		else if (args[1][0] == '=')
-		{
-			printf("minishell: %s not found\n", tmp[0]);
-			g_ret = ERROR;
-		}
-		ft_free_split(tmp);
+		else
+			printf("minishell: export: %s not an identifier\n", args[1]);
+		g_ret = ERROR;
 		return (0);
 	}
-	if (!ft_exportcheck2(args))
-		return (0);
+	if (!ft_strchr(args[1], '='))
+	{
+		tmp = ft_strjoin(args[1], "=");
+		free(args[1]);
+		args[1] = tmp;
+	}
 	return (1);
 }
 

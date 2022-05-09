@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 12:22:38 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/07 18:03:41 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/09 14:11:41 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ int	ft_env(char **args, t_prompt *prompt)
 
 	i = -1;
 	g_ret = SUCCESS;
-	if (args[1] && ft_strcmp(args[1], "") != 0)
+	if (args[1] && ft_strcmp(args[1], "") && ft_strcmp(args[1], "``"))
 	{
 		ft_putstr_fd("minishell: env: ", 2);
 		ft_putstr_fd(args[1], 2);

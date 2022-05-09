@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 14:38:20 by yang              #+#    #+#             */
-/*   Updated: 2022/05/07 20:58:20 by yang             ###   ########.fr       */
+/*   Updated: 2022/05/09 12:38:03 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ int	clean_up(t_prompt *prompt, int total, int stage)
 	}
 	if (stage == 2 && total >= 0)
 	{
-
 		while (++i <= total)
 		{
 			cmd = &prompt->cmds[i];
