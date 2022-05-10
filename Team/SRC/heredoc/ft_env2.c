@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leng-chu <-chu@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 19:06:27 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/09 20:45:29 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/10 10:44:33 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../INCLUDE/minishell.h"
 
 char	*ft_dollar(char *str, char *nstr, int *i, t_prompt *prompt)
 {

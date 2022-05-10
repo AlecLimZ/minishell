@@ -6,11 +6,11 @@
 /*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 21:31:16 by yang              #+#    #+#             */
-/*   Updated: 2022/05/09 20:49:32 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/10 10:45:53 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../INCLUDE/minishell.h"
 
 void	add_var_to_list(t_cmd *cmd, t_list *head, char *str)
 {

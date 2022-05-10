@@ -6,11 +6,11 @@
 /*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/29 14:19:17 by yang              #+#    #+#             */
-/*   Updated: 2022/05/09 20:51:58 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/10 10:44:12 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../INCLUDE/minishell.h"
 
 void	dup_n_close(int fd, int fd_dup)
 {

@@ -6,11 +6,11 @@
 /*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 16:53:45 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/09 23:47:50 by yang             ###   ########.fr       */
+/*   Updated: 2022/05/10 10:42:48 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../INCLUDE/minishell.h"
 
 /* refresh the prompt if user hit Ctrl + C */
 void	new_prompt(int sig)
@@ -96,37 +96,60 @@ static int	minishell(t_prompt *prompt, char *input_str)
 	return (0);
 }
 
-int	ft_runscript(int argc, char **argv, char **envp, t_prompt *prompt, struct termios termios_save)
+int	ft_runscript(char *argv, char **envp, t_prompt *prompt)
 {
-	if (argc == 3 && !ft_strcmp(argv[1], "-c"))
+	if (!prompt)
+		return (0);
+	ft_memset(prompt, 0,sizeof(t_prompt));
+	init_env(prompt, envp);
+	if (argv)
 	{
-		if (!prompt)
-			return (0);
-		ft_memset(prompt, 0,sizeof(t_prompt));
-		init_env(prompt, envp);
-		if (minishell(prompt, argv[2]))
+		if (parser(prompt, argv) == -1)
 		{
-			tcsetattr(0, 0, &termios_save);
-			return (1);
+			ft_putendl_fd("minishell: syntax error", 2);
+			//continue ;
 		}
+		exec_args(prompt);
+		clean_up(prompt, prompt->total_cmds - 1, 2);
 	}
 	return (0);
 }
 
+// int	run_script(char *input, char **envp)
+// {
+// 	t_prompt	prompt;
+// 	char		*part;
+
+// 	ft_bzero(&prompt, sizeof(prompt));
+// 	prompt.env = init_env(envp);
+// 	change_dir(&prompt, ".");
+// 	while (next_string(&part, &input, ';'))
+// 	{
+// 		prompt.full_cmds = part;
+// 		if (get_cmds(&prompt.cmds, &prompt))
+// 			prompt.e_status = execute_line(prompt.cmds, &prompt);
+// 		cleanup_cmd(&prompt);
+// 	}
+// 	cleanup(&prompt);
+// 	return (prompt.e_status);
+// }
+
 int	main(int argc, char *argv[], char *envp[])
 {
 	char			input_str[MAXCOM];
-	t_prompt		*prompt;
+	t_prompt		*prompt = NULL;
 	struct termios	termios_new;
 	struct termios	termios_save;
 
+	if (argc == 3 && !ft_strcmp(argv[1], "-c"))
+	{
+		return (ft_runscript(argv[2], envp, prompt));
+	}
 	prompt = malloc(sizeof(t_prompt));
 	tcgetattr(0, &termios_save);
 	termios_new = termios_save;
 	termios_new.c_lflag &= ~ECHOCTL;
 	tcsetattr(0, 0, &termios_new);
-	if (ft_runscript(argc, argv, envp, prompt, termios_save))
-		return (1);
 	if (!prompt)
 		return (EXIT_FAILURE);
 	ft_memset(prompt, 0, sizeof(t_prompt));

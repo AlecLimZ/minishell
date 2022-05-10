@@ -6,11 +6,11 @@
 /*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 09:27:37 by yang              #+#    #+#             */
-/*   Updated: 2022/05/09 20:51:37 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/10 10:44:16 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../INCLUDE/minishell.h"
 
 static void	pipe_cmd(t_prompt *prompt, int i, int pipefd[2], int keep_fd)
 {
