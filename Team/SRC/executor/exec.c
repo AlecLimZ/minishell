@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 09:27:37 by yang              #+#    #+#             */
-/*   Updated: 2022/05/10 10:44:16 by yang             ###   ########.fr       */
+/*   Updated: 2022/05/11 00:32:50 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,13 @@ static int	do_exec_cmd(char **argv, t_prompt *prompt)
 		path = search_path(ft_genvp("PATH", prompt), argv[0]);
 		if (!path)
 			exit_status(127, "command not found", prompt);
-		execve(path, argv, envp);
+		if (stat(path, &st) == 0 && S_ISREG(st.st_mode))
+			execve(path, argv, envp);
+		else if (S_ISDIR(st.st_mode))
+			exit_status(126, "is a directory", prompt);
+		else
+			exit_status(127, "No such file or directory", prompt);
+		//execve(path, argv, envp);
 	}
 	return (0);
 }
@@ -92,28 +98,22 @@ static void	exec_child(t_prompt *prompt, t_cmd *cmd)
 		do_exec_cmd(cmd->args, prompt);
 }
 
-static void	execute(t_prompt *prompt, t_cmd *cmd, int i, int pipefd[2])
+static int	execute(t_prompt *prompt, t_cmd *cmd, int i, int pipefd[2])
 {
 	int			pid;
 	static int	keep_fd;
-	int			status;
+	//int			status;
 
 	pid = fork();
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
 	if (pid == 0)
 	{
-		// printf("******* Child Process ********\n");
-		// printf("pid: %d\n", getpid());
 		pipe_cmd(prompt, i, pipefd, keep_fd);
 		exec_child(prompt, cmd);
 	}
-	else
+	else if (pid)
 	{
-		waitpid(pid, &status, 0);
-		// printf("******* Parent Process ********\n");
-		// printf("pid: %d\n", getpid());
-		// printf("cmd->token: %p\t cmd->args: %p\n", cmd->token, cmd->args);
 		if (prompt->total_cmds > 1)
 		{
 			if (i > 0)
@@ -121,10 +121,45 @@ static void	execute(t_prompt *prompt, t_cmd *cmd, int i, int pipefd[2])
 			close(pipefd[1]);
 			keep_fd = pipefd[0];
 		}
-		if (WIFEXITED(status))
-			g_ret = WEXITSTATUS(status);
+		return (pid);
 	}
+	return (pid);
 }
+
+// static void	execute(t_prompt *prompt, t_cmd *cmd, int i, int pipefd[2])
+// {
+// 	int			pid;
+// 	static int	keep_fd;
+// 	int			status;
+
+// 	pid = fork();
+// 	signal(SIGINT, SIG_DFL);
+// 	signal(SIGQUIT, SIG_DFL);
+// 	if (pid == 0)
+// 	{
+// 		// printf("******* Child Process ********\n");
+// 		// printf("pid: %d\n", getpid());
+// 		pipe_cmd(prompt, i, pipefd, keep_fd);
+// 		exec_child(prompt, cmd);
+// 	}
+// 	else if (pid)
+// 	{
+// 		// waitpid(pid, &status, 0);
+// 		// printf("******* Parent Process ********\n");
+// 		// printf("pid: %d\n", getpid());
+// 		// printf("cmd->token: %p\t cmd->args: %p\n", cmd->token, cmd->args);
+// 		if (prompt->total_cmds > 1)
+// 		{
+// 			if (i > 0)
+// 				close(keep_fd);
+// 			close(pipefd[1]);
+// 			keep_fd = pipefd[0];
+// 		}
+// 		return
+// 		if (WIFEXITED(status))
+// 			g_ret = WEXITSTATUS(status);
+// 	}
+// }
 
 int	exec_args(t_prompt *prompt)
 {
@@ -132,6 +167,7 @@ int	exec_args(t_prompt *prompt)
 	t_cmd	*cmd;
 	int		pipefd[2];
 	int		save_stdout;
+	int		pid;
 
 	i = -1;
 	save_stdout = dup(1);
@@ -149,7 +185,7 @@ int	exec_args(t_prompt *prompt)
 			close(save_stdout);
 		}
 		else
-			execute(prompt, &prompt->cmds[i], i, pipefd);
+			pid = execute(prompt, &prompt->cmds[i], i, pipefd);
 	}
-	return (1);
+	return (wait_exit_status(pid));
 }

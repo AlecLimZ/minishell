@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 12:22:38 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/10 10:45:04 by yang             ###   ########.fr       */
+/*   Updated: 2022/05/10 18:28:51 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,10 @@ void	ft_exit(t_prompt *prompt)
 int	ft_pwd(char **args)
 {
 	char	*pwd;
+	char	dest[4222];
 
 	pwd = ft_getpwd();
+	ft_strlcpy(dest, pwd, ft_strlen(pwd) + 1);
 	g_ret = SUCCESS;
 	if (ft_tablen(args) > 1)
 	{
@@ -99,7 +101,7 @@ int	ft_pwd(char **args)
 		g_ret = ERROR;
 	}
 	else if (pwd)
-		ft_putendl_fd(pwd, STDOUT);
+		ft_putendl_fd(dest, STDOUT);
 	else
 	{
 		ft_putendl_fd("minishell: pwd: error", STDERR);

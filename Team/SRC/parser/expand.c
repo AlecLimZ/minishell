@@ -6,11 +6,30 @@
 /*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 21:31:16 by yang              #+#    #+#             */
-/*   Updated: 2022/05/10 10:45:53 by yang             ###   ########.fr       */
+/*   Updated: 2022/05/11 00:13:08 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../INCLUDE/minishell.h"
+
+// t_list	*del_path_not_found(t_list *head, t_cmd *cmd, char *str)
+// {
+// 	int		pos;
+// 	t_list	*token;
+
+// 	pos = 1;
+// 	if (!str[0])
+// 	{
+// 		token = cmd->token;
+// 		while (token != head)
+// 		{
+// 			token = token->next;
+// 			pos++;
+// 		}
+// 		ft_lstdel_pos(&cmd->token, pos);
+// 	}
+// 	return (token->next);
+// }
 
 void	add_var_to_list(t_cmd *cmd, t_list *head, char *str)
 {
@@ -35,7 +54,10 @@ void	add_var_to_list(t_cmd *cmd, t_list *head, char *str)
 	else
 	{
 		temp = head->content;
-		head->content = ft_strdup(str);
+		if (!str[0])
+			head->content = NULL;
+		else
+			head->content = ft_strdup(str);
 		free(temp);
 	}
 }
@@ -48,7 +70,8 @@ int	var_expand(char *str, char **expand, t_prompt *prompt)
 	char	ptr[500];
 
 	i = 0;
-	if (str[i + 1] == '?')
+	*expand = NULL;
+	if (str[i + 1] && str[i + 1] == '?')
 	{
 		num = ft_itoa(g_ret);
 		ft_strlcpy(ptr, num, ft_strlen(num) + 1);
@@ -56,6 +79,9 @@ int	var_expand(char *str, char **expand, t_prompt *prompt)
 		free(num);
 		i += 1;
 	}
+	else if (str[i + 1] && str[i + 1] != '_'
+			&& !ft_isalpha(str[i + 1]))
+		i += 1;
 	else
 	{
 		while (str[i] && is_env(str[i + 1]))
@@ -66,11 +92,18 @@ int	var_expand(char *str, char **expand, t_prompt *prompt)
 	return (i);
 }
 
-void	expand_token_2(char *dst, char *src, int i)
+int	expand_token_2(char *dst, char *src, int i)
 {
-	if (i < (int)ft_strlen(src) - 1)
-		ft_strlcat(dst, src + i, \
-				ft_strlen(dst) + ft_strlen(src) - i + 1);
+	int	pos;
+
+	pos = get_env_pos(src, i);
+	if (pos == -1)
+	{
+		if (i < (int)ft_strlen(src))
+			ft_strlcat(dst, src + i, \
+					ft_strlen(dst) + ft_strlen(src) - i + 1);
+	}
+	return (pos);
 }
 
 void	expand_token(char *src, t_list *head, t_cmd *cmd, t_prompt *prompt)
@@ -80,24 +113,21 @@ void	expand_token(char *src, t_list *head, t_cmd *cmd, t_prompt *prompt)
 	int		i;
 	int		pos;
 
-	ft_memset(dst, 0, sizeof(char));
 	i = -1;
-	while (src[++i] && pos != -1)
+	ft_memset(dst, 0, 500);
+	while (src[++i])
 	{
-		pos = get_env_pos(src, i);
+		pos = expand_token_2(dst, src, i);
 		if (pos == -1)
-			expand_token_2(dst, src, i);
-		else
+			break ;
+		if (pos > i)
 		{
-			if (pos > i)
-			{
-				ft_strlcat(dst, src + i, ft_strlen(dst) + pos - i + 1);
-				i = pos;
-			}
-			i += var_expand(src + pos, &expand, prompt);
-			if (expand)
-				ft_strlcat(dst, expand, ft_strlen(dst) + ft_strlen(expand) + 1);
+			ft_strlcat(dst, src + i, ft_strlen(dst) + pos - i + 1);
+			i = pos;
 		}
+		i += var_expand(src + pos, &expand, prompt);
+		if (expand)
+			ft_strlcat(dst, expand, ft_strlen(dst) + ft_strlen(expand) + 1);
 	}
 	add_var_to_list(cmd, head, dst);
 }
@@ -114,13 +144,15 @@ int	expand_n_remove_quote(t_prompt *prompt)
 		head = prompt->cmds[i].token;
 		while (head && head->type <= 2)
 		{
-			if (get_env_pos(head->content, 0) != -1)
+			if (need_expansion(head->content) != -1)
 			{
 				ft_strlcpy(src, head->content, ft_strlen(head->content) + 1);
 				expand_token(src, head, &prompt->cmds[i], prompt);
 				if (head->type == 1)
 					head = prompt->cmds[i].token;
 			}
+			if (!head)
+				break ;
 			remove_quotes(head);
 			head = head->next;
 		}

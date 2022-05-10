@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 16:10:08 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/10 10:45:20 by yang             ###   ########.fr       */
+/*   Updated: 2022/05/10 18:29:06 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ char	*ft_getpwd(void)
 	char	pwd[4222];
 	char	*s;
 
+	ft_memset(pwd, 0, sizeof(pwd));
 	if (getcwd(pwd, sizeof(pwd)) != NULL)
 	{
 		s = pwd;

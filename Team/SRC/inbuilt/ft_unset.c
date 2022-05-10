@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 22:32:42 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/10 13:28:29 by yang             ###   ########.fr       */
+/*   Updated: 2022/05/10 17:31:46 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ static int	ft_posenv(int pos, int i, char **args, t_prompt *prompt)
 	t_list	*envp;
 	t_list	*tmp;
 	int		j;
+	(void)	i;
+	(void)	args;
 
 	j = 0;
 	envp = prompt->envp;
@@ -59,12 +61,12 @@ static int	ft_posenv(int pos, int i, char **args, t_prompt *prompt)
 		}
 		envp = envp->next;
 	}
-	if (pos == -1)
-	{
-		printf("minishell: unset: '%s': not a valid identifier\n", args[i]);
-		g_ret = ERROR;
-		return (0);
-	}
+	// if (pos == -1)
+	// {
+	// 	printf("minishell: unset: '%s': not a valid identifier\n", args[i]);
+	// 	g_ret = ERROR;
+	// 	return (0);
+	// }
 	return (1);
 }
 

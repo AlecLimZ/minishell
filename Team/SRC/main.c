@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 16:53:45 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/10 10:42:48 by yang             ###   ########.fr       */
+/*   Updated: 2022/05/11 00:29:35 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ static int	minishell(t_prompt *prompt, char *input_str)
 		{
 			if (parser(prompt, input_str) == -1)
 			{
+				g_ret = 2;
 				ft_putendl_fd("minishell: syntax error", 2);
 				continue ;
 			}
@@ -93,26 +94,32 @@ static int	minishell(t_prompt *prompt, char *input_str)
 			clean_up(prompt, prompt->total_cmds - 1, 2);
 		}
 	}
-	return (0);
+	return (g_ret);
 }
 
 int	ft_runscript(char *argv, char **envp, t_prompt *prompt)
 {
+	// char	err[MAXCOM];
+
 	if (!prompt)
 		return (0);
 	ft_memset(prompt, 0,sizeof(t_prompt));
 	init_env(prompt, envp);
 	if (argv)
 	{
+		//printf("argv: %s\n", argv);
 		if (parser(prompt, argv) == -1)
 		{
+			// ft_strlcpy(err, "minishell: syntax error near unexpected token", )
+			// ft_strlcat(err, )
+			g_ret = 2;
 			ft_putendl_fd("minishell: syntax error", 2);
-			//continue ;
+			return (g_ret) ;
 		}
 		exec_args(prompt);
 		clean_up(prompt, prompt->total_cmds - 1, 2);
 	}
-	return (0);
+	return (g_ret);
 }
 
 // int	run_script(char *input, char **envp)
@@ -141,11 +148,15 @@ int	main(int argc, char *argv[], char *envp[])
 	struct termios	termios_new;
 	struct termios	termios_save;
 
+	// if (argc == 3 && !ft_strcmp(argv[1], "-c"))
+	// {
+	// 	return (ft_runscript(argv[2], envp, prompt));
+	// }
+	prompt = malloc(sizeof(t_prompt));
 	if (argc == 3 && !ft_strcmp(argv[1], "-c"))
 	{
 		return (ft_runscript(argv[2], envp, prompt));
 	}
-	prompt = malloc(sizeof(t_prompt));
 	tcgetattr(0, &termios_save);
 	termios_new = termios_save;
 	termios_new.c_lflag &= ~ECHOCTL;
@@ -157,8 +168,8 @@ int	main(int argc, char *argv[], char *envp[])
 	if (minishell(prompt, input_str))
 	{
 		tcsetattr(0, 0, &termios_save);
-		return (1);
+		return (g_ret);
 	}
 	tcsetattr(0, 0, &termios_save);
-	return (EXIT_SUCCESS);
+	return (g_ret);
 }

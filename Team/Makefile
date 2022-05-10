@@ -80,6 +80,7 @@ incs	= -I includes -I libft -I readline-7.0/include
 objs	= SRC/main.o \
 		  SRC/executor/dup_utils.o \
 		  SRC/executor/exec.o \
+		  SRC/executor/exit_status.o \
 		  SRC/executor/redirect.o \
 		  SRC/executor/search_path.o \
 		  SRC/executor/set_args.o \

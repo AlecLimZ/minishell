@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 14:08:21 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/10 10:44:57 by yang             ###   ########.fr       */
+/*   Updated: 2022/05/10 23:02:37 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,8 +138,8 @@ int	ft_echo(t_cmd *cmd)
 			i++;
 	while (args[i])
 	{
-		ft_putstr_fd(args[i], STDOUT);
-		if (ft_strlen(args[i]) && args[i + 1])
+		ft_putstr_fd(args[i], STDOUT_FILENO);
+		if (args[i + 1])
 			write(1, " ", 1);
 		i++;
 	}

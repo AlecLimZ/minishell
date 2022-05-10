@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 15:31:23 by yang              #+#    #+#             */
-/*   Updated: 2022/05/10 10:46:04 by yang             ###   ########.fr       */
+/*   Updated: 2022/05/11 00:41:40 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ static int	tokenize(t_cmd *cmd, char *str)
 		set_token_type(new, i);
 		ft_lstadd_back(&cmd->token, new);
 	}
+	printf("token: %s\n", token[i]);
 	redirect = set_token_redirection(cmd, token, i);
 	if (redirect == -1 || set_token_after_redirect(cmd, token, redirect) == -1)
 	{

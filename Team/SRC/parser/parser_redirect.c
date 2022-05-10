@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 10:59:12 by yang              #+#    #+#             */
-/*   Updated: 2022/05/10 10:45:58 by yang             ###   ########.fr       */
+/*   Updated: 2022/05/11 01:02:42 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,11 @@ static int	get_operator_pos(char **token, int pos)
 	if ((i == (int)ft_strlen(str) - len_redirect && token[pos + 1] == NULL)
 		|| len_redirect > 2 || (len_redirect == 2 && str[i + 1] != redirect)
 		|| (token[pos + 1] != NULL && is_operator(token[pos + 1][0])))
+	{
+		printf("error at redirection\n");
 		return (-1);
+	}
+		//return (-1);
 	return (i);
 }
 
@@ -97,22 +101,34 @@ int	set_token_redirection(t_cmd *cmd, char **token, int i)
 
 	while (token[i] && is_operator_in_str(token[i]))
 	{
-		j = get_operator_pos(token, i);
-		if (j == -1)
-			return (-1);
-		token_bef_operator(cmd, token, j, i);
-		ft_memset(dest, 0, MAXCOM);
-		if (ft_strlen(token[i] + j) > 2)
-			ft_strlcpy(dest, token[i] + get_file_pos(token[i]), \
-			ft_strlen(token[i]) - get_file_pos(token[i]) + 1);
-		else
-			ft_strlcpy(dest, token[i + 1], ft_strlen(token[i + 1]) + 1);
-		new = ft_lstnew(dest);
-		new->type = get_redirection_type(token[i] + j);
-		ft_lstadd_back(&cmd->token, new);
-		if ((ft_strlen(token[i] + j) <= 2 && is_operator(token[i][j]))
-			|| (ft_strlen(token[i] + j) == 2 && is_operator(token[i][j + 1])))
-			i++;
+		j = -1;
+		while (token[i][j])
+		{
+			if (is_operator(token[i][j]))
+			{
+				j = get_operator_pos(token, i);
+				printf("j: %d\n", j);
+				if (j == -1)
+					return (-1);
+				token_bef_operator(cmd, token, j, i);
+				ft_memset(dest, 0, MAXCOM);
+				if (ft_strlen(token[i] + j) > 2)
+					ft_strlcpy(dest, token[i] + get_file_pos(token[i]), \
+					ft_strlen(token[i]) - get_file_pos(token[i]) + 1);
+				else
+					ft_strlcpy(dest, token[i + 1], ft_strlen(token[i + 1]) + 1);
+				new = ft_lstnew(dest);
+				printf("dest: %s\n", dest);
+				new->type = get_redirection_type(token[i] + j);
+				ft_lstadd_back(&cmd->token, new);
+				if ((ft_strlen(token[i] + j) <= 2 && is_operator(token[i][j]))
+					|| (ft_strlen(token[i] + j) == 2 && is_operator(token[i][j + 1])))
+					i++;
+				j += 
+			}
+			else
+				++j;
+		}
 		i++;
 	}
 	return (i);

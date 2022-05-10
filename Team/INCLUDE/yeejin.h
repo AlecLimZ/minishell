@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 14:50:34 by yang              #+#    #+#             */
-/*   Updated: 2022/05/09 20:18:37 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/10 23:42:33 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int		clean_up(t_prompt *prompt, int total, int stage);
 /* ------------- Expand ------------- */
 int		is_name(char *str);
 int		get_env_pos(char *str, int pos);
+int	need_expansion(char *str);
 char	*get_prefix(char *str, int i);
 char	*get_postfix(char *str, int *i);
 // int		expand_token(t_prompt *prompt);
@@ -62,6 +63,7 @@ int		is_env(char c);
 void	dup_n_close(int fd, int fd_dup);
 void	dup_infile_outfile(t_cmd *cmd);
 void	exit_status(int err, char *err_msg, t_prompt *prompt);
+int		wait_exit_status(int last_pid);
 /* ----------- exec ------------ */
 int		exec_args(t_prompt *prompt);
 /* ---------- redirect ----------- */

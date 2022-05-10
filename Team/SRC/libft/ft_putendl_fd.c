@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/15 23:07:15 by yang              #+#    #+#             */
-/*   Updated: 2021/05/15 23:11:27 by yang             ###   ########.fr       */
+/*   Updated: 2022/05/10 18:29:32 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,15 @@
 
 void	ft_putendl_fd(char *s, int fd)
 {
-	ft_putstr_fd(s, fd);
-	ft_putstr_fd("\n", fd);
+	int	i;
+
+	i = 0;
+	if (!s)
+		return ;
+	while (i < (int)ft_strlen(s))
+	{
+		write(fd, s + i, 1);
+		i++;
+	}
+	write(fd, "\n", 1);
 }
