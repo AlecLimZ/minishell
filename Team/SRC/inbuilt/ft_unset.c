@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 22:32:42 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/10 01:35:09 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/10 12:04:25 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,9 @@ int	ft_findenv(char *env, t_prompt *prompt)
 	char	*sub;
 	int		index;
 	t_list	*envp;
+	int		i;
 
+	i = 0;
 	envp = prompt->envp;
 	if (!env)
 		return (0);
@@ -28,25 +30,40 @@ int	ft_findenv(char *env, t_prompt *prompt)
 		if (sub && !ft_strcmp(sub, env))
 		{
 			free(sub);
-			return (1);
+			return (i);
 		}
 		free(sub);
 		envp = envp->next;
+		i++;
 	}
 	return (-1);
 }
 
 static int	ft_posenv(int pos, int i, char **args, t_prompt *prompt)
 {
-	if (pos != -1)
-		ft_lstdel_pos(&prompt->envp, pos);
-	else
+	t_list	*envp;
+	t_list	*tmp;
+	int		j;
+
+	j = 0;
+	envp = prompt->envp;
+	while (pos != -1 && envp != NULL)
 	{
-		ft_putstr_fd("minishell: unset: '", 2);
-		ft_putstr_fd(args[i], 2);
-		ft_putstr_fd("': not a valid identifier\n", 2);
+		if (j++ == pos - 1)
+		{
+			tmp = envp->next->next;
+			free(envp->next->content);
+			free(envp->next);
+			envp->next = tmp;
+			break ;
+		}
+		envp = envp->next;
+	}
+	if (pos == -1)
+	{
+		printf("minishell: unset: '%s': not a valid identifier\n", args[i]);
 		g_ret = ERROR;
-		return (-1);
+		return (0);
 	}
 	return (1);
 }

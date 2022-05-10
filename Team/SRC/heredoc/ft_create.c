@@ -6,7 +6,7 @@
 /*   By: leng-chu <-chu@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 13:35:26 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/10 00:42:19 by jacklearn        ###   ########.fr       */
+/*   Updated: 2022/05/10 11:19:38 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,10 @@ void	ft_oldpwd(t_prompt *prompt)
 
 	oldpwd = ft_getpwd();
 	envp = prompt->envp;
-	printf("%s\n", oldpwd);
 	while (envp != NULL)
 	{
 		if (!ft_strncmp(envp->content, "OLDPWD", 6))
 		{
-			printf("%s\n", envp->content);
 			tmp2 = ft_strjoin("OLDPWD=", oldpwd);
 			free(envp->content);
 			envp->content = tmp2;

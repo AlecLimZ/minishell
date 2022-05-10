@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 18:08:32 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/10 01:33:54 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/10 12:03:12 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	ft_replace_val(t_prompt *prompt, char **tmp)
 {
 	char	*tmp2;
 	t_list	*envp;
-	
+
 	envp = prompt->envp;
 	while (envp != NULL)
 	{
@@ -92,7 +92,7 @@ int	ft_export(t_cmd *cmd, t_prompt *prompt)
 	while (args[++i] != NULL && i < ft_tablen(args))
 	{
 		tmp = ft_split(args[i], '=');
-		if (ft_findenv(tmp[0], prompt))
+		if (ft_findenv(tmp[0], prompt) != -1)
 			ft_replace_val(prompt, tmp);
 		else
 			ft_newexport(prompt, args[1]);

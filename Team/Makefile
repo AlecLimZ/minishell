@@ -47,7 +47,7 @@ all:		$(NAME)
 $(NAME):	$(OBJS_S) $(OBJS_P) $(OBJS_I) $(OBJS_H) $(OBJS_E) $(LIBS)
 			@echo $(GREEN)"\nObject files successfully created ✅"$(DEF)
 			@echo $(GREEN)"\nLibft successfully created ✅"$(DEF)
-#			@$(GCC) $(OBJS_S) $(OBJS_P) $(OBJS_I) $(OBJS_H) $(OBJS_E) $(INCLUDE) $(LIBS) -o $(NAME)
+#		@$(GCC) $(OBJS_S) $(OBJS_P) $(OBJS_I) $(OBJS_H) $(OBJS_E) $(INCLUDE) $(LIBS) -o $(NAME)
 			@$(GCC) $(LIBS) $(OBJS_S) $(OBJS_P) $(OBJS_I) $(OBJS_H) $(OBJS_E) $(INCLUDE) -o $(NAME)
 			@echo $(GREEN)"\nMinishell program successfully created ✅"$(DEF)
 			@mkdir -p OBJS
