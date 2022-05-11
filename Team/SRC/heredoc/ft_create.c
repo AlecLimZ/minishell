@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 13:35:26 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/10 13:44:59 by yang             ###   ########.fr       */
+/*   Updated: 2022/05/11 18:08:24 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ void	ft_oldpwd(t_prompt *prompt)
 
 	oldpwd = ft_getpwd();
 	envp = prompt->envp;
+	if (ft_findenv("OLDPWD", prompt) == -1)
+		ft_newexport(prompt, "OLDPWD");
 	while (envp != NULL)
 	{
 		if (!ft_strncmp(envp->content, "OLDPWD", 6))

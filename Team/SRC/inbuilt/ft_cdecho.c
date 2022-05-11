@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 14:08:21 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/10 23:02:37 by yang             ###   ########.fr       */
+/*   Updated: 2022/05/11 18:32:29 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,6 @@ static void	ft_cd2(char **args, t_prompt *prompt)
 			g_ret = ERROR;
 		}
 		tmp = ft_genvp("OLDPWD", prompt);
-		printf(GRN"tmp: %s\n"DEF, tmp);
 		ft_oldpwd(prompt);
 		chdir(tmp);
 	}

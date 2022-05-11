@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 12:22:38 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/10 18:28:51 by yang             ###   ########.fr       */
+/*   Updated: 2022/05/11 18:03:29 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,13 @@ int	ft_inbuilt(t_cmd *cmd, t_prompt *prompt)
 	else if (!ft_strncmp(args[0], "env", 3) && len == 3)
 		return (ft_env(args, prompt));
 	else if (!ft_strncmp(args[0], "exit", 4) && len == 4)
-		ft_exit(prompt);
+		return ft_exit(prompt);
 	g_ret = NOCMD;
 	return (g_ret);
 }
 
 //	line 53		ft_lstdelone(tmp, ft_delete_token);
-void	ft_exit(t_prompt *prompt)
+int	ft_exit(t_prompt *prompt)
 {
 	t_list	*token;
 	t_list	*tmp;
@@ -67,7 +67,7 @@ void	ft_exit(t_prompt *prompt)
 
 	i = -1;
 	if (!ft_getexit(prompt->cmds))
-		return ;
+		return (g_ret);
 	while (++i < prompt->total_cmds)
 	{
 		j = -1;
@@ -127,9 +127,12 @@ int	ft_env(char **args, t_prompt *prompt)
 	while (envp != NULL)
 	{
 		if (!ft_strcmp(args[0], "export"))
-			ft_putstr_fd("declare -x ", 2);
+			ft_putstr_fd("declare -x ", 1);
 		ft_putendl_fd(envp->content, 1);
 		envp = envp->next;
 	}
+	if (!ft_strcmp(args[0], "export") && ft_findenv("OLDPWD", prompt) == -1)
+		printf("declare -x OLDPWD\n");
+	g_ret = SUCCESS;
 	return (g_ret);
 }

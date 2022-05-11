@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 22:32:42 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/11 15:19:10 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/11 17:53:01 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,12 @@ int	ft_findenv(char *env, t_prompt *prompt)
 	return (-1);
 }
 
-static int	ft_posenv(int pos, int i, char **args, t_prompt *prompt)
+int	ft_posenv(int pos, t_prompt *prompt)
 {
 	t_list	*envp;
 	t_list	*tmp;
 	int		j;
 
-	(void) i;
-	(void) args;
 	j = 0;
 	envp = prompt->envp;
 	while (pos != -1 && envp != NULL)
@@ -64,7 +62,7 @@ static int	ft_posenv(int pos, int i, char **args, t_prompt *prompt)
 	return (1);
 }
 
-static int	ft_ispecial(char *s)
+int	ft_ispecial(char *s)
 {
 	int	i;
 
@@ -80,7 +78,7 @@ static int	ft_ispecial(char *s)
 	return (0);
 }
 
-static void	ft_unseterror(char *s)
+void	ft_reterror(char *s)
 {
 	int	i;
 
@@ -106,13 +104,13 @@ int	ft_unset(t_cmd *cmd, t_prompt *prompt)
 		return (g_ret);
 	if (args[1][0] != '_' && ft_ispecial(args[1]))
 	{
-		ft_unseterror(args[1]);
+		ft_reterror(args[1]);
 		return (g_ret);
 	}
 	while (args[++i])
 	{
 		pos = ft_findenv(args[i], prompt);
-		if (!ft_posenv(pos, i, args, prompt))
+		if (!ft_posenv(pos, prompt))
 			return (g_ret);
 	}
 	return (g_ret);

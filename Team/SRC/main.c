@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 16:53:45 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/11 15:08:35 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/11 18:13:10 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int	init_env(t_prompt *prompt, char *envp[])
 {
 	int		i;
 	t_list	*new;
+	int		pos;
 
 	i = -1;
 	prompt->envp = NULL;
@@ -36,6 +37,9 @@ int	init_env(t_prompt *prompt, char *envp[])
 		new = ft_lstnew(envp[i]);
 		ft_lstadd_back(&prompt->envp, new);
 	}
+	pos = ft_findenv("OLDPWD", prompt);
+	if (ft_posenv(pos, prompt))
+		return (0);
 	return (0);
 }
 
