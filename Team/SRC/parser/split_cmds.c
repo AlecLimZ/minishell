@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_cmds.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
+/*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 15:25:35 by yang              #+#    #+#             */
-/*   Updated: 2022/05/10 10:42:59 by yang             ###   ########.fr       */
+/*   Updated: 2022/05/11 15:04:21 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ char	**ft_split_str(char *str, char c)
 	{
 		if (str[i] == c || (c == ' ' && is_space(str[i])))
 		{
-			//printf("strndup: %d\n", i - start_pos);
 			w_split[++j] = ft_strndup(str + start_pos, i - start_pos);
 			i = split_pos(str, i, c);
 			start_pos = i + 1;
@@ -69,9 +68,7 @@ char	**ft_split_str(char *str, char c)
 		else if (str[i] == '"' || str[i] == '\'')
 			i = in_quote(str, i);
 	}
-	//printf("strndup: %d\n", i - start_pos);
 	w_split[++j] = ft_strndup(str + start_pos, i - start_pos);
 	w_split[++j] = NULL;
-	//printf("j: %d\n", j);
 	return (w_split);
 }

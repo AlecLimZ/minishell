@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
+/*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 09:27:37 by yang              #+#    #+#             */
-/*   Updated: 2022/05/11 00:32:50 by yang             ###   ########.fr       */
+/*   Updated: 2022/05/11 15:09:16 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,13 +60,7 @@ static int	do_exec_cmd(char **argv, t_prompt *prompt)
 		path = search_path(ft_genvp("PATH", prompt), argv[0]);
 		if (!path)
 			exit_status(127, "command not found", prompt);
-		if (stat(path, &st) == 0 && S_ISREG(st.st_mode))
-			execve(path, argv, envp);
-		else if (S_ISDIR(st.st_mode))
-			exit_status(126, "is a directory", prompt);
-		else
-			exit_status(127, "No such file or directory", prompt);
-		//execve(path, argv, envp);
+		execve(path, argv, envp);
 	}
 	return (0);
 }
