@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 22:32:42 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/10 17:31:46 by yang             ###   ########.fr       */
+/*   Updated: 2022/05/11 15:19:10 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ static int	ft_posenv(int pos, int i, char **args, t_prompt *prompt)
 	t_list	*envp;
 	t_list	*tmp;
 	int		j;
-	(void)	i;
-	(void)	args;
 
+	(void) i;
+	(void) args;
 	j = 0;
 	envp = prompt->envp;
 	while (pos != -1 && envp != NULL)
@@ -61,13 +61,36 @@ static int	ft_posenv(int pos, int i, char **args, t_prompt *prompt)
 		}
 		envp = envp->next;
 	}
-	// if (pos == -1)
-	// {
-	// 	printf("minishell: unset: '%s': not a valid identifier\n", args[i]);
-	// 	g_ret = ERROR;
-	// 	return (0);
-	// }
 	return (1);
+}
+
+static int	ft_ispecial(char *s)
+{
+	int	i;
+
+	i = -1;
+	if (ft_isdigit(s[0]))
+	{
+		printf("minishell: unset: '%s': not a valid identifier\n", s);
+		return (1);
+	}
+	while (s[++i] != '\0')
+		if (!ft_isalnum(s[i]) && s[i] != '_')
+			return (1);
+	return (0);
+}
+
+static void	ft_unseterror(char *s)
+{
+	int	i;
+
+	i = -1;
+	g_ret = ERROR;
+	while (s[++i])
+		if (s[i] == ';')
+			g_ret = 127;
+	if (s[0] == '-')
+		g_ret = 2;
 }
 
 int	ft_unset(t_cmd *cmd, t_prompt *prompt)
@@ -80,14 +103,10 @@ int	ft_unset(t_cmd *cmd, t_prompt *prompt)
 	args = cmd->args;
 	g_ret = SUCCESS;
 	if (!args[1])
+		return (g_ret);
+	if (args[1][0] != '_' && ft_ispecial(args[1]))
 	{
-		g_ret = ERROR;
-		return (g_ret && printf("minishell: unset: not enough arguments\n"));
-	}
-	else if (!ft_isalpha(args[1][0]) && args[1][0] != '_')
-	{
-		g_ret = ERROR;
-		printf("minishell: unset: %s: invalid parameter name\n", args[1]);
+		ft_unseterror(args[1]);
 		return (g_ret);
 	}
 	while (args[++i])

@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 16:53:45 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/11 00:29:35 by yang             ###   ########.fr       */
+/*   Updated: 2022/05/11 15:08:35 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ static int	minishell(t_prompt *prompt, char *input_str)
 		signal(SIGINT, new_prompt);
 		signal(SIGQUIT, SIG_IGN);
 		ft_memset(input_str, 0, MAXCOM);
+	//	printf("g_ret: %d\n", g_ret);
 		input = get_input(input_str);
 		if (input == -1)
 			break ;
