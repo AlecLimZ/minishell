@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 10:59:12 by yang              #+#    #+#             */
-/*   Updated: 2022/05/11 14:02:50 by yang             ###   ########.fr       */
+/*   Updated: 2022/05/11 15:03:58 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,16 +27,20 @@ static void	token_bef_operator(t_cmd *cmd, char **token, int pos, int i)
 	}
 }
 
-static void	token_operator(t_cmd *cmd, char *token, int len, int type)
+static int	token_operator(t_cmd *cmd, char *token, int *file_type, int j)
 {
 	char	dest[MAXCOM];
 	t_list	*new;
+	int		file_len;
 
+	file_len = get_file_len(token, j);
 	ft_memset(dest, 0, MAXCOM);
-	ft_strlcpy(dest, token, len + 1);
+	ft_strlcpy(dest, token + j, file_len + 1);
 	new = ft_lstnew(dest);
-	new->type = type;
+	new->type = *file_type;
 	ft_lstadd_back(&cmd->token, new);
+	*file_type = 0;
+	return (file_len - 1);
 }
 
 /*
@@ -73,36 +77,12 @@ static int	get_operator_pos(char **token, int pos, int j, int *operator_len)
 	return (j);
 }
 
-static int	get_file_len(char *str, int i)
-{
-	int	len;
-
-	len = 0;
-	while (str[i + len] && !is_operator(str[i + len]))
-		len++;
-	return (len);
-}
-
-static int	get_redirection_type(char *str)
-{
-	if (!ft_strncmp(str, ">>", 2))
-		return (GREATGREAT);
-	else if (!ft_strncmp(str, "<<", 2))
-		return (LESSLESS);
-	else if (!ft_strncmp(str, ">", 1))
-		return (GREAT);
-	else if (!ft_strncmp(str, "<", 1))
-		return (LESS);
-	return (-1);
-}
-
-int set_redirect(t_cmd *cmd, char **token, int i, int *file_type)
+static int	set_redirect(t_cmd *cmd, char **token, int i, int *file_type)
 {
 	int			j;
 	int			pos;
-	int 		operator_len;
+	int			operator_len;
 	char		dst[MAXCOM];
-	int			file_len;
 
 	j = -1;
 	while (++j < (int)ft_strlen(token[i]))
@@ -120,12 +100,7 @@ int set_redirect(t_cmd *cmd, char **token, int i, int *file_type)
 			j += operator_len - 1;
 		}
 		else
-		{
-			file_len = get_file_len(token[i], j);
-			token_operator(cmd, &token[i][j], file_len, *file_type);
-			*file_type = 0;
-			j += file_len - 1;
-		}
+			j += token_operator(cmd, token[i], file_type, j);
 	}
 	return (0);
 }

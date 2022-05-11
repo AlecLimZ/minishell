@@ -6,47 +6,15 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 21:31:16 by yang              #+#    #+#             */
-/*   Updated: 2022/05/11 11:23:57 by yang             ###   ########.fr       */
+/*   Updated: 2022/05/11 15:00:18 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../INCLUDE/minishell.h"
 
-// t_list	*del_path_not_found(t_list *head, t_cmd *cmd, char *str)
-// {
-// 	int		pos;
-// 	t_list	*token;
-
-// 	pos = 1;
-// 	if (!str[0])
-// 	{
-// 		token = cmd->token;
-// 		while (token != head)
-// 		{
-// 			token = token->next;
-// 			pos++;
-// 		}
-// 		ft_lstdel_pos(&cmd->token, pos);
-// 	}
-// 	return (token->next);
-// }
-
-void	replace_expand_str(t_list *head, char *str)
-{
-	char	*temp;
-
-	temp = head->content;
-	if (!str[0])
-		head->content = NULL;
-	else
-		head->content = ft_strdup(str);
-	free(temp);
-}
-
 void	add_var_to_list(t_cmd *cmd, t_list *head, char *str)
 {
 	char	**token;
-	// char	*temp;
 	int		i;
 	t_list	*new;
 
@@ -65,14 +33,6 @@ void	add_var_to_list(t_cmd *cmd, t_list *head, char *str)
 	}
 	else
 		replace_expand_str(head, str);
-	// {
-	// 	temp = head->content;
-	// 	if (!str[0])
-	// 		head->content = NULL;
-	// 	else
-	// 		head->content = ft_strdup(str);
-	// 	free(temp);
-	// }
 }
 
 int	var_expand(char *str, char **expand, t_prompt *prompt)
