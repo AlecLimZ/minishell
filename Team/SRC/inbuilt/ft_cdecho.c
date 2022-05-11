@@ -6,11 +6,11 @@
 /*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 14:08:21 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/08 23:53:21 by yang             ###   ########.fr       */
+/*   Updated: 2022/05/11 18:32:29 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../INCLUDE/minishell.h"
 
 static void	ft_cdirectory2(char **args, char *pwd)
 {
@@ -72,12 +72,12 @@ static void	ft_cd2(char **args, t_prompt *prompt)
 
 	if (!ft_strcmp(args[1], "-") || !ft_strcmp(args[1], "~-"))
 	{
-		if (!ft_getenv("OLDPWD", prompt))
+		if (!ft_genvp("OLDPWD", prompt))
 		{
 			ft_putendl_fd("OLDPWD not set", 2);
 			g_ret = ERROR;
 		}
-		tmp = prompt->our_env[ft_findenv("OLDPWD", prompt)] + 7;
+		tmp = ft_genvp("OLDPWD", prompt);
 		ft_oldpwd(prompt);
 		chdir(tmp);
 	}
@@ -109,13 +109,13 @@ int	ft_cd(t_cmd *cmd, t_prompt *prompt)
 		ft_cdirectory(args, prompt);
 	else if (!args[1] || !ft_strcmp(args[1], "~") || !ft_strcmp(args[1], "--"))
 	{
-		if (!ft_getenv("HOME", prompt))
+		if (!ft_genvp("HOME", prompt))
 		{
 			ft_putendl_fd("minishell: cd: HOME not set", 2);
 			g_ret = ERROR;
 		}
 		ft_oldpwd(prompt);
-		chdir(ft_getenv("HOME", prompt));
+		chdir(ft_genvp("HOME", prompt));
 	}
 	else
 		ft_cd2(args, prompt);
@@ -137,8 +137,8 @@ int	ft_echo(t_cmd *cmd)
 			i++;
 	while (args[i])
 	{
-		ft_putstr_fd(args[i], STDOUT);
-		if (ft_strlen(args[i]) && args[i + 1])
+		ft_putstr_fd(args[i], STDOUT_FILENO);
+		if (args[i + 1])
 			write(1, " ", 1);
 		i++;
 	}

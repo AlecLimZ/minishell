@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_inbuilts.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 12:22:38 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/09 15:18:56 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/11 18:39:13 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../INCLUDE/minishell.h"
 
 int	ft_is_built(t_cmd *cmd)
 {
@@ -52,13 +52,13 @@ int	ft_inbuilt(t_cmd *cmd, t_prompt *prompt)
 	else if (!ft_strncmp(args[0], "env", 3) && len == 3)
 		return (ft_env(args, prompt));
 	else if (!ft_strncmp(args[0], "exit", 4) && len == 4)
-		ft_exit(prompt);
+		return ft_exit(prompt);
 	g_ret = NOCMD;
 	return (g_ret);
 }
 
 //	line 53		ft_lstdelone(tmp, ft_delete_token);
-void	ft_exit(t_prompt *prompt)
+int	ft_exit(t_prompt *prompt)
 {
 	t_list	*token;
 	t_list	*tmp;
@@ -67,7 +67,7 @@ void	ft_exit(t_prompt *prompt)
 
 	i = -1;
 	if (!ft_getexit(prompt->cmds))
-		return ;
+		return (g_ret);
 	while (++i < prompt->total_cmds)
 	{
 		j = -1;
@@ -83,15 +83,16 @@ void	ft_exit(t_prompt *prompt)
 			tmp = NULL;
 		}
 	}
-	ft_free_split(prompt->our_env);
 	exit(g_ret);
 }
 
 int	ft_pwd(char **args)
 {
 	char	*pwd;
+	char	dest[4222];
 
 	pwd = ft_getpwd();
+	ft_strlcpy(dest, pwd, ft_strlen(pwd) + 1);
 	g_ret = SUCCESS;
 	if (ft_tablen(args) > 1)
 	{
@@ -99,7 +100,7 @@ int	ft_pwd(char **args)
 		g_ret = ERROR;
 	}
 	else if (pwd)
-		ft_putendl_fd(pwd, STDOUT);
+		ft_putendl_fd(dest, STDOUT);
 	else
 	{
 		ft_putendl_fd("minishell: pwd: error", STDERR);
@@ -110,9 +111,9 @@ int	ft_pwd(char **args)
 
 int	ft_env(char **args, t_prompt *prompt)
 {
-	int	i;
+	t_list	*envp;
 
-	i = -1;
+	envp = prompt->envp;
 	g_ret = SUCCESS;
 	if (args[1] && ft_strcmp(args[1], "") && ft_strcmp(args[1], "``"))
 	{
@@ -122,11 +123,15 @@ int	ft_env(char **args, t_prompt *prompt)
 		g_ret = NOCMD;
 		return (g_ret);
 	}
-	while (prompt->our_env[++i] != NULL)
+	while (envp != NULL)
 	{
 		if (!ft_strcmp(args[0], "export"))
-			ft_putstr_fd("declare -x ", 2);
-		ft_putendl_fd(prompt->our_env[i], 1);
+			ft_putstr_fd("declare -x ", 1);
+		ft_putendl_fd(envp->content, 1);
+		envp = envp->next;
 	}
+	if (!ft_strcmp(args[0], "export") && ft_findenv("OLDPWD", prompt) == -1)
+		printf("declare -x OLDPWD\n");
+	g_ret = SUCCESS;
 	return (g_ret);
 }

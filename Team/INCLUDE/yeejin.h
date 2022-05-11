@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   yeejin.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
+/*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 14:50:34 by yang              #+#    #+#             */
-/*   Updated: 2022/05/08 23:20:16 by yang             ###   ########.fr       */
+/*   Updated: 2022/05/11 15:00:07 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,12 @@ int		clean_up(t_prompt *prompt, int total, int stage);
 /* ------------- Expand ------------- */
 int		is_name(char *str);
 int		get_env_pos(char *str, int pos);
+int	need_expansion(char *str);
 char	*get_prefix(char *str, int i);
 char	*get_postfix(char *str, int *i);
 // int		expand_token(t_prompt *prompt);
 void	expand_token(char *src, t_list *head, t_cmd *cmd, t_prompt *prompt);
+void	replace_expand_str(t_list *head, char *str);
 int	var_expand(char *str, char **expand, t_prompt *prompt);
 int	expand_n_remove_quote(t_prompt *prompt);
 // char	*var_expand(char *str, int *pos, t_prompt *prompt);
@@ -56,12 +58,15 @@ int		is_space(char c);
 int		is_operator(char c);
 int		is_quote(char c);
 int		is_env(char c);
+int		get_file_len(char *str, int i);
+int		get_redirection_type(char *str);
 
 /* --------------------- EXECUTOR ------------------ */
 /* ----------- dup utils ---------- */
 void	dup_n_close(int fd, int fd_dup);
 void	dup_infile_outfile(t_cmd *cmd);
 void	exit_status(int err, char *err_msg, t_prompt *prompt);
+int		wait_exit_status(int last_pid);
 /* ----------- exec ------------ */
 int		exec_args(t_prompt *prompt);
 /* ---------- redirect ----------- */
@@ -70,7 +75,7 @@ int		redirect(t_cmd *cmd, char *fd, int type, t_prompt *prompt);
 char	*search_path(char *path, char *command);
 /* ---------- set_args ----------- */
 // int		set_args(t_cmd *cmd, t_list *token);
-void	set_envp(t_prompt *prompt);
+char	**set_envp(t_prompt *prompt);
 int		set_cmd(t_cmd *cmd, t_prompt *prompt);
 
 void	print_cmds(t_prompt *prompt);

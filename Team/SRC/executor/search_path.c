@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   search_path.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 16:44:25 by yang              #+#    #+#             */
-/*   Updated: 2022/05/04 19:33:54 by yang             ###   ########.fr       */
+/*   Updated: 2022/05/10 10:44:22 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../INCLUDE/minishell.h"
 
 static bool	next_path(char **search, char **file)
 {

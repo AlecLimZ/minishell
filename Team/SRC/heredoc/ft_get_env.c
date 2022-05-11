@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_get_env.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 16:12:24 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/06 18:09:25 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/10 10:44:36 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../INCLUDE/minishell.h"
 
 // line:29 return need to modify for exit status
 char	*ft_get_envp(int *cur, char *str, t_prompt *prompt)
@@ -32,7 +32,7 @@ char	*ft_get_envp(int *cur, char *str, t_prompt *prompt)
 	if (cpy == NULL)
 		return (NULL);
 	cpy = ft_strncpy(cpy, str + 1, len);
-	env = ft_getenv(cpy, prompt);
+	env = ft_genvp(cpy, prompt);
 	free(cpy);
 	if (!env)
 		return (NULL);
@@ -70,20 +70,20 @@ char	*ft_alloc(int *cur)
 	return (NULL);
 }
 
-char	*ft_getenv(char *s, t_prompt *prompt)
-{
-	int	pos;
-	int	sign;
-
-	pos = ft_findenv(s, prompt);
-	if (pos != -1)
-	{
-		sign = ft_getcharpos(prompt->our_env[pos], '=');
-		return (prompt->our_env[pos] + (sign + 1));
-	}
-	else
-		return (NULL);
-}
+//char	*ft_getenv(char *s, t_prompt *prompt)
+//{
+//	int	pos;
+//	int	sign;
+//
+//	pos = ft_findenv(s, prompt);
+//	if (pos != -1)
+//	{
+//		sign = ft_getcharpos(prompt->our_env[pos], '=');
+//		return (prompt->our_env[pos] + (sign + 1));
+//	}
+//	else
+//		return (NULL);
+//}
 
 char	*ft_getenvword(char *s)
 {

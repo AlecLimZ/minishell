@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 16:54:47 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/05 18:43:52 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/10 10:44:02 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # include <sys/stat.h>
 # include <stdbool.h>
 # include <termios.h>
-# include "libft.h"
+# include "../SRC/libft/libft.h"
 # include "yeejin.h"
 # include "alec.h"
 
@@ -60,8 +60,6 @@ enum	e_token_type
 struct s_prompt
 {
 	t_list			*envp;
-	char			**env;
-	char			**our_env;
 	struct s_cmd	*cmds;
 	int				total_cmds;
 };
@@ -73,5 +71,8 @@ struct s_cmd
 	int		infile;
 	int		outfile;
 };
+
+/*main.c*/
+int	init_env(t_prompt *prompt, char *envp[]);
 
 #endif

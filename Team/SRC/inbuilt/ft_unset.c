@@ -3,76 +3,92 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 22:32:42 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/09 14:26:15 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/11 17:53:01 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../INCLUDE/minishell.h"
 
 int	ft_findenv(char *env, t_prompt *prompt)
 {
 	char	*sub;
-	int		i;
 	int		index;
+	t_list	*envp;
+	int		i;
 
+	i = 0;
+	envp = prompt->envp;
 	if (!env)
 		return (0);
-	i = -1;
-	sub = NULL;
-	while (prompt->our_env[++i])
+	while (envp != NULL)
 	{
-		index = ft_getcharpos(prompt->our_env[i], '=');
-		sub = ft_substr(prompt->our_env[i], 0, index);
-		if (sub)
+		index = ft_getcharpos(envp->content, '=');
+		sub = ft_substr(envp->content, 0, index);
+		if (sub && !ft_strcmp(sub, env))
 		{
-			if (!ft_strcmp(sub, env))
-			{
-				free(sub);
-				return (i);
-			}
 			free(sub);
+			return (i);
 		}
+		free(sub);
+		envp = envp->next;
+		i++;
 	}
 	return (-1);
 }
 
-char	**ft_delenv(int index, t_prompt *prompt)
+int	ft_posenv(int pos, t_prompt *prompt)
 {
-	char	**tmp;
-	int		i;
+	t_list	*envp;
+	t_list	*tmp;
+	int		j;
 
-	i = index;
-	free(prompt->our_env[i]);
-	prompt->our_env[i] = NULL;
-	tmp = prompt->our_env;
-	while (prompt->our_env[i + 1])
+	j = 0;
+	envp = prompt->envp;
+	while (pos != -1 && envp != NULL)
 	{
-		tmp[i] = prompt->our_env[i + 1];
-		i++;
-	}
-	tmp[i] = NULL;
-	return (tmp);
-}
-
-static int	ft_posenv(int pos, int i, char **args, t_prompt *prompt)
-{
-	if (pos != -1)
-	{
-		if (prompt->our_env[pos])
-			prompt->our_env = ft_delenv(pos, prompt);
-	}
-	else
-	{
-		ft_putstr_fd("minishell: unset: '", 2);
-		ft_putstr_fd(args[i], 2);
-		ft_putstr_fd("': not a valid identifier\n", 2);
-		g_ret = ERROR;
-		return (-1);
+		if (j++ == pos - 1)
+		{
+			tmp = envp->next->next;
+			free(envp->next->content);
+			free(envp->next);
+			envp->next = tmp;
+			break ;
+		}
+		envp = envp->next;
 	}
 	return (1);
+}
+
+int	ft_ispecial(char *s)
+{
+	int	i;
+
+	i = -1;
+	if (ft_isdigit(s[0]))
+	{
+		printf("minishell: unset: '%s': not a valid identifier\n", s);
+		return (1);
+	}
+	while (s[++i] != '\0')
+		if (!ft_isalnum(s[i]) && s[i] != '_')
+			return (1);
+	return (0);
+}
+
+void	ft_reterror(char *s)
+{
+	int	i;
+
+	i = -1;
+	g_ret = ERROR;
+	while (s[++i])
+		if (s[i] == ';')
+			g_ret = 127;
+	if (s[0] == '-')
+		g_ret = 2;
 }
 
 int	ft_unset(t_cmd *cmd, t_prompt *prompt)
@@ -85,20 +101,16 @@ int	ft_unset(t_cmd *cmd, t_prompt *prompt)
 	args = cmd->args;
 	g_ret = SUCCESS;
 	if (!args[1])
+		return (g_ret);
+	if (args[1][0] != '_' && ft_ispecial(args[1]))
 	{
-		g_ret = ERROR;
-		return (g_ret && printf("minishell: unset: not enough arguments\n"));
-	}
-	else if (!ft_isalpha(args[1][0]) && args[1][0] != '_')
-	{
-		g_ret = ERROR;
-		printf("minishell: unset: %s: invalid parameter name\n", args[1]);
+		ft_reterror(args[1]);
 		return (g_ret);
 	}
 	while (args[++i])
 	{
 		pos = ft_findenv(args[i], prompt);
-		if (!ft_posenv(pos, i, args, prompt))
+		if (!ft_posenv(pos, prompt))
 			return (g_ret);
 	}
 	return (g_ret);

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   check_pipe.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
+/*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 14:42:59 by yang              #+#    #+#             */
-/*   Updated: 2022/05/08 23:47:04 by yang             ###   ########.fr       */
+/*   Updated: 2022/05/11 14:58:02 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../INCLUDE/minishell.h"
 
 /* check pipe: check if user input valid syntax for '|'
 ** Invalid syntax:
@@ -22,37 +22,31 @@
 ** ii. becareful on quotation
 */
 
-static int	check_pipe_2(char **check, int i, int j)
-{
-	if (check[0][0] == '|' || check[i][j] == '|')
-		return (free_double_ptr(check, true));
-	return (free_double_ptr(check, false));
-}
-
 int	check_pipe(char *str)
 {
-	char	**check;
+	char	**ptr;
 	int		i;
 	int		j;
 	int		len;
 
 	len = count(str, ' ');
-	check = ft_split_str(str, ' ');
+	ptr = ft_split_str(str, ' ');
 	i = -1;
 	while (++i < len)
 	{
 		j = -1;
-		while (j < (int)ft_strlen(check[i]) && check[i][++j] != '\0')
+		while (++j < (int)ft_strlen(ptr[i]))
 		{
-			if (check[i][j] == '|')
+			if (ptr[i][j] == '|')
 			{
-				if ((j < (int)ft_strlen(check[i]) - 1 && check[i][j + 1] == '|')
-					|| (i < len - 1 && check[i + 1][0] == '|'))
-					return (free_double_ptr(check, true));
+				if ((j < (int)ft_strlen(ptr[i]) - 1 && ptr[i][j + 1] == '|')
+					|| (i < len - 1 && ptr[i + 1][0] == '|') || (!i && !j)
+					|| (i == len - 1 && j == (int)ft_strlen(ptr[len - 1]) - 1))
+					return (free_double_ptr(ptr, true));
 			}
-			else if (is_quote(check[i][j]))
-				j = in_quote(check[i], j);
+			else if (is_quote(ptr[i][j]))
+				j = in_quote(ptr[i], j);
 		}
 	}
-	return (check_pipe_2(check, --i, --j));
+	return (0);
 }

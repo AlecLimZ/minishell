@@ -6,11 +6,11 @@
 /*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 14:38:20 by yang              #+#    #+#             */
-/*   Updated: 2022/05/09 12:38:03 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/10 10:45:41 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../INCLUDE/minishell.h"
 
 int	free_double_ptr(char **argv, bool error)
 {
@@ -19,7 +19,6 @@ int	free_double_ptr(char **argv, bool error)
 	i = -1;
 	while (argv[++i] != NULL)
 		free(argv[i]);
-	free(argv[i]);
 	free(argv);
 	if (error)
 		return (-1);
@@ -49,7 +48,6 @@ int	clean_up(t_prompt *prompt, int total, int stage)
 	int		i;
 	t_cmd	*cmd;
 
-	(void)stage;
 	i = -1;
 	if (stage == 1)
 	{

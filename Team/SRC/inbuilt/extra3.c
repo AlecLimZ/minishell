@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   extra3.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leng-chu <-chu@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 14:45:09 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/09 13:55:40 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/11 17:20:29 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../INCLUDE/minishell.h"
 
 int	ft_strcmp(const char *s1, const char *s2)
 {
@@ -63,11 +63,16 @@ int	ft_exportcheck(char **args, t_prompt *prompt)
 	if ((ft_tablen(args) == 1) || (args[1][0] != '_' && !ft_isalpha(args[1][0]))
 		|| !ft_strcmp(args[1], "``"))
 	{
+		g_ret = ERROR;
 		if ((ft_tablen(args) == 1) || !ft_strcmp(args[1], "``"))
 			ft_env(args, prompt);
-		else
-			printf("minishell: export: %s not an identifier\n", args[1]);
-		g_ret = ERROR;
+		else if (args[1][0] == '-')
+			g_ret = 2;
+		return (0);
+	}
+	if ((args[1][0] != '_' && ft_ispecialexp(args[1])) || args[1][0] == '-')
+	{
+		ft_reterror(args[1]);
 		return (0);
 	}
 	if (!ft_strchr(args[1], '='))
@@ -89,15 +94,20 @@ int	ft_getexit(t_cmd *cmds)
 	args = cmds->args;
 	if (ft_tablen(args) < 2)
 		return (1);
-	else if (ft_tablen(args) > 2)
+	else if (ft_tablen(args) > 2 || ft_strlen(args[1]) > 10)
 	{
-		g_ret = -1;
+		g_ret = 1;
+		if (!ft_isnum(args[1]) || ft_strlen(args[1]) > 10)
+			g_ret = 255;
 		ft_putendl_fd("minishell: exit: too many arguments", 2);
 		return (0);
 	}
+	if (args[1][0] == '+' || args[1][0] == '-')
+		i++;
 	while (args[1] && args[1][++i])
 		if (!ft_isdigit(args[1][i]))
 			g_ret = -1;
+//	printf("g_ret: %d\n", g_ret);
 	if (g_ret != -1)
 		g_ret = ft_atoi(args[1]);
 	return (1);

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   extra1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leng-chu <leng-chu@student.42kl.edu.m      +#+  +:+       +#+        */
+/*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 20:55:42 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/09 13:45:47 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/10 10:44:47 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../INCLUDE/minishell.h"
 
 void	ft_free_split(char **s)
 {
@@ -47,11 +47,16 @@ int	ft_getcharpos(char *str, char c)
 
 int	ft_envcount(t_prompt *prompt)
 {
-	int	count;
+	int		count;
+	t_list	*env;
 
+	env = prompt->envp;
 	count = 0;
-	while (prompt->our_env[count])
+	while (env != NULL)
+	{
+		env = env->next;
 		count++;
+	}
 	return (count);
 }
 

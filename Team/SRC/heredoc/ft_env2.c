@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leng-chu <-chu@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 19:06:27 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/06 19:32:37 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/10 10:44:33 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../INCLUDE/minishell.h"
 
 char	*ft_dollar(char *str, char *nstr, int *i, t_prompt *prompt)
 {
@@ -24,7 +24,7 @@ char	*ft_dollar(char *str, char *nstr, int *i, t_prompt *prompt)
 	while (str2[*i + s] != ' ' && str2[*i + s] != '$' && str2[*i + s] != '\0')
 		s++;
 	sub = ft_substr(str, *i + 1, s);
-	tmp = ft_strdup(ft_getenv(sub, prompt));
+	tmp = ft_strdup(ft_genvp(sub, prompt));
 	free(sub);
 	if (nstr == NULL)
 		nstr = ft_strjoin("", tmp);
