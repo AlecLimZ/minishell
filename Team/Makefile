@@ -9,7 +9,7 @@
 # PARSING_DIR	=	SRC/parser/
 # PARSINGS 	=	$(addprefix $(PARSING_DIR), $(PARSING))
 
-# INBUILT		=	extra1.c extra2.c extra3.c ft_cdecho.c ft_export.c ft_inbuilts.c ft_path.c ft_unset.c
+# INBUILT		=	extra1.c extra2.c extra3.c ft_cdecho.c ft_export.c ft_inbuilts.c ft_path.c ft_unset.c extra4.c
 # INBUILT_DIR	=	SRC/inbuilt/
 # INBUILTS	=	$(addprefix $(INBUILT_DIR), $(INBUILT))
 
@@ -92,6 +92,7 @@ objs	= SRC/main.o \
 		  SRC/inbuilt/extra1.o \
 		  SRC/inbuilt/extra2.o \
 		  SRC/inbuilt/extra3.o \
+		  SRC/inbuilt/extra4.o \
 		  SRC/inbuilt/ft_cdecho.o \
 		  SRC/inbuilt/ft_export.o \
 		  SRC/inbuilt/ft_inbuilts.o \
