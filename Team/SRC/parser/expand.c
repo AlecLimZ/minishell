@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 21:31:16 by yang              #+#    #+#             */
-/*   Updated: 2022/05/11 19:36:59 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/11 20:48:51 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	var_expand(char *str, char **expand, t_prompt *prompt)
 	{
 		num = ft_itoa(g_ret);
 		ft_strlcpy(ptr, num, ft_strlen(num) + 1);
-		*expand = ptr;
+		*expand = ft_strdup(ptr);
 		free(num);
 		i += 1;
 	}
