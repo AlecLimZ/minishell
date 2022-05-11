@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 12:22:38 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/11 18:58:00 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/11 20:01:52 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@ int	ft_exit(t_prompt *prompt)
 			tmp = NULL;
 		}
 	}
-	system("leaks minishell");
 	exit(g_ret);
 }
 

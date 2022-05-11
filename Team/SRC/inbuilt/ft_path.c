@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 16:10:08 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/11 15:51:13 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/11 19:58:09 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ char	*ft_getparentdir(char *string, char *sub)
 	while (string[++i] && pos == -1)
 	{
 		j = 0;
-		while (string[i + j] == sub[j])
+		while (sub[j] && string[i + j] == sub[j])
 			j++;
 		if (sub[j] == '\0')
 			pos = i;
