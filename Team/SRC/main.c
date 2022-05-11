@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 16:53:45 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/11 18:50:43 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/11 20:24:09 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,26 +99,6 @@ static int	minishell(t_prompt *prompt, char *input_str)
 	return (g_ret);
 }
 
-//int	ft_runscript(char *argv, char **envp, t_prompt *prompt)
-//{
-//	if (!prompt)
-//		return (0);
-//	ft_memset(prompt, 0, sizeof(t_prompt));
-//	init_env(prompt, envp);
-//	if (argv)
-//	{
-//		if (parser(prompt, argv) == -1)
-//		{
-//			g_ret = 2;
-//			ft_putendl_fd("minishell: syntax error", 2);
-//			return (g_ret);
-//		}
-//		exec_args(prompt);
-//		clean_up(prompt, prompt->total_cmds - 1, 2);
-//	}
-//	return (g_ret);
-//}
-
 int	main(int argc, char *argv[], char *envp[])
 {
 	char			input_str[MAXCOM];
@@ -126,10 +106,10 @@ int	main(int argc, char *argv[], char *envp[])
 	struct termios	termios_new;
 	struct termios	termios_save;
 
-	(void)argc;
-	(void)argv;
 	prompt = NULL;
 	prompt = malloc(sizeof(t_prompt));
+	if (argc == 3 && !ft_strcmp(argv[1], "-c"))
+		return (ft_runscript(argv[2], envp, prompt));
 	tcgetattr(0, &termios_save);
 	termios_new = termios_save;
 	termios_new.c_lflag &= ~ECHOCTL;

@@ -6,7 +6,7 @@
 /*   By: leng-chu <-chu@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 16:03:22 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/11 19:26:50 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/11 20:20:23 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,24 @@ void	ft_home(t_prompt *prompt)
 	ft_oldpwd(prompt);
 	chdir(tmp);
 	free(tmp);
+}
+
+int	ft_runscript(char *argv, char **envp, t_prompt *prompt)
+{
+	if (!prompt)
+		return (0);
+	ft_memset(prompt, 0, sizeof(t_prompt));
+	init_env(prompt, envp);
+	if (argv)
+	{
+		if (parser(prompt, argv) == -1)
+		{
+			g_ret = 2;
+			ft_putendl_fd("minishellL: syntax error", 2);
+			return (g_ret);
+		}
+		exec_args(prompt);
+		clean_up(prompt, prompt->total_cmds - 1, 2);
+	}
+	return (g_ret);
 }

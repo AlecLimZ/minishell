@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 12:15:11 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/11 19:27:43 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/11 20:17:45 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,5 +105,6 @@ int		ft_getexit(t_cmd *cmds);
 void	ft_checkslash(char **s);
 int		ft_isnum(char *s);
 void	ft_home(t_prompt *prompt);
+int		ft_runscript(char *argv, char **envp, t_prompt *prompt);
 
 #endif
