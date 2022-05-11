@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 14:50:34 by yang              #+#    #+#             */
-/*   Updated: 2022/05/11 15:00:07 by yang             ###   ########.fr       */
+/*   Updated: 2022/05/11 18:44:27 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,14 @@ int		clean_up(t_prompt *prompt, int total, int stage);
 /* ------------- Expand ------------- */
 int		is_name(char *str);
 int		get_env_pos(char *str, int pos);
-int	need_expansion(char *str);
+int		need_expansion(char *str);
 char	*get_prefix(char *str, int i);
 char	*get_postfix(char *str, int *i);
 // int		expand_token(t_prompt *prompt);
 void	expand_token(char *src, t_list *head, t_cmd *cmd, t_prompt *prompt);
 void	replace_expand_str(t_list *head, char *str);
-int	var_expand(char *str, char **expand, t_prompt *prompt);
-int	expand_n_remove_quote(t_prompt *prompt);
+int		var_expand(char *str, char **expand, t_prompt *prompt);
+int		expand_n_remove_quote(t_prompt *prompt);
 // char	*var_expand(char *str, int *pos, t_prompt *prompt);
 /* ------------ Redirect ----------- */
 int		set_token_redirection(t_cmd *cmd, char **token, int i);

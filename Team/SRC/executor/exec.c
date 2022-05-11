@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 09:27:37 by yang              #+#    #+#             */
-/*   Updated: 2022/05/11 18:38:41 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/11 18:45:33 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,6 @@ static int	execute(t_prompt *prompt, t_cmd *cmd, int i, int pipefd[2])
 {
 	int			pid;
 	static int	keep_fd;
-	//int			status;
 
 	pid = fork();
 	signal(SIGINT, SIG_DFL);

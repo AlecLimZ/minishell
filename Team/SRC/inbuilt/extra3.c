@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 14:45:09 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/11 17:20:29 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/11 18:47:01 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,6 @@ int	ft_getexit(t_cmd *cmds)
 	while (args[1] && args[1][++i])
 		if (!ft_isdigit(args[1][i]))
 			g_ret = -1;
-//	printf("g_ret: %d\n", g_ret);
 	if (g_ret != -1)
 		g_ret = ft_atoi(args[1]);
 	return (1);

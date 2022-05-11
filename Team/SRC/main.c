@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 16:53:45 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/11 18:39:34 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/11 18:50:43 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ static int	minishell(t_prompt *prompt, char *input_str)
 		signal(SIGINT, new_prompt);
 		signal(SIGQUIT, SIG_IGN);
 		ft_memset(input_str, 0, MAXCOM);
-	//	printf("g_ret: %d\n", g_ret);
 		input = get_input(input_str);
 		if (input == -1)
 			break ;
@@ -100,66 +99,37 @@ static int	minishell(t_prompt *prompt, char *input_str)
 	return (g_ret);
 }
 
-int	ft_runscript(char *argv, char **envp, t_prompt *prompt)
-{
-	// char	err[MAXCOM];
-
-	if (!prompt)
-		return (0);
-	ft_memset(prompt, 0,sizeof(t_prompt));
-	init_env(prompt, envp);
-	if (argv)
-	{
-		//printf("argv: %s\n", argv);
-		if (parser(prompt, argv) == -1)
-		{
-			// ft_strlcpy(err, "minishell: syntax error near unexpected token", )
-			// ft_strlcat(err, )
-			g_ret = 2;
-			ft_putendl_fd("minishell: syntax error", 2);
-			return (g_ret) ;
-		}
-		exec_args(prompt);
-		clean_up(prompt, prompt->total_cmds - 1, 2);
-	}
-	return (g_ret);
-}
-
-// int	run_script(char *input, char **envp)
-// {
-// 	t_prompt	prompt;
-// 	char		*part;
-
-// 	ft_bzero(&prompt, sizeof(prompt));
-// 	prompt.env = init_env(envp);
-// 	change_dir(&prompt, ".");
-// 	while (next_string(&part, &input, ';'))
-// 	{
-// 		prompt.full_cmds = part;
-// 		if (get_cmds(&prompt.cmds, &prompt))
-// 			prompt.e_status = execute_line(prompt.cmds, &prompt);
-// 		cleanup_cmd(&prompt);
-// 	}
-// 	cleanup(&prompt);
-// 	return (prompt.e_status);
-// }
+//int	ft_runscript(char *argv, char **envp, t_prompt *prompt)
+//{
+//	if (!prompt)
+//		return (0);
+//	ft_memset(prompt, 0, sizeof(t_prompt));
+//	init_env(prompt, envp);
+//	if (argv)
+//	{
+//		if (parser(prompt, argv) == -1)
+//		{
+//			g_ret = 2;
+//			ft_putendl_fd("minishell: syntax error", 2);
+//			return (g_ret);
+//		}
+//		exec_args(prompt);
+//		clean_up(prompt, prompt->total_cmds - 1, 2);
+//	}
+//	return (g_ret);
+//}
 
 int	main(int argc, char *argv[], char *envp[])
 {
 	char			input_str[MAXCOM];
-	t_prompt		*prompt = NULL;
+	t_prompt		*prompt;
 	struct termios	termios_new;
 	struct termios	termios_save;
 
-	// if (argc == 3 && !ft_strcmp(argv[1], "-c"))
-	// {
-	// 	return (ft_runscript(argv[2], envp, prompt));
-	// }
+	(void)argc;
+	(void)argv;
+	prompt = NULL;
 	prompt = malloc(sizeof(t_prompt));
-	if (argc == 3 && !ft_strcmp(argv[1], "-c"))
-	{
-		return (ft_runscript(argv[2], envp, prompt));
-	}
 	tcgetattr(0, &termios_save);
 	termios_new = termios_save;
 	termios_new.c_lflag &= ~ECHOCTL;
