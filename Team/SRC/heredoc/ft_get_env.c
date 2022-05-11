@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 16:12:24 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/10 10:44:36 by yang             ###   ########.fr       */
+/*   Updated: 2022/05/11 19:33:15 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ char	*ft_get_envp(int *cur, char *str, t_prompt *prompt)
 	if (!env)
 		return (NULL);
 	*cur = *cur + len + 1;
-	cpy = ft_strdup(env);
+	cpy = env;
 	return (cpy);
 }
 

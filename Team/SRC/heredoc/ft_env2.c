@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 19:06:27 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/10 10:44:33 by yang             ###   ########.fr       */
+/*   Updated: 2022/05/11 19:31:13 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char	*ft_dollar(char *str, char *nstr, int *i, t_prompt *prompt)
 	while (str2[*i + s] != ' ' && str2[*i + s] != '$' && str2[*i + s] != '\0')
 		s++;
 	sub = ft_substr(str, *i + 1, s);
-	tmp = ft_strdup(ft_genvp(sub, prompt));
+	tmp = ft_genvp(sub, prompt);
 	free(sub);
 	if (nstr == NULL)
 		nstr = ft_strjoin("", tmp);

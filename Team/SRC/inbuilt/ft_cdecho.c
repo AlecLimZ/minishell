@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 14:08:21 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/11 18:32:29 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/11 19:28:10 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,14 +72,15 @@ static void	ft_cd2(char **args, t_prompt *prompt)
 
 	if (!ft_strcmp(args[1], "-") || !ft_strcmp(args[1], "~-"))
 	{
-		if (!ft_genvp("OLDPWD", prompt))
+		tmp = ft_genvp("OLDPWD", prompt);
+		if (!tmp)
 		{
 			ft_putendl_fd("OLDPWD not set", 2);
 			g_ret = ERROR;
 		}
-		tmp = ft_genvp("OLDPWD", prompt);
 		ft_oldpwd(prompt);
 		chdir(tmp);
+		free(tmp);
 	}
 	else
 	{
@@ -108,15 +109,7 @@ int	ft_cd(t_cmd *cmd, t_prompt *prompt)
 	else if (ft_tablen(args) == 3)
 		ft_cdirectory(args, prompt);
 	else if (!args[1] || !ft_strcmp(args[1], "~") || !ft_strcmp(args[1], "--"))
-	{
-		if (!ft_genvp("HOME", prompt))
-		{
-			ft_putendl_fd("minishell: cd: HOME not set", 2);
-			g_ret = ERROR;
-		}
-		ft_oldpwd(prompt);
-		chdir(ft_genvp("HOME", prompt));
-	}
+		ft_home(prompt);
 	else
 		ft_cd2(args, prompt);
 	return (g_ret);

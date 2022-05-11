@@ -6,7 +6,7 @@
 /*   By: leng-chu <-chu@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 16:03:22 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/11 17:10:50 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/11 19:26:50 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,4 +41,19 @@ int	ft_isnum(char *s)
 		i++;
 	}
 	return (1);
+}
+
+void	ft_home(t_prompt *prompt)
+{
+	char	*tmp;
+
+	tmp = ft_genvp("HOME", prompt);
+	if (!tmp)
+	{
+		ft_putendl_fd("minishell: cd: HOME not set", 2);
+		g_ret = ERROR;
+	}
+	ft_oldpwd(prompt);
+	chdir(tmp);
+	free(tmp);
 }

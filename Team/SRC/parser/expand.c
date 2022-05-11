@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 21:31:16 by yang              #+#    #+#             */
-/*   Updated: 2022/05/11 15:00:18 by yang             ###   ########.fr       */
+/*   Updated: 2022/05/11 19:36:59 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,10 @@ void	expand_token(char *src, t_list *head, t_cmd *cmd, t_prompt *prompt)
 		}
 		i += var_expand(src + pos, &expand, prompt);
 		if (expand)
+		{
 			ft_strlcat(dst, expand, ft_strlen(dst) + ft_strlen(expand) + 1);
+			free(expand);
+		}
 	}
 	add_var_to_list(cmd, head, dst);
 }
