@@ -31,7 +31,7 @@ PACKAGE_TARNAME = readline
 srcdir = .
 
 top_srcdir = .
-BUILD_DIR = /Users/yeejin/Documents/42/minishell/minishell_merge/Team/readline-7.0
+BUILD_DIR = /Users/yang/42_cursus/minishell/minishell_merge/Team/readline-7.0
 
 INSTALL = /usr/bin/install -c
 INSTALL_PROGRAM = ${INSTALL}
@@ -48,7 +48,7 @@ MV = mv
 
 SHELL = /bin/sh
 
-prefix = /Users/yeejin/Documents/42/minishell/minishell_merge/Team/readline-7.0
+prefix = /Users/yang/42_cursus/minishell/minishell_merge/Team/readline-7.0
 exec_prefix = ${prefix}
 
 datarootdir = ${prefix}/share

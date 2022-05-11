@@ -32,7 +32,7 @@ datarootdir = ${prefix}/share
 srcdir = .
 VPATH = ..
 topdir = ..
-BUILD_DIR = /Users/yeejin/Documents/42/minishell/minishell_merge/Team/readline-7.0
+BUILD_DIR = /Users/yang/42_cursus/minishell/minishell_merge/Team/readline-7.0
 
 INSTALL = /usr/bin/install -c
 INSTALL_PROGRAM = ${INSTALL}
@@ -49,10 +49,10 @@ LN = ln
 
 SHELL = /bin/sh
 
-host_os = darwin20.6.0
+host_os = darwin19.6.0
 host_vendor = apple
 
-prefix = /Users/yeejin/Documents/42/minishell/minishell_merge/Team/readline-7.0
+prefix = /Users/yang/42_cursus/minishell/minishell_merge/Team/readline-7.0
 exec_prefix = ${prefix}
 includedir = ${prefix}/include
 bindir = ${exec_prefix}/bin

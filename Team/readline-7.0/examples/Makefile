@@ -21,7 +21,7 @@ RL_LIBRARY_VERSION = 7.0
 SHELL = /bin/sh
 RM = rm -f
 
-prefix = /Users/yeejin/Documents/42/minishell/minishell_merge/Team/readline-7.0
+prefix = /Users/yang/42_cursus/minishell/minishell_merge/Team/readline-7.0
 exec_prefix = ${prefix}
 
 datarootdir = ${prefix}/share
@@ -32,7 +32,7 @@ datadir = ${datarootdir}
 
 top_srcdir = ..
 #BUILD_DIR = .
-BUILD_DIR = /Users/yeejin/Documents/42/minishell/minishell_merge/Team/readline-7.0
+BUILD_DIR = /Users/yang/42_cursus/minishell/minishell_merge/Team/readline-7.0
 installdir = $(datadir)/readline
 
 INSTALL = /usr/bin/install -c

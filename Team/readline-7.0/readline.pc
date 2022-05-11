@@ -1,4 +1,4 @@
-prefix=/Users/yeejin/Documents/42/minishell/minishell_merge/Team/readline-7.0
+prefix=/Users/yang/42_cursus/minishell/minishell_merge/Team/readline-7.0
 exec_prefix=${prefix}
 libdir=${exec_prefix}/lib
 includedir=${prefix}/include

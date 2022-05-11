@@ -108,6 +108,7 @@ objs	= SRC/main.o \
 		  SRC/parser/utils.o
 
 libft	= SRC/libft/libft.a
+# LDLIBS = /usr/local/opt/readline/lib/*.a -lncurses
 LDLIBS	= readline-7.0/lib/*.a -lncurses
 LDFLAGS = -fsanitize=address -g3
 CFLAGS	= -Wall -Wextra -Werror $(LDFLAGS) $(incs)
@@ -133,6 +134,7 @@ $(objs): |readline-7.0
 
 readline-7.0:
 	curl -LO https://ftp.gnu.org/gnu/readline/readline-7.0.tar.gz
+	# curl -LO https://ftp.gnu.org/gnu/readline/readline-6.0.tar.gz
 	@echo "750d437185286f40a369e1e4f4764eda932b9459b5ec9a731628393dd3d32334  readline-7.0.tar.gz" | shasum -c
 	@tar xzf readline-7.0.tar.gz
 	@echo Compiling libreadline...  \

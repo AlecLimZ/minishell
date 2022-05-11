@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
+/*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 21:31:16 by yang              #+#    #+#             */
-/*   Updated: 2022/05/11 00:13:08 by yang             ###   ########.fr       */
+/*   Updated: 2022/05/11 11:23:57 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,22 @@
 // 	return (token->next);
 // }
 
+void	replace_expand_str(t_list *head, char *str)
+{
+	char	*temp;
+
+	temp = head->content;
+	if (!str[0])
+		head->content = NULL;
+	else
+		head->content = ft_strdup(str);
+	free(temp);
+}
+
 void	add_var_to_list(t_cmd *cmd, t_list *head, char *str)
 {
 	char	**token;
-	char	*temp;
+	// char	*temp;
 	int		i;
 	t_list	*new;
 
@@ -52,14 +64,15 @@ void	add_var_to_list(t_cmd *cmd, t_list *head, char *str)
 		free_double_ptr(token, false);
 	}
 	else
-	{
-		temp = head->content;
-		if (!str[0])
-			head->content = NULL;
-		else
-			head->content = ft_strdup(str);
-		free(temp);
-	}
+		replace_expand_str(head, str);
+	// {
+	// 	temp = head->content;
+	// 	if (!str[0])
+	// 		head->content = NULL;
+	// 	else
+	// 		head->content = ft_strdup(str);
+	// 	free(temp);
+	// }
 }
 
 int	var_expand(char *str, char **expand, t_prompt *prompt)
@@ -79,8 +92,7 @@ int	var_expand(char *str, char **expand, t_prompt *prompt)
 		free(num);
 		i += 1;
 	}
-	else if (str[i + 1] && str[i + 1] != '_'
-			&& !ft_isalpha(str[i + 1]))
+	else if (str[i + 1] && str[i + 1] != '_' && !ft_isalpha(str[i + 1]))
 		i += 1;
 	else
 	{

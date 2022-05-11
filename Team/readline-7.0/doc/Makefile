@@ -22,7 +22,7 @@ topdir = ..
 srcdir = .
 
 
-prefix = /Users/yeejin/Documents/42/minishell/minishell_merge/Team/readline-7.0
+prefix = /Users/yang/42_cursus/minishell/minishell_merge/Team/readline-7.0
 
 datarootdir = ${prefix}/share
 
@@ -49,7 +49,7 @@ RM = rm -f
 INSTALL = /usr/bin/install -c
 INSTALL_DATA = ${INSTALL} -m 644
 
-BUILD_DIR = /Users/yeejin/Documents/42/minishell/minishell_merge/Team/readline-7.0
+BUILD_DIR = /Users/yang/42_cursus/minishell/minishell_merge/Team/readline-7.0
 TEXINPUTDIR = $(srcdir)
 
 MAKEINFO    = LANGUAGE= makeinfo
