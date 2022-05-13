@@ -31,6 +31,7 @@ OBJS_P		=	$(PARSINGS:%.c=%.o)
 OBJS_I		=	$(INBUILTS:%.c=%.o)
 OBJS_H		=	$(HEREDOCS:%.c=%.o)
 OBJS_E		=	$(EXECS:%.c=%.o)
+OBJS		= 	$(OBJS_S) $(OBJS_P) $(OBJS_I) $(OBJS_H) $(OBJS_E)
 
 DEF			= 	"\033[0m"
 YELLOW		=	"\033[1;33m"
@@ -38,21 +39,19 @@ GREEN		=	"\033[1;32m"
 RED			=	"\033[0;31m"
 CYAN		=	"\033[3;36m"
 
-LIBS		=	SRC/libft/libft.a /usr/local/opt/readline/lib/*.a -lncurses
+LIBS		=	SRC/libft/libft.a 
+READ_LIB	= /usr/local/opt/readline/lib/*.a -lncurses
 #LIBS		=	SRC/libft/libft.a -lreadline
 
 all:		$(NAME)
 
-$(NAME):	$(OBJS_S) $(OBJS_P) $(OBJS_I) $(OBJS_H) $(OBJS_E) $(LIBS)
+$(NAME):	$(OBJS) $(LIBS)
 			@echo $(GREEN)"\nObject files successfully created ✅"$(DEF)
 			@echo $(GREEN)"\nLibft successfully created ✅"$(DEF)
 #			@$(GCC) $(OBJS_S) $(OBJS_P) $(OBJS_I) $(OBJS_H) $(OBJS_E) $(INCLUDE) $(LIBS) -o $(NAME)
-			@$(GCC) $(LIBS) $(OBJS_S) $(OBJS_P) $(OBJS_I) $(OBJS_H) $(OBJS_E) $(INCLUDE) -o $(NAME)
+			@$(GCC) $(LIBS) $(OBJS) $(INCLUDE) -o $(NAME) $(READ_LIB)
 			@echo $(GREEN)"\nMinishell program successfully created ✅"$(DEF)
-			@mkdir -p OBJS
-			@mv SRC/*.o OBJS
-			@mv SRC/*/*.o OBJS
-			@mv OBJS SRC
+
 
 $(LIBS):
 			@echo $(YELLOW)
@@ -63,7 +62,7 @@ $(LIBS):
 
 clean:
 			@make fclean -C SRC/libft
-			@rm -rf SRC/OBJS
+			@rm $(OBJS)
 			@echo $(RED)"Object files & object folder GONE ☠️"$(DEF)
 
 fclean: 	clean
