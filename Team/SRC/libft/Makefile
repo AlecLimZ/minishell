@@ -6,7 +6,7 @@
 #    By: yang <yang@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/20 17:54:25 by yang              #+#    #+#              #
-#    Updated: 2022/04/13 11:35:32 by yang             ###   ########.fr        #
+#    Updated: 2022/05/13 17:36:28 by yang             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,28 +34,21 @@ BONUS		= ft_lstnew.c ft_lstadd_front.c ft_lstsize.c \
 
 BONUS_OBJS	= $(BONUS:.c=.o)
 
-all:		$(NAME) bonus
+all: $(NAME)
 
-$(NAME):	$(OBJS)
-			@ar rcs $(NAME) $(OBJS)
-
-bonus:		$(OBJS) $(BONUS_OBJS)
-			@ar rcs $(NAME) $(OBJS) $(BONUS_OBJS)
-
-norm:		
-			@norminette -R CheckForbiddenSourceHeader *.c
-			@norminette -R CheckDefine *.h
-
-so:
-			@$(CC) -fPIC $(CFLAGS) $(SRCS) $(BONUS)
-			@gcc -shared -o libft.so $(OBJS) $(BONUS_OBJS)
+$(NAME): $(OBJS) $(BONUS_OBJS)
+			@gcc -Wall -Wextra -Werror -c $(SRCS) $(BONUS)
+			@ar rc $(NAME) $(OBJS) $(BONUS_OBJS)
+			@ranlib $(NAME)
 
 clean:
-			@rm -f *.o
+	@/bin/rm -f $(OBJS) $(BONUS_OBJS) 
 
-fclean:		clean
-			@rm -f $(NAME)
+fclean: clean
+	@/bin/rm -f $(NAME)
 
-re:			fclean $(NAME)
+re: fclean all
 
-.PHONY:		all clean fclean re bonus norm so
+bonus: all
+
+.PHONY: all clean fclean re bonus
