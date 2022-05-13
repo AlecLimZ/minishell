@@ -56,7 +56,7 @@ $(NAME):	$(OBJS_S) $(OBJS_P) $(OBJS_I) $(OBJS_H) $(OBJS_E) $(LIBS)
 
 $(LIBS):
 			@echo $(YELLOW)
-			@make bonus -C SRC/libft
+			@make -C SRC/libft
 
 .c.o:
 			@$(GCC) $(INCLUDE) -o $@ -c $<
