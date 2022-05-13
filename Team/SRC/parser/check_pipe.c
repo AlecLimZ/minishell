@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 14:42:59 by yang              #+#    #+#             */
-/*   Updated: 2022/05/11 14:58:02 by yang             ###   ########.fr       */
+/*   Updated: 2022/05/12 18:14:36 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,5 +48,5 @@ int	check_pipe(char *str)
 				j = in_quote(ptr[i], j);
 		}
 	}
-	return (0);
+	return (free_double_ptr(ptr, false));
 }

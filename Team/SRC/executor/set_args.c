@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_args.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
+/*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 18:39:10 by yang              #+#    #+#             */
-/*   Updated: 2022/05/10 10:44:26 by yang             ###   ########.fr       */
+/*   Updated: 2022/05/12 18:27:19 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,11 @@ int	set_cmd(t_cmd *cmd, t_prompt *prompt)
 	{
 		redir = redirect(cmd, head->content, head->type, prompt);
 		if (redir < 0)
+		{
+			if (cmd->infile < 0)
+				printf("minishell: infile: No such file or directory\n");
 			return (0);
+		}
 		head = head->next;
 	}
 	if (!command)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_inbuilts.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
+/*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 12:22:38 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/11 20:56:36 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/12 18:09:21 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ int	ft_inbuilt(t_cmd *cmd, t_prompt *prompt)
 	return (g_ret);
 }
 
-//	line 53		ft_lstdelone(tmp, ft_delete_token);
 int	ft_exit(t_prompt *prompt)
 {
 	t_list	*token;
@@ -83,6 +82,7 @@ int	ft_exit(t_prompt *prompt)
 			tmp = NULL;
 		}
 	}
+	printf("exit\n");
 	exit(g_ret);
 }
 

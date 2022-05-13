@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
+/*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 16:53:45 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/11 20:24:09 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/12 18:47:25 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,10 +106,10 @@ int	main(int argc, char *argv[], char *envp[])
 	struct termios	termios_new;
 	struct termios	termios_save;
 
+	if (argc > 1 && argv)
+		return (EXIT_FAILURE);
 	prompt = NULL;
 	prompt = malloc(sizeof(t_prompt));
-	if (argc == 3 && !ft_strcmp(argv[1], "-c"))
-		return (ft_runscript(argv[2], envp, prompt));
 	tcgetattr(0, &termios_save);
 	termios_new = termios_save;
 	termios_new.c_lflag &= ~ECHOCTL;
@@ -126,3 +126,10 @@ int	main(int argc, char *argv[], char *envp[])
 	tcsetattr(0, 0, &termios_save);
 	return (g_ret);
 }
+
+/* to check tester, include this line after 
+	"prompt = malloc(sizeof(t_prompt)"
+	if (argc == 3 && !ft_strcmp(argv[1], "-c"))
+		return (ft_runscript(argv[2], envp, prompt));
+	and remove printf("exit") in ft_exit
+*/
