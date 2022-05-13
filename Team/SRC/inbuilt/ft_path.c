@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 16:10:08 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/11 19:58:09 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/13 18:38:19 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int	ft_ispecialexp(char *s)
 	i = -1;
 	if (ft_isdigit(s[0]))
 	{
-		printf("minishell: unset: '%s': not a valid identifier\n", s);
+		printf("minishell: export: '%s': not a valid identifier\n", s);
 		return (1);
 	}
 	while (s[++i] != '\0')

@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 12:22:38 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/12 18:09:21 by yang             ###   ########.fr       */
+/*   Updated: 2022/05/13 18:15:26 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,6 @@ int	ft_exit(t_prompt *prompt)
 			tmp = NULL;
 		}
 	}
-	printf("exit\n");
 	exit(g_ret);
 }
 
@@ -115,7 +114,8 @@ int	ft_env(char **args, t_prompt *prompt)
 
 	envp = prompt->envp;
 	g_ret = SUCCESS;
-	if (args[1] && ft_strcmp(args[1], "") && ft_strcmp(args[1], "``"))
+	if (args[1] && ft_strcmp(args[1], "") && ft_strcmp(args[1], "``")
+		&& args[1][0] != '#')
 	{
 		ft_putstr_fd("minishell: env: ", 2);
 		ft_putstr_fd(args[1], 2);

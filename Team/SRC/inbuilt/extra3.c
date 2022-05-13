@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 14:45:09 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/11 18:47:01 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/13 18:38:10 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,31 +55,42 @@ int	ft_n(char *s)
 	return (0);
 }
 
-int	ft_exportcheck(char **args, t_prompt *prompt)
+int	ft_exportcheck(char **args, char *str, t_prompt *prompt, int c)
 {
-	char	*tmp;
+	char	**tmp;
 
 	tmp = NULL;
-	if ((ft_tablen(args) == 1) || (args[1][0] != '_' && !ft_isalpha(args[1][0]))
-		|| !ft_strcmp(args[1], "``"))
+	if (!ft_strchr(str, '=') && !ft_ispecialexp(str))
+		return (0);
+	else if (c == 1 && ft_strlen(str) == 1 && ft_ispecialexp(str))
 	{
 		g_ret = ERROR;
-		if ((ft_tablen(args) == 1) || !ft_strcmp(args[1], "``"))
+		printf("minishell: export: not an identifier: %s\n", str);
+		return (0);
+	}
+	if ((str[0] != '_' && !ft_isalpha(str[0]))
+		|| !ft_strcmp(str, "``"))
+	{
+		g_ret = ERROR;
+		if (c == 1 && !ft_strcmp(str, "``"))
 			ft_env(args, prompt);
-		else if (args[1][0] == '-')
+		else if (str[0] == '-')
 			g_ret = 2;
+		else if (ft_isdigit(str[0]))
+			printf("minishell: export: '%s': not a valid identifier\n", str);
 		return (0);
 	}
-	if ((args[1][0] != '_' && ft_ispecialexp(args[1])) || args[1][0] == '-')
+	if ((str[0] != '_' && ft_ispecialexp(str)) || str[0] == '-')
 	{
-		ft_reterror(args[1]);
-		return (0);
-	}
-	if (!ft_strchr(args[1], '='))
-	{
-		tmp = ft_strjoin(args[1], "=");
-		free(args[1]);
-		args[1] = tmp;
+		tmp = ft_split(str, '=');
+		if (ft_ispecialexp(tmp[0]))
+		{
+			ft_reterror(str);
+			printf("minishell: export: not an identifier: %s\n", tmp[0]);
+			free_double_ptr(tmp, false);
+			return (0);
+		}
+		free_double_ptr(tmp, false);
 	}
 	return (1);
 }
@@ -94,13 +105,11 @@ int	ft_getexit(t_cmd *cmds)
 	args = cmds->args;
 	if (ft_tablen(args) < 2)
 		return (1);
-	else if (ft_tablen(args) > 2 || ft_strlen(args[1]) > 10)
+	else if (!ft_isnum(args[1]) || ft_strlen(args[1]) > 19)
 	{
-		g_ret = 1;
-		if (!ft_isnum(args[1]) || ft_strlen(args[1]) > 10)
-			g_ret = 255;
-		ft_putendl_fd("minishell: exit: too many arguments", 2);
-		return (0);
+		g_ret = 255;
+		printf("minishell: exit: %s: numeric argument required\n", args[1]);
+		return (1);
 	}
 	if (args[1][0] == '+' || args[1][0] == '-')
 		i++;
@@ -109,5 +118,6 @@ int	ft_getexit(t_cmd *cmds)
 			g_ret = -1;
 	if (g_ret != -1)
 		g_ret = ft_atoi(args[1]);
+	printf("exit\n");
 	return (1);
 }

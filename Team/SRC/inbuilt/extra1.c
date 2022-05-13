@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 20:55:42 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/10 10:44:47 by yang             ###   ########.fr       */
+/*   Updated: 2022/05/13 17:13:03 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ int	ft_exportcheck2(char **args)
 {
 	char	**tmp;
 
+	printf("args[1]: %s\n", args[1]);
 	if (args[2] && args[2][0] == '=')
 	{
 		printf("minishell: %s not found\n", args[2]);

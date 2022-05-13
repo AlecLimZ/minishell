@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 18:08:32 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/11 16:45:17 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/13 18:12:44 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,17 +85,19 @@ int	ft_export(t_cmd *cmd, t_prompt *prompt)
 
 	args = cmd->args;
 	tmp = NULL;
-	if (!ft_exportcheck(args, prompt))
-		return (g_ret);
 	i = 0;
 	g_ret = SUCCESS;
-	while (args[++i] != NULL && i < ft_tablen(args))
+	if (ft_tablen(args) == 1 || args[1][0] == '#')
+		ft_env(args, prompt);
+	while (args[++i] != NULL && i < ft_tablen(args) && args[1][0] != '#')
 	{
+		if (!ft_exportcheck(args, args[i], prompt, i))
+			continue ;
 		tmp = ft_split(args[i], '=');
 		if (ft_findenv(tmp[0], prompt) != -1)
 			ft_replace_val(prompt, tmp);
 		else
-			ft_newexport(prompt, args[1]);
+			ft_newexport(prompt, args[i]);
 		free_double_ptr(tmp, false);
 	}
 	return (g_ret);
