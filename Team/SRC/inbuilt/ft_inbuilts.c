@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 12:22:38 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/13 18:15:26 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/16 14:47:26 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,11 +93,8 @@ int	ft_pwd(char **args)
 	pwd = ft_getpwd();
 	ft_strlcpy(dest, pwd, ft_strlen(pwd) + 1);
 	g_ret = SUCCESS;
-	if (ft_tablen(args) > 1)
-	{
-		ft_putendl_fd("minishell: pwd: too many arguments", STDERR);
+	if (ft_tablen(args) > 1 && ft_parenthesis(args) > 0)
 		g_ret = ERROR;
-	}
 	else if (pwd)
 		ft_putendl_fd(dest, STDOUT);
 	else

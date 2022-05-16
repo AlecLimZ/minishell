@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 14:45:09 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/16 11:52:07 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/16 14:16:26 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,20 +90,19 @@ int	ft_getexit(t_cmd *cmds)
 	i = -1;
 	g_ret = 0;
 	args = cmds->args;
-	if (ft_tablen(args) < 2)
-		return (1);
-	else if (!ft_isnum(args[1]) || ft_strlen(args[1]) > 19)
+	if (ft_tablen(args) > 1 && (!ft_isnum(args[1]) || ft_strlen(args[1]) > 20)
+		&& args[1][0] != '#')
 	{
 		g_ret = 255;
 		printf("minishell: exit: %s: numeric argument required\n", args[1]);
 		return (1);
 	}
-	if (args[1][0] == '+' || args[1][0] == '-')
+	if (args[1] && (args[1][0] == '+' || args[1][0] == '-'))
 		i++;
-	while (args[1] && args[1][++i])
+	while (args[1] && args[1][++i] && args[1][0] != '#')
 		if (!ft_isdigit(args[1][i]))
 			g_ret = -1;
-	if (g_ret != -1)
+	if (g_ret != -1 && ft_tablen(args) > 1)
 		g_ret = ft_atoi(args[1]);
 	printf("exit\n");
 	return (1);
