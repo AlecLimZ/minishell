@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 14:45:09 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/13 18:38:10 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/16 11:52:07 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,15 +57,12 @@ int	ft_n(char *s)
 
 int	ft_exportcheck(char **args, char *str, t_prompt *prompt, int c)
 {
-	char	**tmp;
-
-	tmp = NULL;
 	if (!ft_strchr(str, '=') && !ft_ispecialexp(str))
 		return (0);
 	else if (c == 1 && ft_strlen(str) == 1 && ft_ispecialexp(str))
 	{
 		g_ret = ERROR;
-		printf("minishell: export: not an identifier: %s\n", str);
+		printf("minishell: export: '%s' not a valid identifier\n", str);
 		return (0);
 	}
 	if ((str[0] != '_' && !ft_isalpha(str[0]))
@@ -76,22 +73,12 @@ int	ft_exportcheck(char **args, char *str, t_prompt *prompt, int c)
 			ft_env(args, prompt);
 		else if (str[0] == '-')
 			g_ret = 2;
-		else if (ft_isdigit(str[0]))
+		else if (ft_isdigit(str[0]) || ft_ispecialexp(str))
 			printf("minishell: export: '%s': not a valid identifier\n", str);
 		return (0);
 	}
-	if ((str[0] != '_' && ft_ispecialexp(str)) || str[0] == '-')
-	{
-		tmp = ft_split(str, '=');
-		if (ft_ispecialexp(tmp[0]))
-		{
-			ft_reterror(str);
-			printf("minishell: export: not an identifier: %s\n", tmp[0]);
-			free_double_ptr(tmp, false);
-			return (0);
-		}
-		free_double_ptr(tmp, false);
-	}
+	if (ft_exportcheck2(str) == 0)
+		return (0);
 	return (1);
 }
 

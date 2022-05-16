@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 20:55:42 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/13 17:13:03 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/16 11:50:46 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,24 +60,22 @@ int	ft_envcount(t_prompt *prompt)
 	return (count);
 }
 
-int	ft_exportcheck2(char **args)
+int	ft_exportcheck2(char *str)
 {
 	char	**tmp;
 
-	printf("args[1]: %s\n", args[1]);
-	if (args[2] && args[2][0] == '=')
+	tmp = NULL;
+	if ((str[0] != '_' && ft_ispecialexp(str)) || str[0] == '-')
 	{
-		printf("minishell: %s not found\n", args[2]);
-		g_ret = ERROR;
-		return (0);
-	}
-	if (ft_isdigit(args[1][0]))
-	{
-		tmp = ft_split(args[1], '=');
-		printf("minishell: export: not an identifier: %s\n", tmp[0]);
-		ft_free_split(tmp);
-		g_ret = ERROR;
-		return (0);
+		tmp = ft_split(str, '=');
+		if (ft_ispecialexp(tmp[0]))
+		{
+			ft_reterror(str);
+			printf("minishell: export: '%s': not a valid identifier\n", tmp[0]);
+			free_double_ptr(tmp, false);
+			return (0);
+		}
+		free_double_ptr(tmp, false);
 	}
 	return (1);
 }
