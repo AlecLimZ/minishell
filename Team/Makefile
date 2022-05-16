@@ -8,7 +8,7 @@ PARSING		=	check_pipe.c expand.c expand_utils.c parser.c parser_redirect.c split
 PARSING_DIR	=	SRC/parser/
 PARSINGS 	=	$(addprefix $(PARSING_DIR), $(PARSING))
 
-INBUILT		=	extra1.c extra2.c extra3.c ft_cdecho.c ft_export.c ft_inbuilts.c ft_path.c ft_unset.c extra4.c
+INBUILT		=	extra1.c extra2.c extra3.c ft_cdecho.c ft_export.c ft_inbuilts.c ft_path.c ft_unset.c extra4.c ft_exit.c
 INBUILT_DIR	=	SRC/inbuilt/
 INBUILTS	=	$(addprefix $(INBUILT_DIR), $(INBUILT))
 

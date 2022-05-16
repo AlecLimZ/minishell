@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 12:15:11 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/16 14:37:55 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/16 18:42:50 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ typedef struct s_cmd	t_cmd;
 /*ft_inbuilts.c*/
 int		ft_is_built(t_cmd *cmd);
 int		ft_inbuilt(t_cmd *cmd, t_prompt *prompt);
-int		ft_exit(t_prompt *prompt);
 int		ft_pwd(char **args);
 int		ft_env(char **args, t_prompt *prompt);
 
@@ -79,6 +78,10 @@ char	*ft_genvp(char *env, t_prompt *prompt);
 /*ft_env2.c*/
 char	*ft_dollar(char *str, char *nstr, int *i, t_prompt *prompt);
 char	*ft_nodollar(char *str, char *nstr, int *i);
+
+/*ft_exit*/
+int		ft_exit(t_prompt *prompt);
+void	ft_chkslash(char **str);
 
 /*extra1.c*/
 void	ft_free_split(char **s);

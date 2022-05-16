@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 20:55:42 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/16 11:50:46 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/16 19:17:56 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	ft_exportcheck2(char *str)
 		if (ft_ispecialexp(tmp[0]))
 		{
 			ft_reterror(str);
-			printf("minishell: export: '%s': not a valid identifier\n", tmp[0]);
+			printf("minishell: export: '%s': not a valid identifier\n", str);
 			free_double_ptr(tmp, false);
 			return (0);
 		}

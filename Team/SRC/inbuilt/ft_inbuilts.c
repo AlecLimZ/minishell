@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 12:22:38 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/16 14:47:26 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/16 16:56:31 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,34 +55,6 @@ int	ft_inbuilt(t_cmd *cmd, t_prompt *prompt)
 		return (ft_exit(prompt));
 	g_ret = NOCMD;
 	return (g_ret);
-}
-
-int	ft_exit(t_prompt *prompt)
-{
-	t_list	*token;
-	t_list	*tmp;
-	int		i;
-	int		j;
-
-	i = -1;
-	if (!ft_getexit(prompt->cmds))
-		return (g_ret);
-	while (++i < prompt->total_cmds)
-	{
-		j = -1;
-		while (prompt->cmds[i].args[++j])
-			free(prompt->cmds[i].args[j]);
-		token = prompt->cmds[i].token;
-		while (token != NULL)
-		{
-			tmp = token;
-			token = token->next;
-			free(tmp->content);
-			free(tmp);
-			tmp = NULL;
-		}
-	}
-	exit(g_ret);
 }
 
 int	ft_pwd(char **args)
