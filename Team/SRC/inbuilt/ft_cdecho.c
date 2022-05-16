@@ -6,34 +6,23 @@
 /*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 14:08:21 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/11 19:52:37 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/16 15:55:34 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../INCLUDE/minishell.h"
 
-static void	ft_cdirectory2(char **args, char *pwd)
+static void	ft_cdirectory2(char **args)
 {
-	char	*fpwd;
 	char	*tmp;
 
 	tmp = args[1];
 	if (ft_strchr(args[1], '\\'))
 		tmp = ft_rmslash(args[1]);
-	if (!ft_strnstr(pwd, tmp, ft_strlen(pwd)))
+	if (chdir(tmp) != 0)
 	{
-		printf("minishell: cd: string not in pwd: %s\n", tmp);
+		printf("minishell: cd: %s no such file or directory\n", tmp);
 		g_ret = ERROR;
-	}
-	else
-	{
-		fpwd = ft_strjoin(ft_getparentdir(pwd, tmp), args[2]);
-		if (chdir(fpwd) != 0)
-		{
-			printf("minishell: cd: no such file or directory: %s\n", fpwd);
-			g_ret = ERROR;
-		}
-		free(fpwd);
 	}
 	if (ft_strchr(args[1], '\\'))
 		free(tmp);
@@ -44,44 +33,60 @@ void	ft_cdirectory(char **args, t_prompt *prompt)
 	char	*pwd;
 	char	*dir;
 	char	*tmp;
-	char	**arr;
+	char	*arr;
 
 	pwd = ft_getpwd();
+	ft_oldpwd(prompt);
 	if (args[1][ft_strlen(args[1]) - 1] == '\\')
 	{
-		arr = ft_split(args[1], '\\');
-		tmp = ft_strjoin(arr[0], " ");
-		dir = ft_strcat(tmp, args[2]);
-		ft_oldpwd(prompt);
+		arr = ft_rmslash(args[1]);
+		tmp = ft_strjoin(arr, " ");
+		free(arr);
+		dir = ft_strjoin(tmp, args[2]);
 		if (chdir(dir) != 0)
 		{
-			printf("minishell: cd: no such file or directory: %s\n", dir);
+			printf("minishell: cd: %s: no such file or directory\n", dir);
 			g_ret = ERROR;
 		}
 		free(tmp);
-		free(arr[0]);
-		free(arr);
+		free(dir);
 	}
 	else
-		ft_cdirectory2(args, pwd);
+		ft_cdirectory2(args);
 }
 
 static void	ft_cd2(char **args, t_prompt *prompt)
 {
 	char	*tmp;
 
-	if (!ft_strcmp(args[1], "-") || !ft_strcmp(args[1], "~-"))
+	tmp = ft_genvp("OLDPWD", prompt);
+	if (!tmp)
 	{
-		tmp = ft_genvp("OLDPWD", prompt);
-		if (!tmp)
-		{
-			ft_putendl_fd("OLDPWD not set", 2);
-			g_ret = ERROR;
-		}
-		ft_oldpwd(prompt);
-		chdir(tmp);
-		free(tmp);
+		ft_putendl_fd("OLDPWD not set", 2);
+		g_ret = ERROR;
+		return ;
 	}
+	ft_oldpwd(prompt);
+	if (!ft_strcmp(args[1], "-"))
+		ft_putendl_fd(tmp, 1);
+	chdir(tmp);
+	free(tmp);
+}
+
+int	ft_cd(t_cmd *cmd, t_prompt *prompt)
+{
+	char	**args;
+	char	*tmp;
+
+	args = cmd->args;
+	g_ret = SUCCESS;
+	if (!args[1] || !ft_strcmp(args[1], "~") || !ft_strcmp(args[1], "--")
+		|| args[1][0] == '#')
+		ft_home(prompt);
+	else if (ft_tablen(args) > 1 && args[1][0] != '-' && args[1][0] != '~')
+		ft_cdirectory(args, prompt);
+	else if (!ft_strcmp(args[1], "-") || !ft_strcmp(args[1], "~-"))
+		ft_cd2(args, prompt);
 	else
 	{
 		ft_oldpwd(prompt);
@@ -93,25 +98,6 @@ static void	ft_cd2(char **args, t_prompt *prompt)
 		}
 		free(tmp);
 	}
-}
-
-int	ft_cd(t_cmd *cmd, t_prompt *prompt)
-{
-	char	**args;
-
-	args = cmd->args;
-	g_ret = SUCCESS;
-	if (ft_tablen(args) > 3)
-	{
-		ft_putendl_fd("minishell: cd: too many arguments", 2);
-		g_ret = ERROR;
-	}
-	else if (ft_tablen(args) == 3)
-		ft_cdirectory(args, prompt);
-	else if (!args[1] || !ft_strcmp(args[1], "~") || !ft_strcmp(args[1], "--"))
-		ft_home(prompt);
-	else
-		ft_cd2(args, prompt);
 	return (g_ret);
 }
 
