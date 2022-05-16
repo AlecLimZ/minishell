@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 14:45:09 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/16 14:16:26 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/16 14:58:34 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ int	ft_getexit(t_cmd *cmds)
 	i = -1;
 	g_ret = 0;
 	args = cmds->args;
+	printf("exit\n");
 	if (ft_tablen(args) > 1 && (!ft_isnum(args[1]) || ft_strlen(args[1]) > 20)
 		&& args[1][0] != '#')
 	{
@@ -104,6 +105,5 @@ int	ft_getexit(t_cmd *cmds)
 			g_ret = -1;
 	if (g_ret != -1 && ft_tablen(args) > 1)
 		g_ret = ft_atoi(args[1]);
-	printf("exit\n");
 	return (1);
 }
