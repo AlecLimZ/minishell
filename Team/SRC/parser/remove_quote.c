@@ -6,11 +6,11 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 13:27:45 by yang              #+#    #+#             */
-/*   Updated: 2022/05/11 14:59:37 by yang             ###   ########.fr       */
+/*   Updated: 2022/05/17 14:20:36 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../INCLUDE/minishell.h"
+#include "minishell.h"
 
 void	remove_quotes(t_list *lst)
 {

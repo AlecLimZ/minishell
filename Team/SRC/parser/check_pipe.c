@@ -6,11 +6,11 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 14:42:59 by yang              #+#    #+#             */
-/*   Updated: 2022/05/12 18:14:36 by yang             ###   ########.fr       */
+/*   Updated: 2022/05/17 14:20:06 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../INCLUDE/minishell.h"
+#include "minishell.h"
 
 /* check pipe: check if user input valid syntax for '|'
 ** Invalid syntax:

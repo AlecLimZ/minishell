@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   extra4.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leng-chu <-chu@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 16:03:22 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/16 17:33:08 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/17 14:21:13 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../INCLUDE/minishell.h"
+#include "minishell.h"
 
 void	ft_checkslash(char **s)
 {

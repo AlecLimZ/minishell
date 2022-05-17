@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   extra3.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
+/*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 14:45:09 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/16 19:16:41 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/17 14:21:09 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../INCLUDE/minishell.h"
+#include "minishell.h"
 
 int	ft_strcmp(const char *s1, const char *s2)
 {

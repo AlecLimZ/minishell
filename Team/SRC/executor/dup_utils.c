@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   dup_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
+/*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/29 14:19:17 by yang              #+#    #+#             */
-/*   Updated: 2022/05/11 18:38:16 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/17 14:22:24 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../INCLUDE/minishell.h"
+#include "minishell.h"
 
 void	dup_n_close(int fd, int fd_dup)
 {
@@ -25,15 +25,3 @@ void	dup_infile_outfile(t_cmd *cmd)
 	if (cmd->outfile != STDOUT)
 		dup_n_close(cmd->outfile, STDOUT);
 }
-
-// void	exit_status(int err, char *err_msg, t_prompt *prompt)
-// {
-// 	ft_putstr_fd("minishell: ", 2);
-// 	ft_putstr_fd(err_msg, 2);
-// 	ft_putstr_fd("\n", 2);
-// 	clean_up(prompt, prompt->total_cmds - 1, 2);
-// 	g_ret = err;
-// //	printf("g_ret: %d\n", g_ret);
-// //	system("leaks minishell");
-// 	exit(err);
-// }

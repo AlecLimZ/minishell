@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   extra2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
+/*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 15:21:30 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/10 10:44:50 by yang             ###   ########.fr       */
+/*   Updated: 2022/05/17 14:21:01 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../INCLUDE/minishell.h"
+#include "minishell.h"
 
 void	ft_free_array(char **array)
 {
