@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 18:39:10 by yang              #+#    #+#             */
-/*   Updated: 2022/05/17 15:10:52 by yang             ###   ########.fr       */
+/*   Updated: 2022/05/18 12:29:31 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static int	set_args(t_cmd *cmd, t_list *token)
 		i++;
 		head = head->next;
 	}
-	if (!i || (i == 1 && !token->content[0]))
+	if (!i || (i == 1 && !token->content))
 		return (0);
 	args = (char **)malloc(sizeof(char *) * (i + 1));
 	head = token;
