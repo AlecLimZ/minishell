@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 14:08:21 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/17 14:21:20 by yang             ###   ########.fr       */
+/*   Updated: 2022/05/18 11:09:18 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,10 @@ static void	ft_cdirectory2(char **args)
 
 void	ft_cdirectory(char **args, t_prompt *prompt)
 {
-	char	*pwd;
 	char	*dir;
 	char	*tmp;
 	char	*arr;
 
-	pwd = ft_getpwd();
 	ft_oldpwd(prompt);
 	if (args[1][ft_strlen(args[1]) - 1] == '\\')
 	{
