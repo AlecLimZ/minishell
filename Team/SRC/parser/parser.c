@@ -6,17 +6,17 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 15:31:23 by yang              #+#    #+#             */
-/*   Updated: 2022/05/17 14:20:32 by yang             ###   ########.fr       */
+/*   Updated: 2022/05/18 14:47:45 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// void	print_cmds(t_prompt *prompt)
-// {
+//void	print_cmds(t_prompt *prompt)
+//{
 // 	int		i;
 // 	t_list	*token;
-
+//
 // 	i = -1;
 // 	while (++i < prompt->total_cmds)
 // 	{
@@ -28,7 +28,7 @@
 // 			token = token->next;
 // 		}
 // 	}
-// }
+//}
 
 int	is_operator_in_str(char *str)
 {
