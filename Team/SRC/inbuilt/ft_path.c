@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_path.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
+/*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 16:10:08 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/11 19:58:09 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/17 14:21:37 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../INCLUDE/minishell.h"
+#include "minishell.h"
 
 char	*ft_conc(char *path, char *filename)
 {
@@ -81,11 +81,6 @@ int	ft_ispecialexp(char *s)
 	int	i;
 
 	i = -1;
-	if (ft_isdigit(s[0]))
-	{
-		printf("minishell: unset: '%s': not a valid identifier\n", s);
-		return (1);
-	}
 	while (s[++i] != '\0')
 		if (!ft_isalnum(s[i]) && s[i] != '_' && s[i] != '=')
 			return (1);

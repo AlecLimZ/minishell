@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/04 14:33:55 by yang              #+#    #+#             */
-/*   Updated: 2022/05/07 14:56:03 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/16 17:07:04 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ bool	is_number(char c)
 	return (c >= '0' && c <= '9');
 }
 
-int	ft_atoi(const char *str)
+long	ft_atoi(const char *str)
 {
 	unsigned int	i;
 	int				sign;

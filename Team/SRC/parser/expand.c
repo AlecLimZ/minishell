@@ -6,13 +6,13 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 21:31:16 by yang              #+#    #+#             */
-/*   Updated: 2022/05/11 20:48:51 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/18 14:50:33 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../INCLUDE/minishell.h"
+#include "minishell.h"
 
-void	add_var_to_list(t_cmd *cmd, t_list *head, char *str)
+int	add_var_to_list(t_cmd *cmd, t_list *head, char *str)
 {
 	char	**token;
 	int		i;
@@ -28,11 +28,11 @@ void	add_var_to_list(t_cmd *cmd, t_list *head, char *str)
 			set_token_type(new, i);
 			ft_lstadd_pos(&cmd->token, new, i + 1);
 		}
-		ft_lstdel_pos(&cmd->token, i + 1);
 		free_double_ptr(token, false);
 	}
 	else
 		replace_expand_str(head, str);
+	return (i + 1);
 }
 
 int	var_expand(char *str, char **expand, t_prompt *prompt)
@@ -78,7 +78,7 @@ int	expand_token_2(char *dst, char *src, int i)
 	return (pos);
 }
 
-void	expand_token(char *src, t_list *head, t_cmd *cmd, t_prompt *prompt)
+int	expand_token(char *src, t_list *head, t_cmd *cmd, t_prompt *prompt)
 {
 	char	dst[500];
 	char	*expand;
@@ -104,12 +104,13 @@ void	expand_token(char *src, t_list *head, t_cmd *cmd, t_prompt *prompt)
 			free(expand);
 		}
 	}
-	add_var_to_list(cmd, head, dst);
+	return (add_var_to_list(cmd, head, dst));
 }
 
-int	expand_n_remove_quote(t_prompt *prompt)
+void	expand_n_remove_quote(t_prompt *prompt)
 {
 	int		i;
+	int		del;
 	char	src[500];
 	t_list	*head;
 
@@ -122,15 +123,15 @@ int	expand_n_remove_quote(t_prompt *prompt)
 			if (need_expansion(head->content) != -1)
 			{
 				ft_strlcpy(src, head->content, ft_strlen(head->content) + 1);
-				expand_token(src, head, &prompt->cmds[i], prompt);
+				del = expand_token(src, head, &prompt->cmds[i], prompt);
 				if (head->type == 1)
 					head = prompt->cmds[i].token;
+				ft_lstdel_pos(&prompt->cmds[i].token, del);
+				if (!head)
+					break ;
 			}
-			if (!head)
-				break ;
 			remove_quotes(head);
 			head = head->next;
 		}
 	}
-	return (0);
 }

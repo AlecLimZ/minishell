@@ -6,11 +6,11 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 11:22:23 by yang              #+#    #+#             */
-/*   Updated: 2022/05/11 15:01:17 by yang             ###   ########.fr       */
+/*   Updated: 2022/05/17 14:20:14 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../INCLUDE/minishell.h"
+#include "minishell.h"
 
 /* check if env name is valid
 ** i. start with alpha or '_'

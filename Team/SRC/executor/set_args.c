@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   set_args.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
+/*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 18:39:10 by yang              #+#    #+#             */
-/*   Updated: 2022/05/10 10:44:26 by yang             ###   ########.fr       */
+/*   Updated: 2022/05/19 09:40:31 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../INCLUDE/minishell.h"
+#include "minishell.h"
 
 static int	set_args(t_cmd *cmd, t_list *token)
 {
@@ -25,7 +25,7 @@ static int	set_args(t_cmd *cmd, t_list *token)
 		i++;
 		head = head->next;
 	}
-	if (!i || (i == 1 && !token->content[0]))
+	if (!i || (i == 1 && !token->content))
 		return (0);
 	args = (char **)malloc(sizeof(char *) * (i + 1));
 	head = token;
@@ -38,7 +38,7 @@ static int	set_args(t_cmd *cmd, t_list *token)
 	}
 	args[++i] = NULL;
 	cmd->args = args;
-	return (1);
+	return (i);
 }
 
 char	**set_envp(t_prompt *prompt)
@@ -81,10 +81,10 @@ int	set_cmd(t_cmd *cmd, t_prompt *prompt)
 	while (head != NULL)
 	{
 		redir = redirect(cmd, head->content, head->type, prompt);
-		if (redir < 0)
-			return (0);
 		head = head->next;
 	}
+	if (cmd->infile < 0 || cmd->outfile < 0)
+		g_ret = 1;
 	if (!command)
 		return (0);
 	return (1);

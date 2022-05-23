@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   extra4.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leng-chu <-chu@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 16:03:22 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/11 20:20:23 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/17 14:21:13 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../INCLUDE/minishell.h"
+#include "minishell.h"
 
 void	ft_checkslash(char **s)
 {
@@ -76,4 +76,32 @@ int	ft_runscript(char *argv, char **envp, t_prompt *prompt)
 		clean_up(prompt, prompt->total_cmds - 1, 2);
 	}
 	return (g_ret);
+}
+
+int	ft_parenthesis(char **args)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (args[++i])
+	{
+		j = -1;
+		while (args[i][++j])
+		{
+			if (args[i][j] == '(')
+			{
+				ft_putendl_fd("minishell: pwd: syntax error \
+near unexpected token '('", STDERR);
+				return (1);
+			}
+			else if (args[i][j] == ')')
+			{
+				ft_putendl_fd("minishell: pwd: syntax error \
+near unexpected token ')'", STDERR);
+				return (1);
+			}
+		}
+	}
+	return (0);
 }

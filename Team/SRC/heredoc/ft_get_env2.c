@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_get_env2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
+/*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 19:29:03 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/10 10:44:39 by yang             ###   ########.fr       */
+/*   Updated: 2022/05/17 14:22:08 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../INCLUDE/minishell.h"
+#include "minishell.h"
 
 char	*ft_genvp(char *env, t_prompt *prompt)
 {

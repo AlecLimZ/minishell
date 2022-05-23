@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
+/*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 22:32:42 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/11 17:53:01 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/17 14:21:44 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../INCLUDE/minishell.h"
+#include "minishell.h"
 
 int	ft_findenv(char *env, t_prompt *prompt)
 {
@@ -73,8 +73,13 @@ int	ft_ispecial(char *s)
 		return (1);
 	}
 	while (s[++i] != '\0')
+	{
 		if (!ft_isalnum(s[i]) && s[i] != '_')
+		{
+			printf("minishell: unset: '%s': not a valid identifier\n", s);
 			return (1);
+		}
+	}
 	return (0);
 }
 
@@ -102,13 +107,13 @@ int	ft_unset(t_cmd *cmd, t_prompt *prompt)
 	g_ret = SUCCESS;
 	if (!args[1])
 		return (g_ret);
-	if (args[1][0] != '_' && ft_ispecial(args[1]))
-	{
-		ft_reterror(args[1]);
-		return (g_ret);
-	}
 	while (args[++i])
 	{
+		if (args[i][0] != '_' && ft_ispecial(args[i]))
+		{
+			ft_reterror(args[1]);
+			continue ;
+		}
 		pos = ft_findenv(args[i], prompt);
 		if (!ft_posenv(pos, prompt))
 			return (g_ret);

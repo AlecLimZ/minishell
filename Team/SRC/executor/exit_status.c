@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   exit_status.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
+/*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 16:42:32 by yang              #+#    #+#             */
-/*   Updated: 2022/05/11 18:46:00 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/17 15:10:36 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../INCLUDE/minishell.h"
+#include "minishell.h"
 
 void	exit_status(int err, char *err_msg, t_prompt *prompt)
 {

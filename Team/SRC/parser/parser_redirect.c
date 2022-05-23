@@ -6,11 +6,20 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 10:59:12 by yang              #+#    #+#             */
-/*   Updated: 2022/05/11 15:03:58 by yang             ###   ########.fr       */
+/*   Updated: 2022/05/17 14:20:26 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../INCLUDE/minishell.h"
+#include "minishell.h"
+
+/*
+	get_operator_file check if input command is correct
+	Invalid parsing for file will return (-1)
+	i. No file after operator
+	ii. operator len more than 2 
+	iii. 2 consecutive operator
+	iv. input operator like >< or <>
+*/
 
 static void	token_bef_operator(t_cmd *cmd, char **token, int pos, int i)
 {
@@ -42,15 +51,6 @@ static int	token_operator(t_cmd *cmd, char *token, int *file_type, int j)
 	*file_type = 0;
 	return (file_len - 1);
 }
-
-/*
-get_operator_file check if input command is correct
-Invalid parsing for file will return (-1)
-i. No file after operator
-ii. operator len more than 2 
-iii. 2 consecutive operator
-iv. input operator like >< or <>
-*/
 
 static int	get_operator_pos(char **token, int pos, int j, int *operator_len)
 {
@@ -113,7 +113,8 @@ int	set_token_redirection(t_cmd *cmd, char **token, int i)
 	{
 		if (set_redirect(cmd, token, i, &file_type) == -1)
 			return (-1);
-		if (file_type == 0 && ++i)
+		if (file_type == 0 && token[i + 1]
+			&& !is_operator_in_str(token[i + 1]) && i++)
 			break ;
 		i++;
 	}

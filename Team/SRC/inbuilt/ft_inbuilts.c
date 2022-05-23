@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_inbuilts.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
+/*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 12:22:38 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/11 20:56:36 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/19 11:48:26 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../INCLUDE/minishell.h"
+#include "minishell.h"
 
 int	ft_is_built(t_cmd *cmd)
 {
@@ -57,35 +57,6 @@ int	ft_inbuilt(t_cmd *cmd, t_prompt *prompt)
 	return (g_ret);
 }
 
-//	line 53		ft_lstdelone(tmp, ft_delete_token);
-int	ft_exit(t_prompt *prompt)
-{
-	t_list	*token;
-	t_list	*tmp;
-	int		i;
-	int		j;
-
-	i = -1;
-	if (!ft_getexit(prompt->cmds))
-		return (g_ret);
-	while (++i < prompt->total_cmds)
-	{
-		j = -1;
-		while (prompt->cmds[i].args[++j])
-			free(prompt->cmds[i].args[j]);
-		token = prompt->cmds[i].token;
-		while (token != NULL)
-		{
-			tmp = token;
-			token = token->next;
-			free(tmp->content);
-			free(tmp);
-			tmp = NULL;
-		}
-	}
-	exit(g_ret);
-}
-
 int	ft_pwd(char **args)
 {
 	char	*pwd;
@@ -94,11 +65,8 @@ int	ft_pwd(char **args)
 	pwd = ft_getpwd();
 	ft_strlcpy(dest, pwd, ft_strlen(pwd) + 1);
 	g_ret = SUCCESS;
-	if (ft_tablen(args) > 1)
-	{
-		ft_putendl_fd("minishell: pwd: too many arguments", STDERR);
+	if (ft_tablen(args) > 1 && ft_parenthesis(args) > 0)
 		g_ret = ERROR;
-	}
 	else if (pwd)
 		ft_putendl_fd(dest, STDOUT);
 	else
@@ -115,7 +83,8 @@ int	ft_env(char **args, t_prompt *prompt)
 
 	envp = prompt->envp;
 	g_ret = SUCCESS;
-	if (args[1] && ft_strcmp(args[1], "") && ft_strcmp(args[1], "``"))
+	if (args[1] && ft_strcmp(args[1], "") && ft_strcmp(args[1], "``")
+		&& args[1][0] != '#')
 	{
 		ft_putstr_fd("minishell: env: ", 2);
 		ft_putstr_fd(args[1], 2);
