@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/15 22:58:18 by yang              #+#    #+#             */
-/*   Updated: 2021/05/20 22:40:40 by yang             ###   ########.fr       */
+/*   Updated: 2022/05/10 18:17:09 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ void	ft_putstr_fd(char *s, int fd)
 	i = 0;
 	if (!s)
 		return ;
-	while (s[i])
+	while (i < (int)ft_strlen(s))
 	{
-		ft_putchar_fd(s[i], fd);
+		write(fd, s + i, 1);
 		i++;
 	}
 }

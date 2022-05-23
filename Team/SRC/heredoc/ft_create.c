@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_create.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leng-chu <-chu@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 13:35:26 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/07 16:30:27 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/17 14:21:53 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,15 +44,23 @@ char	*ft_create_file(void)
 void	ft_oldpwd(t_prompt *prompt)
 {
 	char	*oldpwd;
-	int		pos;
-	char	*tmp;
+	char	*tmp2;
+	t_list	*envp;
 
 	oldpwd = ft_getpwd();
-	pos = ft_findenv("OLDPWD", prompt);
-	tmp = ft_strjoin("OLDPWD", "=");
-	free(prompt->our_env[pos]);
-	prompt->our_env[pos] = ft_strjoin(tmp, oldpwd);
-	free(tmp);
+	envp = prompt->envp;
+	if (ft_findenv("OLDPWD", prompt) == -1)
+		ft_newexport(prompt, "OLDPWD");
+	while (envp != NULL)
+	{
+		if (!ft_strncmp(envp->content, "OLDPWD", 6))
+		{
+			tmp2 = ft_strjoin("OLDPWD=", oldpwd);
+			free(envp->content);
+			envp->content = tmp2;
+		}
+		envp = envp->next;
+	}
 }
 
 char	*ft_geteof(t_cmd *cmd)

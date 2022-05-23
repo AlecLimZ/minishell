@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/13 17:01:30 by yang              #+#    #+#             */
-/*   Updated: 2021/05/22 22:40:06 by yang             ###   ########.fr       */
+/*   Updated: 2022/05/09 23:25:32 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ char	**ft_split(char const *s, char c)
 	if (!s)
 		return (NULL);
 	word_count = count(s, c);
-	w_split = (char **)malloc(sizeof(char *) * word_count + 1);
+	w_split = (char **)malloc(sizeof(char *) * (word_count + 1));
 	if (w_split == NULL)
 		return (NULL);
 	while (word_count--)

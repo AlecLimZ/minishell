@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 17:19:18 by yang              #+#    #+#             */
-/*   Updated: 2022/05/09 15:02:20 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/23 18:01:44 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,18 @@
 
 int	redirect(t_cmd *cmd, char *fd, int type, t_prompt *prompt)
 {
-	if (type == LESS)
+	if (type == LESS && cmd->infile >= 0)
 	{
 		if (cmd->infile != STDIN)
 			close(cmd->infile);
 		cmd->infile = open(fd, O_RDONLY);
+		if (cmd->infile < 0)
+			printf("minishell: %s: No such file or directory\n", fd);
 	}
 	else if (type == LESSLESS)
 		cmd->infile = ft_launch_heredoc(cmd, prompt);
-	else if (type == GREAT || type == GREATGREAT)
+	else if ((type == GREAT || type == GREATGREAT)
+		&& cmd->infile >= 0)
 	{
 		if (cmd->outfile != STDOUT)
 			close(cmd->outfile);

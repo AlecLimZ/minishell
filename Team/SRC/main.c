@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 16:53:45 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/09 14:12:58 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/19 13:19:12 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,17 +28,18 @@ int	init_env(t_prompt *prompt, char *envp[])
 {
 	int		i;
 	t_list	*new;
+	int		pos;
 
 	i = -1;
 	prompt->envp = NULL;
-	prompt->our_env = (char **)malloc(sizeof(char *) * (ft_tablen(envp) + 1));
 	while (envp[++i] != NULL)
 	{
-		prompt->our_env[i] = ft_strdup(envp[i]);
 		new = ft_lstnew(envp[i]);
 		ft_lstadd_back(&prompt->envp, new);
 	}
-	prompt->our_env[i] = NULL;
+	pos = ft_findenv("OLDPWD", prompt);
+	if (ft_posenv(pos, prompt))
+		return (0);
 	return (0);
 }
 
@@ -87,16 +88,15 @@ static int	minishell(t_prompt *prompt, char *input_str)
 		{
 			if (parser(prompt, input_str) == -1)
 			{
+				g_ret = 2;
 				ft_putendl_fd("minishell: syntax error", 2);
 				continue ;
 			}
-			printf("***************Leaks from parser***************\n");
-			system("leaks minishell");
 			exec_args(prompt);
+			clean_up(prompt, prompt->total_cmds - 1, 2);
 		}
-		clean_up(prompt, prompt->total_cmds - 1, 2);
 	}
-	return (0);
+	return (g_ret);
 }
 
 int	main(int argc, char *argv[], char *envp[])
@@ -106,13 +106,14 @@ int	main(int argc, char *argv[], char *envp[])
 	struct termios	termios_new;
 	struct termios	termios_save;
 
-	(void)argc;
-	(void)argv;
+	if (argc > 1 && argv)
+		return (EXIT_FAILURE);
+	prompt = NULL;
+	prompt = malloc(sizeof(t_prompt));
 	tcgetattr(0, &termios_save);
 	termios_new = termios_save;
 	termios_new.c_lflag &= ~ECHOCTL;
 	tcsetattr(0, 0, &termios_new);
-	prompt = malloc(sizeof(t_prompt));
 	if (!prompt)
 		return (EXIT_FAILURE);
 	ft_memset(prompt, 0, sizeof(t_prompt));
@@ -120,8 +121,15 @@ int	main(int argc, char *argv[], char *envp[])
 	if (minishell(prompt, input_str))
 	{
 		tcsetattr(0, 0, &termios_save);
-		return (1);
+		return (g_ret);
 	}
 	tcsetattr(0, 0, &termios_save);
-	return (EXIT_SUCCESS);
+	return (g_ret);
 }
+
+/* to check tester, include this line after 
+	"prompt = malloc(sizeof(t_prompt)"
+	if (argc == 3 && !ft_strcmp(argv[1], "-c"))
+		return (ft_runscript(argv[2], envp, prompt));
+	and remove printf("exit") in ft_exit
+*/

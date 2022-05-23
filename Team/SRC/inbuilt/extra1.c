@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   extra1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leng-chu <leng-chu@student.42kl.edu.m      +#+  +:+       +#+        */
+/*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 20:55:42 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/09 13:45:47 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/17 14:20:53 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,31 +47,35 @@ int	ft_getcharpos(char *str, char c)
 
 int	ft_envcount(t_prompt *prompt)
 {
-	int	count;
+	int		count;
+	t_list	*env;
 
+	env = prompt->envp;
 	count = 0;
-	while (prompt->our_env[count])
+	while (env != NULL)
+	{
+		env = env->next;
 		count++;
+	}
 	return (count);
 }
 
-int	ft_exportcheck2(char **args)
+int	ft_exportcheck2(char *str)
 {
 	char	**tmp;
 
-	if (args[2] && args[2][0] == '=')
+	tmp = NULL;
+	if ((str[0] != '_' && ft_ispecialexp(str)) || str[0] == '-')
 	{
-		printf("minishell: %s not found\n", args[2]);
-		g_ret = ERROR;
-		return (0);
-	}
-	if (ft_isdigit(args[1][0]))
-	{
-		tmp = ft_split(args[1], '=');
-		printf("minishell: export: not an identifier: %s\n", tmp[0]);
-		ft_free_split(tmp);
-		g_ret = ERROR;
-		return (0);
+		tmp = ft_split(str, '=');
+		if (ft_ispecialexp(tmp[0]))
+		{
+			ft_reterror(str);
+			printf("minishell: export: '%s': not a valid identifier\n", str);
+			free_double_ptr(tmp, false);
+			return (0);
+		}
+		free_double_ptr(tmp, false);
 	}
 	return (1);
 }

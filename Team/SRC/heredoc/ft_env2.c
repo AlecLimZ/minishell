@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leng-chu <-chu@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 19:06:27 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/06 19:32:37 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/17 14:21:57 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char	*ft_dollar(char *str, char *nstr, int *i, t_prompt *prompt)
 	while (str2[*i + s] != ' ' && str2[*i + s] != '$' && str2[*i + s] != '\0')
 		s++;
 	sub = ft_substr(str, *i + 1, s);
-	tmp = ft_strdup(ft_getenv(sub, prompt));
+	tmp = ft_genvp(sub, prompt);
 	free(sub);
 	if (nstr == NULL)
 		nstr = ft_strjoin("", tmp);

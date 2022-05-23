@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   extra3.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leng-chu <-chu@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 14:45:09 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/09 13:55:40 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/17 14:21:09 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,50 +55,53 @@ int	ft_n(char *s)
 	return (0);
 }
 
-int	ft_exportcheck(char **args, t_prompt *prompt)
+int	ft_exportcheck(char **args, char *str, t_prompt *prompt, int c)
 {
-	char	*tmp;
-
-	tmp = NULL;
-	if ((ft_tablen(args) == 1) || (args[1][0] != '_' && !ft_isalpha(args[1][0]))
-		|| !ft_strcmp(args[1], "``"))
+	if (!ft_strchr(str, '=') && !ft_ispecialexp(str) && !ft_isdigit(str[0]))
+		return (0);
+	else if (c == 1 && ft_strlen(str) == 1 && ft_ispecialexp(str))
 	{
-		if ((ft_tablen(args) == 1) || !ft_strcmp(args[1], "``"))
-			ft_env(args, prompt);
-		else
-			printf("minishell: export: %s not an identifier\n", args[1]);
 		g_ret = ERROR;
+		printf("minishell: export: '%s' not a valid identifier\n", str);
 		return (0);
 	}
-	if (!ft_strchr(args[1], '='))
+	if ((str[0] != '_' && !ft_isalpha(str[0]))
+		|| !ft_strcmp(str, "``"))
 	{
-		tmp = ft_strjoin(args[1], "=");
-		free(args[1]);
-		args[1] = tmp;
+		g_ret = ERROR;
+		if (c == 1 && !ft_strcmp(str, "``"))
+			ft_env(args, prompt);
+		else if (str[0] == '-')
+			g_ret = 2;
+		else if (ft_isdigit(str[0]) || ft_ispecialexp(str))
+			printf("minishell: export: '%s': not a valid identifier\n", str);
+		return (0);
 	}
+	if (ft_exportcheck2(str) == 0)
+		return (0);
 	return (1);
 }
 
 int	ft_getexit(t_cmd *cmds)
 {
 	char	**args;
-	int		i;
 
-	i = -1;
 	g_ret = 0;
 	args = cmds->args;
-	if (ft_tablen(args) < 2)
+	printf("exit\n");
+	if (ft_tablen(args) > 1 && (!ft_isnum(args[1])
+			|| ((unsigned long)ft_atoi(args[1]) > 9223372036854775807U
+				&& args[1][0] != '-')) && args[1][0] != '#')
+	{
+		g_ret = 255;
+		printf("minishell: exit: %s: numeric argument required\n", args[1]);
 		return (1);
+	}
 	else if (ft_tablen(args) > 2)
 	{
-		g_ret = -1;
+		g_ret = 1;
 		ft_putendl_fd("minishell: exit: too many arguments", 2);
 		return (0);
 	}
-	while (args[1] && args[1][++i])
-		if (!ft_isdigit(args[1][i]))
-			g_ret = -1;
-	if (g_ret != -1)
-		g_ret = ft_atoi(args[1]);
 	return (1);
 }

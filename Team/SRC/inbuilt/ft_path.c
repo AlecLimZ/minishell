@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_path.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leng-chu <leng-chu@student.42kl.edu.m      +#+  +:+       +#+        */
+/*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 16:10:08 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/04 13:46:34 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/17 14:21:37 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,34 +23,12 @@ char	*ft_conc(char *path, char *filename)
 	return (bin);
 }
 
-char	**ft_get_path(t_prompt *prompt)
-{
-	int		i;
-	char	*p;
-	char	**path;
-
-	i = 0;
-	path = NULL;
-	while (prompt->env[i])
-	{
-		if (ft_strcmp(prompt->env[i], "PATH") == 0)
-		{
-			p = prompt->env[i];
-			p += 5;
-			path = ft_split(p, ':');
-			break ;
-		}
-		else
-			i++;
-	}
-	return (path);
-}
-
 char	*ft_getpwd(void)
 {
 	char	pwd[4222];
 	char	*s;
 
+	ft_memset(pwd, 0, sizeof(pwd));
 	if (getcwd(pwd, sizeof(pwd)) != NULL)
 	{
 		s = pwd;
@@ -89,11 +67,22 @@ char	*ft_getparentdir(char *string, char *sub)
 	while (string[++i] && pos == -1)
 	{
 		j = 0;
-		while (string[i + j] == sub[j])
+		while (sub[j] && string[i + j] == sub[j])
 			j++;
 		if (sub[j] == '\0')
 			pos = i;
 	}
 	string[pos] = '\0';
 	return (string);
+}
+
+int	ft_ispecialexp(char *s)
+{
+	int	i;
+
+	i = -1;
+	while (s[++i] != '\0')
+		if (!ft_isalnum(s[i]) && s[i] != '_' && s[i] != '=')
+			return (1);
+	return (0);
 }

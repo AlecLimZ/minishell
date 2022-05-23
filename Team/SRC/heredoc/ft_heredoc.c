@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_heredoc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leng-chu <leng-chu@student.42kl.edu.m      +#+  +:+       +#+        */
+/*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 18:55:41 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/07 18:29:06 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/17 14:22:13 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,22 +49,12 @@ char	*if_no_env(char *str, char *s, int *cur)
 
 int	ft_launch_heredoc(t_cmd *cmd, t_prompt *prompt)
 {
-	int		fd;
-	char	*filename;
+	int		pipe_fd[2];
 
-	filename = NULL;
-	fd = -1;
-	while (fd == -1)
-	{
-		if (filename)
-			free(filename);
-		filename = ft_create_file();
-		fd = open(filename, O_CREAT | O_EXCL | O_RDWR, 0644);
-	}
-	ft_write_infd(fd, cmd, prompt);
-	fd = open(filename, O_RDONLY);
-	free(filename);
-	return (fd);
+	pipe(pipe_fd);
+	ft_write_infd(pipe_fd[1], cmd, prompt);
+	close(pipe_fd[1]);
+	return (pipe_fd[0]);
 }
 
 int	ft_write_infd(int fd, t_cmd *cmd, t_prompt *prompt)

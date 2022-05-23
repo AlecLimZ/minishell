@@ -6,7 +6,7 @@
 /*   By: yang <yang@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 16:12:24 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/05/06 18:09:25 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/05/17 14:22:03 by yang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,12 @@ char	*ft_get_envp(int *cur, char *str, t_prompt *prompt)
 	if (cpy == NULL)
 		return (NULL);
 	cpy = ft_strncpy(cpy, str + 1, len);
-	env = ft_getenv(cpy, prompt);
+	env = ft_genvp(cpy, prompt);
 	free(cpy);
 	if (!env)
 		return (NULL);
 	*cur = *cur + len + 1;
-	cpy = ft_strdup(env);
+	cpy = env;
 	return (cpy);
 }
 
@@ -70,20 +70,20 @@ char	*ft_alloc(int *cur)
 	return (NULL);
 }
 
-char	*ft_getenv(char *s, t_prompt *prompt)
-{
-	int	pos;
-	int	sign;
-
-	pos = ft_findenv(s, prompt);
-	if (pos != -1)
-	{
-		sign = ft_getcharpos(prompt->our_env[pos], '=');
-		return (prompt->our_env[pos] + (sign + 1));
-	}
-	else
-		return (NULL);
-}
+//char	*ft_getenv(char *s, t_prompt *prompt)
+//{
+//	int	pos;
+//	int	sign;
+//
+//	pos = ft_findenv(s, prompt);
+//	if (pos != -1)
+//	{
+//		sign = ft_getcharpos(prompt->our_env[pos], '=');
+//		return (prompt->our_env[pos] + (sign + 1));
+//	}
+//	else
+//		return (NULL);
+//}
 
 char	*ft_getenvword(char *s)
 {
